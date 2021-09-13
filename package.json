@@ -1,0 +1,34 @@
+{
+	"name": "webpack-initbase",
+	"version": "1.0.0",
+	"description": "**Only a test project**......",
+	"main": "index.js",
+	"directories": {
+		"doc": "doc"
+	},
+	"scripts": {
+		"prettier:all": "prettier --write ."
+	},
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/ctime-zliang/webpack-initbase.git"
+	},
+	"keywords": [],
+	"author": "",
+	"license": "ISC",
+	"bugs": {
+		"url": "https://github.com/ctime-zliang/webpack-initbase/issues"
+	},
+	"homepage": "https://github.com/ctime-zliang/webpack-initbase#readme",
+	"dependencies": {
+		"uuid": "^8.3.2"
+	},
+	"devDependencies": {
+		"prettier": "^2.2.1",
+		"webpack": "^5.44.0",
+		"webpack-bundle-analyzer": "^4.4.2",
+		"webpack-cli": "^4.7.2",
+		"webpack-dev-server": "^3.11.2",
+		"webpack-merge": "^5.8.0"
+	}
+}
