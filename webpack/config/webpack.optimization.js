@@ -1,5 +1,4 @@
 const { ESBuildMinifyPlugin } = require('esbuild-loader')
-const paths = require('./webpack.paths')
 
 module.exports = {
 	common: {
