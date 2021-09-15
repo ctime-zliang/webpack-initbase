@@ -1,5 +1,5 @@
 import Vue from 'vue'
-import Sun from 'sun'
+import Sun, { useState } from 'sun'
 
 console.log(Vue.version)
 console.log(Sun)

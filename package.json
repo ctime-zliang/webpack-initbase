@@ -22,7 +22,7 @@
 	},
 	"homepage": "https://github.com/ctime-zliang/webpack-initbase#readme",
 	"dependencies": {
-		"sun": "git+https://github.com/ctime-zliang/sun.git#semver:1.0.0",
+		"sun": "git+https://github.com/ctime-zliang/sun.git#semver:1.0.1",
 		"uuid": "^8.3.2",
 		"vue": "git+https://github.com/vuejs/vue.git#semver:2.6.11"
 	},
