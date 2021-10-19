@@ -1,56 +1,23 @@
-const path = require('path')
-const webpack = require('webpack')
-const MiniCssExtractPlugin = require('mini-css-extract-plugin')
-const CaseSensitivePathsPlugin = require('case-sensitive-paths-webpack-plugin')
-const { TypedCssModulesPlugin } = require('typed-css-modules-webpack-plugin')
+const utils = require('../../config/utils')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
-const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin
-const { ESBuildPlugin } = require('esbuild-loader')
-const utils = require('./utils')
+const UglifyjsWebpackPlugin = require('uglifyjs-webpack-plugin')
+const HelloPlugin = require('./user-webpack-plugins/hello-plugins')
 
-module.exports = {
-	common: [
-		new ESBuildPlugin(),
-		new MiniCssExtractPlugin({
-			filename: ``,
-			chunkFilename: ``,
-		}),
-		new CaseSensitivePathsPlugin(),
-		new TypedCssModulesPlugin({
-			globPattern: 'src/**/*.(css|less|sass)',
-		}),
-		new webpack.ProgressPlugin(),
-	],
-	devBuild: [
-		new webpack.DefinePlugin({
-			'process.env.__CLIENT_ONLY__': JSON.stringify(process.argv.includes('client-only=true')),
-		}),
-		new webpack.DefinePlugin({
-			'process.env.NODE_ENV': JSON.stringify('development'),
-			IS_DEVELOPMETN: true,
-		}),
-		new HtmlWebpackPlugin({
-			filename: ``,
-			template: ``,
-			inject: true,
-		}),
-		new webpack.HotModuleReplacementPlugin(),
-	],
-	prodBuild: [
-		new webpack.DefinePlugin({
-			'process.env.__CLIENT_ONLY__': JSON.stringify(process.argv.includes('client-only=true')),
-		}),
-		new webpack.DefinePlugin({
-			'process.env.NODE_ENV': JSON.stringify('production'),
-			IS_DEVELOPMETN: false,
-		}),
-		new HtmlWebpackPlugin({
-			filename: ``,
-			template: ``,
-			inject: true,
-		}),
-		new BundleAnalyzerPlugin({
-			analyzerPort: 0,
-		}),
-	],
-}
+module.exports = [
+	/*
+		自动生成一个可访问的 html 文件并将资源文件引入 
+	 */
+	new HtmlWebpackPlugin({
+		filename: `./index.html`,
+		template: utils.resolveDirectory('./src/template/index.ejs'),
+		inject: true,
+	}),
+	/*
+		压缩输出 js 文件 
+	 */
+	new UglifyjsWebpackPlugin(),
+	/* 
+		用户自定义插件
+	 */
+	new HelloPlugin({ name: 'c.zliang' }),
+]

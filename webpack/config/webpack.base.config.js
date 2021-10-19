@@ -10,7 +10,7 @@ const webpackDevConfig = {
      */
 	// entry: utils.resolveDirectory(`./src/main.js`)
 	entry: {
-		// main: utils.resolveDirectory(`./src/main.js`),
+		main: utils.resolveDirectory(`./src/main.js`),
 		index: utils.resolveDirectory(`./src/index.js`),
 	},
 	/* 
