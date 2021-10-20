@@ -15,7 +15,7 @@ module.exports = [
 	/*
 		压缩输出 js 文件 
 	 */
-	new UglifyjsWebpackPlugin(),
+	// new UglifyjsWebpackPlugin(),
 	/* 
 		用户自定义插件
 	 */
