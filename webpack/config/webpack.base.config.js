@@ -21,6 +21,12 @@ const webpackDevConfig = {
 	module: {
 		rules,
 	},
+	/*
+		定义 loader 的引入目录范围 
+	 */
+	resolveLoader: {
+		modules: ['node_modules', utils.resolveDirectory('./webpack/config/user-webpack-loaders')],
+	},
 }
 
 module.exports = webpackDevConfig
