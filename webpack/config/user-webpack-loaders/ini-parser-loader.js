@@ -48,3 +48,7 @@ module.exports = function (content, map, meta) {
 		})
 	return utils.createLoaderResult(JSON.stringify({}))
 }
+
+module.exports.pitch = function (remainingRequest, precedingRequest, data) {
+	return undefined
+}
