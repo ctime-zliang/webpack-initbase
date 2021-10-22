@@ -37,18 +37,17 @@ module.exports = function (content, map, meta) {
 	/* 需要缓存 this.async 函数句柄 */
 	const callback = this.async()
 	const loaderOptions = loaderUtils.getOptions(this)
-	parseInit(content)
+	parseInit(utils.getStringExportContent(content))
 		.then(data => {
-			data['__parser'] = JSON.parse(JSON.stringify(loaderOptions))
 			callback(null, utils.createLoaderResult(JSON.stringify(data)), map, meta)
 		})
 		.catch(e => {
 			console.log(e)
 			callback(null, utils.createLoaderResult(JSON.stringify({})), map, meta)
 		})
-	return utils.createLoaderResult(JSON.stringify({}))
+	return utils.createLoaderResult(undefined)
 }
 
 module.exports.pitch = function (remainingRequest, precedingRequest, data) {
-	return undefined
+	return
 }

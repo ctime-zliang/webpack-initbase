@@ -8,6 +8,11 @@
 
 <body>	
 <noscript>No Surpport Script</noscript>
-<section class="app" id="app"></section>
+<section class="app" id="app">
+    <% for (var item in htmlWebpackPlugin.files.js) { %>
+        <div><%= htmlWebpackPlugin.files.js[item] %></div>
+    <% } %>
+    <%= htmlWebpackPlugin.files.chunks ? htmlWebpackPlugin.files.chunks[0] : 'no chunk' %>
+</section>
 </body>
 </html>

@@ -4,7 +4,7 @@ const utils = require('../../../config/utils')
 const DEFAULT_OPTIONS = {}
 
 const createFileListContent = fileList => {
-	let string = `All ${fileList.length} files:\n`
+	let string = `[${new Date().getTime()}]All ${fileList.length} files:\n`
 	fileList.forEach(item => {
 		string += `${item}\n`
 	})

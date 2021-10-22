@@ -31,9 +31,10 @@ module.exports = {
 			if (/export default(.*)/gi.test(exportString)) {
 				return exportString.replace(/export default(\s+)/gi, '')
 			}
+			return exportString
 		} catch (e) {
 			console.log(e)
-			return null
+			return
 		}
 	},
 }

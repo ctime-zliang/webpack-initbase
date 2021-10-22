@@ -4,11 +4,14 @@ const iniLoader = {
 	use: [
 		{
 			loader: 'ini-translate-loader',
+			options: {
+				loaderTitle: 'ini-translate-loader',
+			},
 		},
 		{
 			loader: 'ini-parser-loader',
 			options: {
-				timeStamp: new Date().getTime(),
+				loaderTitle: 'ini-parser-loader',
 			},
 		},
 	],
