@@ -34,16 +34,15 @@ const parseInit = async content => {
 
 module.exports = function (content, map, meta) {
 	this.cacheable && this.cacheable()
-	/* 需要缓存 this.async 函数句柄 */
 	const callback = this.async()
 	const loaderOptions = loaderUtils.getOptions(this)
 	parseInit(utils.getStringExportContent(content))
 		.then(data => {
-			callback(null, utils.createLoaderResult(JSON.stringify(data)), map, meta)
+			this.async()(null, utils.createLoaderResult(JSON.stringify(data)), map, meta)
 		})
 		.catch(e => {
 			console.log(e)
-			callback(null, utils.createLoaderResult(JSON.stringify({})), map, meta)
+			this.async()(null, utils.createLoaderResult(JSON.stringify({})), map, meta)
 		})
 	return utils.createLoaderResult(undefined)
 }

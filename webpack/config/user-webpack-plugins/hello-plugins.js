@@ -21,6 +21,7 @@ function HelloPlugin(options) {
 HelloPlugin.prototype.apply = function (compiler) {
 	// console.log(compiler)
 	console.log(`HelloPlugin: apply call`)
+	rimraf.sync(utils.resolveDirectory('./webpack/dist/dev-build'))
 
 	compiler.hooks.emit.tap('run', compilation => {
 		console.log('\n')
@@ -30,7 +31,6 @@ HelloPlugin.prototype.apply = function (compiler) {
 
 	compiler.hooks.emit.tap('compile', compilation => {
 		console.log('\n')
-		rimraf.sync(utils.resolveDirectory('./webpack/dist/dev-build'))
 		console.log(`HelloPlugin: compiler.hooks.emit.tap @compile: starting to compile`)
 		console.log(Object.keys(compilation.assets))
 	})

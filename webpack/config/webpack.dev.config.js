@@ -16,6 +16,8 @@ const webpackDevConfig = {
 		/* 配置生成文件名(可带路径) */
 		// filename: `scripts/build-[name]-[hash].js`,
 		filename: `scripts/bundle.js`,
+		/* chunk */
+		chunkFilename: `scripts/[name].chunk.js`,
 	},
 	devServer: webpackDevServerConfig,
 	plugins: [...webpackPlugins],

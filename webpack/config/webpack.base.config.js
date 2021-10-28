@@ -9,7 +9,7 @@ const webpackDevConfig = {
 	/* 
         入口配置
      */
-	entry: utils.resolveDirectory(`./src/main.js`),
+	entry: utils.resolveDirectory(`./src/entry-mains.js`),
 	// entry: {
 	// 	// main: utils.resolveDirectory(`./src/main.js`),
 	// 	// index: utils.resolveDirectory(`./src/index.js`),
