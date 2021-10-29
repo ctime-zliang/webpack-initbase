@@ -1,0 +1,11 @@
+{
+    "dependencies": {
+	},
+	"devDependencies": {
+		"css-loader": "^5.2.7",
+		"file-loader": "^6.2.0",
+		"mini-css-extract-plugin": "^2.4.3",
+		"style-loader": "^3.3.0",
+		"url-loader": "^4.1.1"
+	}
+}

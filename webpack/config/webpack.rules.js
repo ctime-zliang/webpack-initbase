@@ -52,7 +52,7 @@ const lessLoader = {
 					设置 CSS 引用资源文件的前置路径
 						将导致 CSS 代码内对资源的引用路径变成: `${publicPath}/${filename}`
 				*/
-				publicPath: `../images/`,
+				publicPath: `../`,
 			},
 		},
 		{
@@ -86,17 +86,31 @@ const lessLoader = {
 	],
 }
 
-const urlImageFileLoader = {
+const urlFileLoader = {
 	test: /\.(png|jpe?g|gif|svg)(\?.*)?$/,
 	exclude: /node_modules/,
 	use: [
 		{
 			loader: `url-loader`,
 			options: {
+				/*
+					在较高版本的 css-loader(v >= 6.x.x) 中, 已不再将此 options 中的路径信息写入输出 css 文件中的 url 字符串内
+					因此需要在 MiniCssExtractPlugin.loader.options.publicPath 将必要的路径信息补充上去
+				 */
 				/* 配置生成文件名(可带路径) */
-				name: `images/[name].[hash:8].[ext]`,
-				/* 设置 base64 转换上限 */
-				limit: 8192
+				name: `[name].[hash:8].[ext]`,
+				/*
+					指定输出的局部目录设置
+						可附加到 name 设置项 
+				 */
+				outputPath: `assets-images/`,
+				/* 
+					设置 base64 转换上限
+						图片尺寸小于此限制, 此 loader 会将其转换成 base64
+						图片尺寸大于此限制, 将调用 file-loader 进行转换
+				*/
+				limit: 1024 * 8,
+				esModule: false
 			},
 		},
 	],
@@ -104,6 +118,6 @@ const urlImageFileLoader = {
 
 module.exports = [
 	{
-		oneOf: [jsxBabelLoader, urlImageFileLoader, lessLoader, iniFileLoader],
+		oneOf: [jsxBabelLoader, urlFileLoader, lessLoader, iniFileLoader],
 	},
 ]

@@ -57,15 +57,15 @@ HelloPlugin.prototype.apply = function (compiler) {
 	compiler.hooks.emit.tapAsync('emit', (compilation, callback) => {
 		console.log('\n')
 		console.log(`HelloPlugin: compiler.hooks.emit.tapAsync @emit: going to emit files`)
-		const fileListRes = createFileListContent(Object.keys(compilation.assets))
-		compilation.assets[fileListRes.filename] = {
-			source() {
-				return fileListRes.filecontent
-			},
-			size() {
-				return Buffer.byteLength(fileListRes.filecontent, 'utf8')
-			},
-		}
+		// const fileListRes = createFileListContent(Object.keys(compilation.assets))
+		// compilation.assets[fileListRes.filename] = {
+		// 	source() {
+		// 		return fileListRes.filecontent
+		// 	},
+		// 	size() {
+		// 		return Buffer.byteLength(fileListRes.filecontent, 'utf8')
+		// 	},
+		// }
 		console.log(Object.keys(compilation.assets))
 		callback()
 	})

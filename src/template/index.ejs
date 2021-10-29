@@ -9,7 +9,7 @@
 <body>	
 <noscript>No Surpport Script</noscript>
 <section class="app" id="app">
-    <section style="padding: 20px 0 10px 0;">
+    <section class="log1x" style="padding: 20px 0 10px 0;">
         <% for (var item in htmlWebpackPlugin.files.js) { %>
             <div><%= htmlWebpackPlugin.files.js[item] %></div>
         <% } %>
@@ -17,7 +17,7 @@
     <section style="padding: 10px 0 10px 0;">
         <%= htmlWebpackPlugin.files.chunks ? htmlWebpackPlugin.files.chunks[0] : 'no chunk' %>
     </section>
-    <section style="padding: 10px 0 20px 0;">
+    <section class="log2x" style="padding: 10px 0 20px 0;">
         <% for (var item in htmlWebpackPlugin.files.css) { %>
             <div><%= htmlWebpackPlugin.files.css[item] %></div>
         <% } %>
