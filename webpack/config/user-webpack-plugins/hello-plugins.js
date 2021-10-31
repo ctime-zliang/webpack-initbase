@@ -23,57 +23,57 @@ HelloPlugin.prototype.apply = function (compiler) {
 	console.log(`HelloPlugin: apply call`)
 	rimraf.sync(utils.resolveDirectory('./webpack/dist/dev-build'))
 
-	compiler.hooks.emit.tap('run', compilation => {
-		console.log('\n')
-		console.log(`HelloPlugin: compiler.hooks.emit.tap @run`)
-		console.log(Object.keys(compilation.assets))
-	})
+	// compiler.hooks.emit.tap('run', compilation => {
+	// 	console.log('\n')
+	// 	console.log(`HelloPlugin: compiler.hooks.emit.tap @run`)
+	// 	console.log(Object.keys(compilation.assets))
+	// })
 
-	compiler.hooks.emit.tap('compile', compilation => {
-		console.log('\n')
-		console.log(`HelloPlugin: compiler.hooks.emit.tap @compile: starting to compile`)
-		console.log(Object.keys(compilation.assets))
-	})
-	compiler.hooks.emit.tap('compilation', compilation => {
-		console.log('\n')
-		console.log(`HelloPlugin: compiler.hooks.emit.tap @compilation: starting a new compilation`)
-		console.log(Object.keys(compilation.assets))
-	})
-	compiler.hooks.emit.tap('make', compilation => {
-		console.log('\n')
-		console.log(`HelloPlugin: compiler.hooks.emit.tap @make: making file`)
-		console.log(Object.keys(compilation.assets))
-	})
-	compiler.hooks.emit.tap('after-compile', compilation => {
-		console.log('\n')
-		console.log(`HelloPlugin: compiler.hooks.emit.tap @after-compile: aleardy compiled`)
-		console.log(Object.keys(compilation.assets))
-	})
-	compiler.hooks.emit.tap('done', compilation => {
-		console.log('\n')
-		console.log(`HelloPlugin: compiler.hooks.emit.tap @done`)
-		console.log(Object.keys(compilation.assets))
-	})
+	// compiler.hooks.emit.tap('compile', compilation => {
+	// 	console.log('\n')
+	// 	console.log(`HelloPlugin: compiler.hooks.emit.tap @compile: starting to compile`)
+	// 	console.log(Object.keys(compilation.assets))
+	// })
+	// compiler.hooks.emit.tap('compilation', compilation => {
+	// 	console.log('\n')
+	// 	console.log(`HelloPlugin: compiler.hooks.emit.tap @compilation: starting a new compilation`)
+	// 	console.log(Object.keys(compilation.assets))
+	// })
+	// compiler.hooks.emit.tap('make', compilation => {
+	// 	console.log('\n')
+	// 	console.log(`HelloPlugin: compiler.hooks.emit.tap @make: making file`)
+	// 	console.log(Object.keys(compilation.assets))
+	// })
+	// compiler.hooks.emit.tap('after-compile', compilation => {
+	// 	console.log('\n')
+	// 	console.log(`HelloPlugin: compiler.hooks.emit.tap @after-compile: aleardy compiled`)
+	// 	console.log(Object.keys(compilation.assets))
+	// })
+	// compiler.hooks.emit.tap('done', compilation => {
+	// 	console.log('\n')
+	// 	console.log(`HelloPlugin: compiler.hooks.emit.tap @done`)
+	// 	console.log(Object.keys(compilation.assets))
+	// })
 	compiler.hooks.emit.tapAsync('emit', (compilation, callback) => {
 		console.log('\n')
 		console.log(`HelloPlugin: compiler.hooks.emit.tapAsync @emit: going to emit files`)
-		// const fileListRes = createFileListContent(Object.keys(compilation.assets))
-		// compilation.assets[fileListRes.filename] = {
-		// 	source() {
-		// 		return fileListRes.filecontent
-		// 	},
-		// 	size() {
-		// 		return Buffer.byteLength(fileListRes.filecontent, 'utf8')
-		// 	},
-		// }
+		const fileListRes = createFileListContent(Object.keys(compilation.assets))
+		compilation.assets[fileListRes.filename] = {
+			source() {
+				return fileListRes.filecontent
+			},
+			size() {
+				return Buffer.byteLength(fileListRes.filecontent, 'utf8')
+			},
+		}
 		console.log(Object.keys(compilation.assets))
 		callback()
 	})
-	compiler.hooks.emit.tap('after-emit', compilation => {
-		console.log('\n')
-		console.log(`HelloPlugin: compiler.hooks.emit.tap @after-emit: aleardy emitted`)
-		console.log(Object.keys(compilation.assets))
-	})
+	// compiler.hooks.emit.tap('after-emit', compilation => {
+	// 	console.log('\n')
+	// 	console.log(`HelloPlugin: compiler.hooks.emit.tap @after-emit: aleardy emitted`)
+	// 	console.log(Object.keys(compilation.assets))
+	// })
 }
 
 module.exports = HelloPlugin

@@ -15,4 +15,9 @@ module.exports = {
 	headers: {
 		Cookie: `sessionKey=webpacdevsessionKey; PATH=/;`,
 	},
+	before(app) {
+		app.get('/api/test', (req, res) => {
+			res.json({ ret: 0, data: { timeStamp: new Date().getTime() }, msg: `` })
+		})
+	},
 }

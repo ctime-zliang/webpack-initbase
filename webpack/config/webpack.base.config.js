@@ -6,6 +6,7 @@ console.log(`__dirname: `, __dirname)
 console.log(`process.cwd: `, process.cwd())
 
 const webpackDevConfig = {
+	target: `web`,
 	/* 
         入口配置
      */
@@ -26,6 +27,38 @@ const webpackDevConfig = {
 	 */
 	resolveLoader: {
 		modules: ['node_modules', utils.resolveDirectory('./webpack/config/user-webpack-loaders')],
+	},
+	/*
+		定义模块路径配置 
+	 */
+	resolve: {
+		/*
+			定义路径别名 
+		 */
+		alias: {
+			'@': path.resolve('./src/'),
+		},
+		extensions: ['.js', '.jsx', '.ts', '.tsx', '.json'],
+		/*
+			在 node_modules 读取模块的 package.json 时需要优先读取的入口字段
+		 */
+		// mainFields: ['main', 'index'],
+		/*
+			引入目录模块时, 需要从入口文件开始读取, 此即配置该入口文件名的名称 
+		 */
+		// mainFiles: ['index'],
+		/*
+			定义三方包的查找范围(数组顺序决定优先级)
+		 */
+		modules: ['node_modules'], //
+		/*
+			配置描述第三方模块的文件名称 
+		 */
+		descriptionFiles: ['package.json'],
+		/* 
+			强制在引入模块时必须补充文件后缀名
+		 */
+		enforceExtension: false,
 	},
 }
 

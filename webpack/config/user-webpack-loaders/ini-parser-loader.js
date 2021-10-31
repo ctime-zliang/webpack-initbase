@@ -35,6 +35,9 @@ const parseInit = async content => {
 module.exports = function (content, map, meta) {
 	this.cacheable && this.cacheable()
 	const callback = this.async()
+	/*
+		 loaderUtils.getOptions(this) 可以等价于 this.getOptions()
+	 */
 	const loaderOptions = loaderUtils.getOptions(this)
 	parseInit(utils.getStringExportContent(content))
 		.then(data => {
@@ -48,5 +51,10 @@ module.exports = function (content, map, meta) {
 }
 
 module.exports.pitch = function (remainingRequest, precedingRequest, data) {
+	/* 
+		写入数据(共享)
+		可在 loader 中使用 this.data 访问
+	*/
+	data.__insertedByIniParserLoaderPicth = new Date().getTime()
 	return
 }
