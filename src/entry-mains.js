@@ -6,6 +6,7 @@ console.log(runProfile)
 console.log(log2xPng)
 
 const fn = () => {
+	console.log(process.env.NODE_ENV)
 	console.log(`main`)
 }
 fn()

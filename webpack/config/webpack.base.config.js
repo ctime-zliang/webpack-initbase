@@ -38,7 +38,7 @@ const webpackDevConfig = {
 		alias: {
 			'@': path.resolve('./src/'),
 		},
-		extensions: ['.js', '.jsx', '.ts', '.tsx', '.json'],
+		extensions: ['.js', '.jsx', '.ts', '.tsx', '.json', 'vue'],
 		/*
 			在 node_modules 读取模块的 package.json 时需要优先读取的入口字段
 		 */

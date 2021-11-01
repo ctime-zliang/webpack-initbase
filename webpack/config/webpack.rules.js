@@ -31,14 +31,6 @@ const jsxBabelLoader = {
 		{
 			loader: `babel-loader`,
 		},
-		// {
-		// 	loader: `eslint-loader`,
-		// 	options: {
-		// 		fix: true,
-		// 		emitError: true,
-		// 		emitWarning: true,
-		// 	},
-		// },
 	],
 }
 const lessLoader = {
@@ -78,7 +70,7 @@ const lessLoader = {
 						将导致 CSS 代码内对资源的引用路径变成: `${publicPath}/${filename}`
 				*/
 				// publicPath: `../assets-images/`,
-				publicPath: `../`,
+				publicPath: `../../`,
 			},
 		},
 		{
@@ -132,7 +124,7 @@ const urlFileLoader = {
 					若
 						使用较高版本的 css-loader(ver >= 6.x.x)
 					且
-						在配置中设置 esModule = true(默认即为 true)
+						在配置中设置 esModule = true (默认即为 true)
 					当
 						在当前 loader(url-loader) 中配置了局部输出路径( name 中携带路径或 outputPath 为有效的路径值)
 					则
@@ -148,7 +140,7 @@ const urlFileLoader = {
 					指定输出的局部目录设置
 						可附加到 name 设置项 
 				 */
-				outputPath: `assets-images/`,
+				outputPath: `assets/images/`,
 				/* 
 					设置 base64 转换上限
 						图片尺寸小于此限制, 此 loader 会将其转换成 base64
@@ -161,8 +153,18 @@ const urlFileLoader = {
 	],
 }
 
+const fileLoader = {
+	test: /\.(woff|eot|ttf|svg|gif)$/,
+	loader: 'url-loader',
+	options: {
+		limit: 1024 * 8,
+		name: `[name].[hash:8].[ext]`,
+		esModule: false,
+	},
+}
+
 module.exports = [
 	{
-		oneOf: [jsxBabelLoader, urlFileLoader, lessLoader, iniFileLoader],
+		oneOf: [jsxBabelLoader, urlFileLoader, lessLoader, iniFileLoader, fileLoader],
 	},
 ]
