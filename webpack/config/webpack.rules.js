@@ -122,9 +122,7 @@ const urlFileLoader = {
 			options: {
 				/*
 					若
-						使用较高版本的 css-loader(ver >= 6.x.x)
-					且
-						在配置中设置 esModule = true (默认即为 true)
+						使用较高版本的 css-loader(ver >= 6.x.x) 且 在配置中设置 esModule = true (默认即为 true)
 					当
 						在当前 loader(url-loader) 中配置了局部输出路径( name 中携带路径或 outputPath 为有效的路径值)
 					则
