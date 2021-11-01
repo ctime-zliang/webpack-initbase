@@ -1,10 +1,13 @@
 const utils = require('../../config/utils')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const UglifyjsWebpackPlugin = require('uglifyjs-webpack-plugin')
+const progressBarWebpackPlugin = require('progress-bar-webpack-plugin')
+const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin
 const HelloPlugin = require('./user-webpack-plugins/hello-plugins')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const ESLintPlugin = require('eslint-webpack-plugin')
 const webpack = require('webpack')
+const chalk = require('chalk')
 
 module.exports = [
 	/*
@@ -64,8 +67,20 @@ module.exports = [
 	/* 
 		eslint 插件
 	 */
-	new ESLintPlugin({
-		/* 待检测的文件扩展名(列表) */
-		extensions: ['js', 'ts', 'jsx', 'tsx', 'vue'],
+	// new ESLintPlugin({
+	// 	/* 待检测的文件扩展名(列表) */
+	// 	extensions: ['js', 'ts', 'jsx', 'tsx', 'vue'],
+	// }),
+	/*
+		编译进度条 
+	 */
+	new progressBarWebpackPlugin({
+		format: `:msg [:bar] ${chalk.green.bold(':percent')} (:elapsed s)`,
 	}),
+	/* 
+		打包文件体积分析
+	 */
+	// new BundleAnalyzerPlugin({
+	// 	analyzerPort: 0,
+	// }),
 ]

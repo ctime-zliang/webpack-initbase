@@ -1,12 +1,22 @@
 import runProfile from '@/config/run.ini'
 import '@/assets/css/common.less'
 import log2xPng from '@/assets/images/log.2x.png'
+import { mAfn1 } from './modules/a'
+import { mBfn1 } from './modules/b'
 
-console.log(runProfile)
-console.log(log2xPng)
-
-const fn = () => {
-	console.log(process.env.NODE_ENV)
-	console.log(`main`)
+function getPublicModules(name) {
+	import(name).then(res => {
+		console.log(res)
+	})
 }
-fn()
+
+function main() {
+	mAfn1()
+	mBfn1()
+	console.log(process.env.NODE_ENV)
+	console.log(runProfile)
+	console.log(log2xPng)
+	getPublicModules('lodash')
+}
+
+main()

@@ -8,6 +8,13 @@ console.log(`process.cwd: `, process.cwd())
 const webpackDevConfig = {
 	target: `web`,
 	/* 
+		启用缓存
+	 */
+	cache: {
+		/* 文件缓存 */
+		type: `filesystem`,
+	},
+	/* 
         入口配置
      */
 	entry: utils.resolveDirectory(`./src/entry-mains.js`),
@@ -50,7 +57,7 @@ const webpackDevConfig = {
 		/*
 			定义三方包的查找范围(数组顺序决定优先级)
 		 */
-		modules: ['node_modules'], //
+		modules: ['node_modules'],
 		/*
 			配置描述第三方模块的文件名称 
 		 */

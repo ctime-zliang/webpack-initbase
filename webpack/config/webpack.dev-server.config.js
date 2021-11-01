@@ -20,4 +20,12 @@ module.exports = {
 			res.json({ ret: 0, data: { timeStamp: new Date().getTime() }, msg: `` })
 		})
 	},
+	proxy: {
+		'/proxy': {
+			target: 'https://cn.bing.com/?FORM=Z9FD1',
+			pathRewrite: {
+				'^/api': '',
+			},
+		},
+	},
 }

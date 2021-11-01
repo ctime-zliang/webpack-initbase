@@ -61,6 +61,7 @@ module.exports = {
 		'require-yield': 2,
 		'use-isnan': 2,
 		'valid-typeof': 2,
+		'global-require': 0,
 	},
 	env: {
 		browser: true,
