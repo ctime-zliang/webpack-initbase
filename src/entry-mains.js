@@ -1,8 +1,7 @@
 import runProfile from '@/config/run.ini'
 import '@/assets/css/common.less'
 import log2xPng from '@/assets/images/log.2x.png'
-import { mAfn1 } from './modules/a'
-import { mBfn1 } from './modules/b'
+import { sortBy } from './utils/utils'
 
 function importLodash() {
 	import('lodash').then(res => {
@@ -10,12 +9,13 @@ function importLodash() {
 	})
 }
 
+const data = [{ value: `dwww` }, { value: `fe` }, { value: `ad` }, { value: `grd` }]
+
 function main() {
-	mAfn1()
-	mBfn1()
 	console.log(process.env.NODE_ENV)
 	console.log(runProfile)
 	console.log(log2xPng)
+	console.log(data.sort(sortBy([`value`])))
 	importLodash()
 }
 

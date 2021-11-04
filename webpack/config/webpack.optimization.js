@@ -2,9 +2,18 @@ const UglifyjsWebpackPlugin = require('uglifyjs-webpack-plugin')
 
 module.exports = {
 	/*
-		启用压缩, 默认 true 
+		启用压缩 
+	 */
+	// minimize: true,
+	/*
+		启用压缩
 	*/
 	minimizer: [
+		/*
+			启用 uglifyjs-webpack-plugin 插件压缩
+				仅配置 webpack.mode === 'production' 时有效
+		 */
+		// new UglifyjsWebpackPlugin()
 		new UglifyjsWebpackPlugin({
 			/* 
 				test: 匹配需要压缩的文件
@@ -15,13 +24,13 @@ module.exports = {
 				启用或关闭缓存
 				设置一个合法的路径值赋给该字段将用于指定一个缓存输出目录 
 			*/
-			cache: true,
+			cache: false,
 			/* 
 				启用多线程
 				设置一个数字值赋给该字段用于指定最大并发数
 			*/
 			parallel: true,
-			sourceMap: false,
+			sourceMap: true,
 			/* 
 				提取注释
 			*/
@@ -35,6 +44,15 @@ module.exports = {
 			},
 		}),
 	],
+	/* 
+		启用模块更新名称标识符标识
+	 */
+	moduleIds: `named`,
+	/* 
+		启用基于 package.json 中关于 sideEffects 配置项的剪枝配置
+	 */
+	sideEffects: true,
+	usedExports: true,
 	/*
 		分割打包 
 	 */

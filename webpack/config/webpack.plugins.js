@@ -26,6 +26,10 @@ module.exports = [
 		hash: false,
 		cache: true,
 		showErrors: true,
+		minify: {
+			minifyCSS: true,
+			minifyJS: true,
+		},
 	}),
 	/*
 		压缩输出 js 文件 
@@ -83,4 +87,8 @@ module.exports = [
 	// new BundleAnalyzerPlugin({
 	// 	analyzerPort: 0,
 	// }),
+	/* 
+		启用热更新
+	 */
+	new webpack.HotModuleReplacementPlugin(),
 ]
