@@ -4,8 +4,8 @@ import log2xPng from '@/assets/images/log.2x.png'
 import { mAfn1 } from './modules/a'
 import { mBfn1 } from './modules/b'
 
-function getPublicModules(name) {
-	import(name).then(res => {
+function importLodash() {
+	import('lodash').then(res => {
 		console.log(res)
 	})
 }
@@ -16,7 +16,7 @@ function main() {
 	console.log(process.env.NODE_ENV)
 	console.log(runProfile)
 	console.log(log2xPng)
-	getPublicModules('lodash')
+	importLodash()
 }
 
 main()

@@ -48,7 +48,8 @@ module.exports = {
 		/*
 			生成 chunk 的最小体积 
 		 */
-		minSize: 20000,
+		minSize: 30000,
+		automaticNameDelimiter: `.`,
 		cacheGroups: {
 			/* 
 				抽离公共模块
@@ -58,6 +59,7 @@ module.exports = {
 				chunks: `all`,
 				minChunks: 2,
 				priority: -10,
+				reuseExistingChunk: true,
 			},
 			/*
 				抽离 node_modules 中的公共依赖到独立的文件 
@@ -67,7 +69,16 @@ module.exports = {
 				name: `vendors`,
 				chunks: `all`,
 				priority: -9,
+				reuseExistingChunk: true,
 			},
+			// react: {
+			// 	test(module) {
+			// 		return /react/.test(module.context)
+			// 	},
+			// 	name: `react`,
+			// 	chunks: `all`,
+			// 	priority: -8
+			// }
 		},
 	},
 }

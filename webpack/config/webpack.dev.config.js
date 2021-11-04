@@ -18,8 +18,10 @@ const webpackDevConfig = {
 		/* 配置生成文件名(可带路径) */
 		filename: `scripts/[name].[hash:8].js`,
 		// filename: `scripts/bundle.js`,
-		/* chunk */
-		chunkFilename: `scripts/[name].chunk.js`,
+		/* 
+			在未配置 webpack.optimization 时, webpack 对于形如 import 的动态模块引入打包将使用已配置的 output.chunkFilename 规则来生成文件
+		 */
+		chunkFilename: `scripts/chunks.[chunkhash:8].js`,
 	},
 	devServer: webpackDevServerConfig,
 	plugins: [...webpackPlugins],
