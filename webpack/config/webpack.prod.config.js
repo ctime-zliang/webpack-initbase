@@ -7,14 +7,14 @@ const webpackDevServerConfig = require('./webpack.dev-server.config')
 const webpackOptimization = require('./webpack.optimization')
 
 const webpackDevConfig = {
-	mode: `development`,
+	mode: `production`,
 	/* 
         出口配置
 			1. 多入口单出口时, 即报错: Multiple chunks emit assets to the same filename ${filename}
      */
 	output: {
 		/* 配置输出根目录 */
-		path: utils.resolveDirectory(`./webpack/dist/dev-build`),
+		path: utils.resolveDirectory(`./webpack/dist/prod-build`),
 		/* 配置生成文件名(可带路径) */
 		filename: `scripts/[name].[hash:8].js`,
 		// filename: `scripts/bundle.js`,
@@ -24,7 +24,7 @@ const webpackDevConfig = {
 		chunkFilename: `scripts/chunks.[chunkhash:8].js`,
 	},
 	devServer: webpackDevServerConfig,
-	plugins: [...webpackPlugins(`development`)],
+	plugins: [...webpackPlugins(`production`)],
 	/*
 		优化配置 
 	 */

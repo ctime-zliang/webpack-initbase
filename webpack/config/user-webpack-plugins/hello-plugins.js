@@ -15,13 +15,13 @@ const createFileListContent = fileList => {
 }
 
 function HelloPlugin(options) {
-	this.options = { ...DEFAULT_OPTIONS, options }
+	this.options = { ...DEFAULT_OPTIONS, ...options }
 }
 
 HelloPlugin.prototype.apply = function (compiler) {
 	// console.log(compiler)
 	console.log(`HelloPlugin: apply call`)
-	rimraf.sync(utils.resolveDirectory('./webpack/dist/dev-build'))
+	rimraf.sync(this.options.rootBuildPath)
 
 	// compiler.hooks.emit.tap('run', compilation => {
 	// 	console.log('\n')
