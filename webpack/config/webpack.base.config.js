@@ -49,7 +49,7 @@ const webpackDevConfig = {
 		/*
 			在 node_modules 读取模块的 package.json 时需要优先读取的入口字段
 		 */
-		// mainFields: ['main', 'index'],
+		// mainFields: ['main', 'index', 'browser'],
 		/*
 			引入目录模块时, 需要从入口文件开始读取, 此即配置该入口文件名的名称 
 		 */

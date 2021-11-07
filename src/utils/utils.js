@@ -1,31 +1,19 @@
-/**
- * 异步等待阻塞
- * @param {number} delay 阻塞时长
- * @return {undefined}
- */
-export async function sleep(delay = 1000) {
-	return Promise((_, reject) => {
-		window.setTimeout(_, delay)
-	})
+Object.defineProperty(Array.prototype, 'sum', {
+    value: function() {
+        return this.reduce((sum, num) => sum += num, 0)
+    }
+})
+
+export function aaa(obj) {
+	return obj.aaa
 }
 
-/**
- * 将数组依据指定的 keys 排序
- * @param {array} keys 参考字段数组
- * @param {boolean} seq 升序 or 降序
- * @return {number}
- */
-export function sortBy(keys, seq = true) {
-	const rev = !!seq ? 1 : -1
-	return (a, b) => {
-		for (let i = 0; i < keys.length; i++) {
-			let key = keys[i]
-			if (a[key] !== b[key]) {
-				if (a[key] > b[key]) {
-					return rev * 1
-				}
-				return rev * -1
-			}
-		}
-	}
+export function bbb(obj) {
+	return obj
 }
+
+export function ccc(obj) {
+	return JSON.stringify(obj)
+}
+
+window.__globalIndex = Math.random()
