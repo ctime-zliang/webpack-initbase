@@ -1,5 +1,13 @@
 const MiniCssExtractPlugin = require(`mini-css-extract-plugin`)
 
+const modulesCssOptions = {
+	/* 启用模块化 */
+	modules: true,
+	esModule: false,
+	// mode: `local`,	
+	// localIdentName: `[name]_-[hash:base64:8]`
+}
+
 const iniFileLoader = {
 	test: /\.ini$/,
 	exclude: /node_modules/,
@@ -33,6 +41,7 @@ const jsxBabelLoader = {
 		},
 	],
 }
+
 const lessLoader = {
 	test: /\.less$/,
 	exclude: /node_modules/,
@@ -70,7 +79,7 @@ const lessLoader = {
 						将导致 CSS 代码内对资源的引用路径变成: `${publicPath}/${filename}`
 				*/
 				// publicPath: `../assets-images/`,
-				publicPath: `../../`,
+				publicPath: `../`,
 			},
 		},
 		{
@@ -111,6 +120,27 @@ const lessLoader = {
 			},
 		},
 	],
+}
+const lessModuleLoader = {
+	test: /\.module\.lss$/,
+	use: [
+		MiniCssExtractPlugin.loader,
+		{
+			loader: `css-loader`,
+			options: { ...modulesCssOptions },
+		},
+		`less-loader`,
+	]
+}
+const cssModuleLoader = {
+	test: /\.module\.css$/,
+	use: [
+		MiniCssExtractPlugin.loader,
+		{
+			loader: `css-loader`,
+			options: { ...modulesCssOptions },
+		},		
+	]
 }
 
 const urlFileLoader = {
@@ -163,6 +193,6 @@ const fileLoader = {
 
 module.exports = [
 	{
-		oneOf: [jsxBabelLoader, urlFileLoader, lessLoader, iniFileLoader, fileLoader],
+		oneOf: [jsxBabelLoader, urlFileLoader, lessModuleLoader, cssModuleLoader, lessLoader, iniFileLoader, fileLoader],
 	},
 ]
