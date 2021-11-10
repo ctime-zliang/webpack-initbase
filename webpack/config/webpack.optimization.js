@@ -1,3 +1,4 @@
+const path = require('path')
 const UglifyjsWebpackPlugin = require('uglifyjs-webpack-plugin')
 
 module.exports = {
@@ -88,6 +89,17 @@ module.exports = {
 				chunks: `all`,
 				priority: -9,
 				reuseExistingChunk: true,
+			},
+			/*
+				抽离 src/public 中的公共模块到独立的文件 
+			 */
+			public: {
+				test: path.resolve('src/public'),
+				name: `public`,
+				chunks: `all`,
+				priority: -8,
+				reuseExistingChunk: true,
+				enforce: true,
 			},
 			// react: {
 			// 	test(module) {

@@ -1,7 +1,7 @@
 Object.defineProperty(Array.prototype, 'sum', {
-    value: function() {
-        return this.reduce((sum, num) => sum += num, 0)
-    }
+	value: function () {
+		return this.reduce((sum, num) => (sum += num), 0)
+	},
 })
 
 export function aaa(obj) {

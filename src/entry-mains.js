@@ -1,9 +1,9 @@
 import runProfile from '@/config/run.ini'
-import log2xPng from '@/common/images/log.2x.png'
+import log2xPng from '@/assets/images/log.2x.png'
 import { ccc } from './utils/utils'
 import { powerValue } from './utils/math'
-import '@/common/style/prefix.less'
-import '@/common/style/bootstrap.less'
+import '@/assets/style/prefix.less'
+import '@/assets/style/bootstrap.less'
 import list from '@/modules/list'
 
 function importLodash() {

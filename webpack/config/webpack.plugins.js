@@ -12,15 +12,15 @@ const chalk = require('chalk')
 const helloPluginConfg = {
 	development: {
 		name: 'c.zliang',
-		rootBuildPath: utils.resolveDirectory('./webpack/dist/dev-build')
+		rootBuildPath: utils.resolveDirectory('./webpack/dist/dev-build'),
 	},
 	production: {
 		name: 'c.zliang',
-		rootBuildPath: utils.resolveDirectory('./webpack/dist/prod-build')
-	}
+		rootBuildPath: utils.resolveDirectory('./webpack/dist/prod-build'),
+	},
 }
 
-module.exports = (mode) => {
+module.exports = mode => {
 	const _helloPluginConfg = helloPluginConfg[mode]
 	const plugins = [
 		/*

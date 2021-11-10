@@ -1,5 +1,6 @@
 const path = require('path')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
+const utils = require('../../config/utils')
 
 const cssLoaderOptionsModulesType = {
 	/* 启用/禁用 ES6模块 */
@@ -16,14 +17,14 @@ const cssLoaderOptionsModulesType = {
 	sourceMap: true,
 	/* 在编译后的 url 字符串中前置该 key 值  */
 	// root: `.`
-	modules: { 		
+	modules: {
 		mode: 'local',
 		localIdentHashSalt: `hash`,
 		localIdentContext: path.resolve(__dirname, `../src`),
 		localIdentName: `[name]_-[hash:base64:8]`,
 		// exportLocalsConvention: `camelCase`,
-		namedExport: false,	
-	}
+		namedExport: false,
+	},
 }
 
 const iniFileLoader = {
@@ -114,10 +115,16 @@ const lessLoader = {
 				// modules: false,
 				// sourceMap: true,
 				/* 
-					
+					启用/禁用 ES 模块化配置
 				 */
 				esModule: false,
 			},
+		},
+		{
+			/*
+				将 css 转换成 AST 
+			 */
+			loader: `postcss-loader`,
 		},
 		{
 			/*
@@ -145,10 +152,16 @@ const lessModuleLoader = {
 		MiniCssExtractPlugin.loader,
 		{
 			loader: `css-loader`,
-			options: {  ...cssLoaderOptionsModulesType },
+			options: { ...cssLoaderOptionsModulesType },
+		},
+		{
+			/*
+				将 css 转换成 AST 
+			 */
+			loader: `postcss-loader`,
 		},
 		`less-loader`,
-	]
+	],
 }
 const cssModuleLoader = {
 	test: /\.module\.css$/,
@@ -156,9 +169,15 @@ const cssModuleLoader = {
 		MiniCssExtractPlugin.loader,
 		{
 			loader: `css-loader`,
-			options: {  ...cssLoaderOptionsModulesType },
-		},		
-	]
+			options: { ...cssLoaderOptionsModulesType },
+		},
+		{
+			/*
+				将 css 转换成 AST 
+			 */
+			loader: `postcss-loader`,
+		},
+	],
 }
 
 const urlFileLoader = {
