@@ -1,11 +1,29 @@
-const MiniCssExtractPlugin = require(`mini-css-extract-plugin`)
+const path = require('path')
+const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 
-const modulesCssOptions = {
-	/* 启用模块化 */
-	modules: true,
+const cssLoaderOptionsModulesType = {
+	/* 启用/禁用 ES6模块 */
 	esModule: false,
-	// mode: `local`,	
-	// localIdentName: `[name]_-[hash:base64:8]`
+	/* 启用/禁用压缩 */
+	// minimize: false,
+	/* 启用/禁用 @import 语法解析 */
+	import: true,
+	/* 启用/禁用 url 解析 */
+	url: true,
+	/* 以驼峰命名方式到处 class 类名 */
+	// camelCase: false,
+	/* 启用/禁用 sourceMap */
+	sourceMap: true,
+	/* 在编译后的 url 字符串中前置该 key 值  */
+	// root: `.`
+	modules: { 		
+		mode: 'local',
+		localIdentHashSalt: `hash`,
+		localIdentContext: path.resolve(__dirname, `../src`),
+		localIdentName: `[name]_-[hash:base64:8]`,
+		// exportLocalsConvention: `camelCase`,
+		namedExport: false,	
+	}
 }
 
 const iniFileLoader = {
@@ -127,7 +145,7 @@ const lessModuleLoader = {
 		MiniCssExtractPlugin.loader,
 		{
 			loader: `css-loader`,
-			options: { ...modulesCssOptions },
+			options: {  ...cssLoaderOptionsModulesType },
 		},
 		`less-loader`,
 	]
@@ -138,7 +156,7 @@ const cssModuleLoader = {
 		MiniCssExtractPlugin.loader,
 		{
 			loader: `css-loader`,
-			options: { ...modulesCssOptions },
+			options: {  ...cssLoaderOptionsModulesType },
 		},		
 	]
 }
