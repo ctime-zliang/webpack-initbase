@@ -19,10 +19,24 @@ const cssLoaderOptionsModulesType = {
 	// root: `.`
 	modules: {
 		mode: 'local',
+		/* 指定自定义的哈希类型 */
 		localIdentHashSalt: `hash`,
+		/* 哈希类型 */
+		localIdentHashFunction: `md4`,
+		/* 哈希摘要类型 */
+		localIdentHashDigest: `base64`,
 		localIdentContext: path.resolve(__dirname, `../src`),
+		/* 生成 class-name 格式定义 */
 		localIdentName: `[name]_-[hash:base64:8]`,
 		// exportLocalsConvention: `camelCase`,
+		/* 
+			启用/禁用 ES 模块导出 
+				启用后, 可以在 JS 模块中直接引入以 class-name 作为模块名的模块
+				// style.css
+				.foo-bar { color: red; }
+				// index.js
+				import { fooBar } from './style.css'
+		*/
 		namedExport: false,
 	},
 }
@@ -54,6 +68,16 @@ const jsxBabelLoader = {
 	//     需一并安装 @babel/core
 	//  */
 	// loader: `babel-loader`,  // use: `babel-loader`
+	use: [
+		{
+			loader: `babel-loader`,
+		},
+	],
+}
+
+const tsxBabelLoader = {
+	test: /\.ts[x]?$/,
+	exclude: /node_modules/,
 	use: [
 		{
 			loader: `babel-loader`,
@@ -230,6 +254,6 @@ const fileLoader = {
 
 module.exports = [
 	{
-		oneOf: [jsxBabelLoader, urlFileLoader, lessModuleLoader, cssModuleLoader, lessLoader, iniFileLoader, fileLoader],
+		oneOf: [jsxBabelLoader, tsxBabelLoader, urlFileLoader, lessModuleLoader, cssModuleLoader, lessLoader, iniFileLoader, fileLoader],
 	},
 ]

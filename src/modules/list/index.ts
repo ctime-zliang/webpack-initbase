@@ -1,7 +1,7 @@
-import Button from '@/public/button'
+import { Button } from '@/public/button'
 import styles from './index.module.css'
 
-function appendChildElement(container, className, htmlString) {
+function appendChildElement(container: HTMLElement, className: string, htmlString: string) {
 	const divElement = document.createElement(`div`)
 	if (className) {
 		divElement.classList.add(className)
@@ -16,6 +16,6 @@ function appendChildElement(container, className, htmlString) {
 export default () => {
 	appendChildElement(document.body, styles[`log1x`], `<span style="color: red;">log1x div element</span>`)
 	appendChildElement(document.body, styles[`log2x`], `<span style="color: red;">log2x div element</span>`)
-	appendChildElement(document.body, '', Button({ textContent: `btn` }))
+	appendChildElement(document.body, '.btn', Button({ textContent: `btn` }))
 	return true
 }
