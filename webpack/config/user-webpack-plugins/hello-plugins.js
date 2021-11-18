@@ -1,7 +1,10 @@
 const rimraf = require('rimraf')
 const utils = require('../../../config/utils')
 
-const DEFAULT_OPTIONS = {}
+const DEFAULT_OPTIONS = {
+	startStamp: 0,
+	endStamp: 0,
+}
 
 const createFileListContent = fileList => {
 	let string = `[${new Date().getTime()}]All ${fileList.length} files:\n`
@@ -21,6 +24,8 @@ function HelloPlugin(options) {
 HelloPlugin.prototype.apply = function (compiler) {
 	// console.log(compiler)
 	console.log(`HelloPlugin: apply call`)
+	this.options.startStamp = new Date().getTime()
+	this.options.endStamp = 0
 	rimraf.sync(this.options.rootBuildPath)
 
 	// compiler.hooks.emit.tap('run', compilation => {
@@ -49,11 +54,13 @@ HelloPlugin.prototype.apply = function (compiler) {
 	// 	console.log(`HelloPlugin: compiler.hooks.emit.tap @after-compile: aleardy compiled`)
 	// 	console.log(Object.keys(compilation.assets))
 	// })
-	// compiler.hooks.emit.tap('done', compilation => {
-	// 	console.log('\n')
-	// 	console.log(`HelloPlugin: compiler.hooks.emit.tap @done`)
-	// 	console.log(Object.keys(compilation.assets))
-	// })
+	compiler.hooks.emit.tap('done', compilation => {
+		console.log('\n')
+		console.log(`HelloPlugin: compiler.hooks.emit.tap @done`)
+		console.log(Object.keys(compilation.assets))
+		this.options.endStamp = new Date().getTime()
+		console.log(`Build Completed in: `, (this.options.endStamp - this.options.startStamp) / 1000 + 's')
+	})
 	compiler.hooks.emit.tapAsync('emit', (compilation, callback) => {
 		console.log('\n')
 		console.log(`HelloPlugin: compiler.hooks.emit.tapAsync @emit: going to emit files`)
@@ -66,7 +73,6 @@ HelloPlugin.prototype.apply = function (compiler) {
 				return Buffer.byteLength(fileListRes.filecontent, 'utf8')
 			},
 		}
-		console.log(Object.keys(compilation.assets))
 		callback()
 	})
 	// compiler.hooks.emit.tap('after-emit', compilation => {

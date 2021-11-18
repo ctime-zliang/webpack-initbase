@@ -46,27 +46,27 @@ module.exports = mode => {
 		}),
 		/*
 			压缩输出 js 文件 
-			*/
+		*/
 		// new UglifyjsWebpackPlugin(),
 		/* 
 			用户自定义插件
-			*/
+		*/
 		new HelloPlugin(_helloPluginConfg),
 		/* 
 			抽离 CSS 为单独的文件
-			*/
+		*/
 		new MiniCssExtractPlugin({
 			/* 配置生成文件名(可带路径) */
-			filename: `assets/styles/style.[hash:8].css`,
+			filename: `assets/styles/style.[name].[hash:8].css`,
 			/* 控制从打包后的非入口 JS 文件中提取 CSS 样式生成的 CSS 文件的名称 */
-			chunkFilename: `assets/styles/chunks.[chunkhash:8].css`,
+			chunkFilename: `assets/styles/chunks.[name].[chunkhash:8].css`,
 			/*
 				当
 					在 1.js 中分别前后引入 a.css 和 b.css
 					在 2.js 中分别前后引入 b.css 和 a.css
 				则
 					如果此项为 true, 则开启因顺序不一致的导致的警告, 反之则关闭警告
-				*/
+			*/
 			ignoreOrder: false,
 			/* 
 				用于将附加的键值对属性数据写入到 <link /> 节点
@@ -76,26 +76,26 @@ module.exports = mode => {
 		}),
 		/*
 			定义运行中的全局常量 
-			*/
+		*/
 		new webpack.DefinePlugin({
 			'process.env.NODE_ENV': JSON.stringify(mode),
 		}),
 		/* 
 			eslint 插件
-			*/
+		*/
 		// new ESLintPlugin({
 		// 	/* 待检测的文件扩展名(列表) */
 		// 	extensions: ['js', 'ts', 'jsx', 'tsx', 'vue'],
 		// }),
 		/*
 			编译进度条 
-			*/
+		*/
 		new progressBarWebpackPlugin({
 			format: `:msg [:bar] ${chalk.green.bold(':percent')} (:elapsed s)`,
 		}),
 		/* 
 			启用热更新
-			*/
+		*/
 		new webpack.HotModuleReplacementPlugin(),
 	]
 	if (mode === 'production') {

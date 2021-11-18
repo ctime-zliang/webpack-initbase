@@ -2,7 +2,7 @@ const path = require('path')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const utils = require('../../config/utils')
 
-const cssLoaderOptionsModulesType = {
+const cssLoaderOptions = {
 	/* 启用/禁用 ES6模块 */
 	esModule: false,
 	/* 启用/禁用压缩 */
@@ -17,6 +17,9 @@ const cssLoaderOptionsModulesType = {
 	sourceMap: true,
 	/* 在编译后的 url 字符串中前置该 key 值  */
 	// root: `.`
+}
+const cssLoaderModuleOptions = {
+	...cssLoaderOptions,
 	modules: {
 		mode: 'local',
 		/* 指定自定义的哈希类型 */
@@ -39,6 +42,33 @@ const cssLoaderOptionsModulesType = {
 		*/
 		namedExport: false,
 	},
+}
+
+const lessLoaderOptions = {
+	/* 是否启用 sourceMap */
+	sourceMap: true,
+	/* 启用/禁用 webpack 默认的 importer */
+	webpackImporter: true,
+	// lessOptions: {
+	//     strictMath: false,
+	// }
+	/* 选项 */
+	lessOptions(loaderContext) {
+		return {
+			/* 内联脚本支持 */
+			javascriptEnabled: true,
+			strictMath: false,
+		}
+	},
+}
+
+const miniCssExtractPluginLoaderOption = {
+	/* 
+		设置 CSS 引用资源文件的前置路径
+			将导致 CSS 代码内对资源的引用路径变成: `${publicPath}/${filename}`
+	*/
+	// publicPath: `../assets-images/`,
+	publicPath: `../`,
 }
 
 const iniFileLoader = {
@@ -87,7 +117,7 @@ const tsxBabelLoader = {
 
 const jsxEsbuildLoader = {
 	test: /\.(js|jsx)$/,
-	exclude: /node_modules/,
+	// exclude: /node_modules/,
 	loader: 'esbuild-loader',
 	options: {
 		loader: 'jsx',
@@ -98,7 +128,7 @@ const jsxEsbuildLoader = {
 }
 const tsxEsbuildLoader = {
 	test: /\.(ts|tsx)$/,
-	exclude: /node_modules/,
+	// exclude: /node_modules/,
 	loader: 'esbuild-loader',
 	options: {
 		loader: 'tsx',
@@ -110,7 +140,7 @@ const tsxEsbuildLoader = {
 
 const lessLoader = {
 	test: /\.less$/,
-	exclude: /node_modules/,
+	exclude: /\.module\.less$/,
 	use: [
 		// {
 		// 	loader: `style-test-loader`,
@@ -139,14 +169,7 @@ const lessLoader = {
 				提取 css 样式代码到单独的文件
 			 */
 			loader: MiniCssExtractPlugin.loader,
-			options: {
-				/* 
-					设置 CSS 引用资源文件的前置路径
-						将导致 CSS 代码内对资源的引用路径变成: `${publicPath}/${filename}`
-				*/
-				// publicPath: `../assets-images/`,
-				publicPath: `../`,
-			},
+			options: miniCssExtractPluginLoaderOption,
 		},
 		{
 			/*
@@ -155,17 +178,7 @@ const lessLoader = {
 				处理引用资源并定义解析方式
 			 */
 			loader: `css-loader`,
-			options: {
-				// /* 不解析 css 代码中的资源引用路径 */
-				// url: false,
-				// /* 模块化 */
-				// modules: false,
-				// sourceMap: true,
-				/* 
-					启用/禁用 ES 模块化配置
-				 */
-				esModule: false,
-			},
+			options: cssLoaderOptions,
 		},
 		{
 			/*
@@ -178,50 +191,63 @@ const lessLoader = {
 				需一并安装 less 
 			 */
 			loader: `less-loader`,
-			options: {
-				sourceMap: true,
-				webpackImporter: true,
-				// lessOptions: {
-				//     strictMath: false,
-				// }
-				lessOptions(loaderContext) {
-					return {
-						strictMath: false,
-					}
-				},
-			},
+			options: lessLoaderOptions,
 		},
 	],
 }
 const lessModuleLoader = {
 	test: /\.module\.lss$/,
 	use: [
-		MiniCssExtractPlugin.loader,
+		{
+			loader: MiniCssExtractPlugin.loader,
+			options: miniCssExtractPluginLoaderOption,
+		},
 		{
 			loader: `css-loader`,
-			options: { ...cssLoaderOptionsModulesType },
+			options: cssLoaderModuleOptions,
 		},
 		{
-			/*
-				将 css 转换成 AST 
-			 */
 			loader: `postcss-loader`,
 		},
-		`less-loader`,
+		{
+			loader: `less-loader`,
+			options: lessLoaderOptions,
+		},
+	],
+}
+const cssLoader = {
+	test: /\.css$/,
+	exclude: /\.module\.css$/,
+	use: [
+		{
+			loader: MiniCssExtractPlugin.loader,
+			options: miniCssExtractPluginLoaderOption,
+		},
+		{
+			loader: `css-loader`,
+			options: cssLoaderOptions,
+		},
+		{
+			loader: `postcss-loader`,
+		},
+		{
+			loader: `less-loader`,
+			options: lessLoaderOptions,
+		},
 	],
 }
 const cssModuleLoader = {
 	test: /\.module\.css$/,
 	use: [
-		MiniCssExtractPlugin.loader,
 		{
-			loader: `css-loader`,
-			options: { ...cssLoaderOptionsModulesType },
+			loader: MiniCssExtractPlugin.loader,
+			options: miniCssExtractPluginLoaderOption,
 		},
 		{
-			/*
-				将 css 转换成 AST 
-			 */
+			loader: `css-loader`,
+			options: cssLoaderModuleOptions,
+		},
+		{
 			loader: `postcss-loader`,
 		},
 	],
@@ -229,7 +255,7 @@ const cssModuleLoader = {
 
 const urlFileLoader = {
 	test: /\.(png|jpe?g|gif|svg)(\?.*)?$/,
-	exclude: /node_modules/,
+	// exclude: /node_modules/,
 	use: [
 		{
 			loader: `url-loader`,
@@ -277,6 +303,17 @@ const fileLoader = {
 
 module.exports = [
 	{
-		oneOf: [jsxBabelLoader, tsxBabelLoader, urlFileLoader, lessModuleLoader, cssModuleLoader, lessLoader, iniFileLoader, fileLoader],
+		// oneOf: [jsxBabelLoader, tsxBabelLoader, urlFileLoader, lessModuleLoader, cssModuleLoader, lessLoader, cssLoader, iniFileLoader, fileLoader],
+		oneOf: [
+			jsxEsbuildLoader,
+			tsxEsbuildLoader,
+			urlFileLoader,
+			lessModuleLoader,
+			cssModuleLoader,
+			lessLoader,
+			cssLoader,
+			iniFileLoader,
+			fileLoader,
+		],
 	},
 ]

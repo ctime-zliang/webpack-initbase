@@ -48,6 +48,9 @@ module.exports = api => {
 		 */
 		plugins: [
 			[
+				/*
+					解析装饰器 
+				 */
 				'@babel/plugin-proposal-decorators',
 				{
 					/*
@@ -70,9 +73,54 @@ module.exports = api => {
 					// useBuiltIns: false
 				},
 			],
+			/* 
+				解析 class 类语法
+					配置:
+						- option.loose
+							- true: 在编译后的 class construtor 中直接使用"点"运算符初始化类属性
+							- false: 在编译后的 class construtor 中将使用 defineProperty 初始化类属性
+			 */
 			'@babel/plugin-proposal-class-properties',
+			/* 
+				Babel helper
+					利好:
+						- 减少编译体积
+							把帮助类方法从每次使用前定义改为统一 require, 精简代码
+							require('babel-runtime/helpers/asyncToGenerator')
+						- 沙箱环境: 解决当使用 @babel/polyfill 兼容宿主原生对象时可能污染全局环境的问题
+					(可选)依赖于: @babel/runtime
+						- core-js
+							转换内置类及其他高等级语法
+						- regenerator
+							解析 async/await 
+						- helpers			
+			 */
 			'@babel/plugin-transform-runtime',
+			/*
+				解析并将 ES 模块转换成 CommonJS 规范
+					只转换导入导出语句
+			 */
 			'@babel/plugin-transform-modules-commonjs',
+			/*
+				解析箭头函数 
+			 */
+			'@babel/plugin-transform-arrow-functions',
+			/*
+				按需引入附属文件(样式等) 
+			 */
+			[
+				'import', // babel-plugin-import
+				{
+					libraryName: 'antd',
+					/* 
+						定义样式导入规则
+							- true: 模块化导入 js 和 css/less/sass 源文件
+							- css: 模块化导入 js 和 css, 库预先内置的 css 文件将原样导入
+							- <Function>: 返回 true 时导入, 否则过滤当前文件
+					 */
+					style: true,
+				},
+			],
 		].filter(Boolean),
 	}
 }
