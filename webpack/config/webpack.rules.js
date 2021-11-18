@@ -85,6 +85,29 @@ const tsxBabelLoader = {
 	],
 }
 
+const jsxEsbuildLoader = {
+	test: /\.(js|jsx)$/,
+	exclude: /node_modules/,
+	loader: 'esbuild-loader',
+	options: {
+		loader: 'jsx',
+		target: 'es2015',
+		jsxFactory: 'React.createElement',
+		jsxFragment: 'React.Fragment',
+	},
+}
+const tsxEsbuildLoader = {
+	test: /\.(ts|tsx)$/,
+	exclude: /node_modules/,
+	loader: 'esbuild-loader',
+	options: {
+		loader: 'tsx',
+		target: 'es2015',
+		jsxFactory: 'React.createElement',
+		jsxFragment: 'React.Fragment',
+	},
+}
+
 const lessLoader = {
 	test: /\.less$/,
 	exclude: /node_modules/,
