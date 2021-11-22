@@ -4,6 +4,9 @@ declare namespace NodeJS {
 	}
 }
 
+declare module 'process'
+declare module 'lodash'
+
 declare module '*.bmp' {
 	const src: string
 	export default src
@@ -54,6 +57,7 @@ declare module '*.module.less' {
 	export = content
 }
 
-declare module 'process'
-declare module '*.ini'
-declare module 'lodash'
+declare module '*.ini' {
+	const content: string
+	export = content
+}

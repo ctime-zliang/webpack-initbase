@@ -59,7 +59,7 @@ HelloPlugin.prototype.apply = function (compiler) {
 		console.log(`HelloPlugin: compiler.hooks.emit.tap @done`)
 		console.log(Object.keys(compilation.assets))
 		this.options.endStamp = new Date().getTime()
-		console.log(`Build Completed in: `, (this.options.endStamp - this.options.startStamp) / 1000 + 's')
+		console.log(`=========>>>> Build Completed Consuming: `, (this.options.endStamp - this.options.startStamp) / 1000 + 's')
 	})
 	compiler.hooks.emit.tapAsync('emit', (compilation, callback) => {
 		console.log('\n')

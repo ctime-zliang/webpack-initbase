@@ -303,7 +303,17 @@ const fileLoader = {
 
 module.exports = [
 	{
-		// oneOf: [jsxBabelLoader, tsxBabelLoader, urlFileLoader, lessModuleLoader, cssModuleLoader, lessLoader, cssLoader, iniFileLoader, fileLoader],
+		// oneOf: [
+		// 	jsxBabelLoader,
+		// 	tsxBabelLoader,
+		// 	urlFileLoader,
+		// 	lessModuleLoader,
+		// 	cssModuleLoader,
+		// 	lessLoader,
+		// 	cssLoader,
+		// 	iniFileLoader,
+		// 	fileLoader
+		// ],
 		oneOf: [
 			jsxEsbuildLoader,
 			tsxEsbuildLoader,
