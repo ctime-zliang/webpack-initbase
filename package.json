@@ -12,7 +12,7 @@
 		"tsc:check": "tsc --noEmit",
 		"webpack:dev": "cross-env NODE_ENV=development webpack server --config ./webpack/config/webpack.dev.config.js",
 		"webpack:prod": "cross-env NODE_ENV=production webpack --config ./webpack/config/webpack.prod.config.js",
-		"jest:test": "jest"
+		"jest:test": "cross-env NODE_ENV=test jest"
 	},
 	"repository": {
 		"type": "git",
@@ -54,6 +54,7 @@
 		"autoprefixer": "^10.4.0",
 		"babel-jest": "^27.3.1",
 		"babel-loader": "^8.2.2",
+		"babel-plugin-dynamic-import-node": "^2.3.3",
 		"babel-plugin-import": "^1.13.3",
 		"clean-webpack-plugin": "^4.0.0",
 		"copy-webpack-plugin": "^9.0.1",

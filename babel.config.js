@@ -122,5 +122,21 @@ module.exports = api => {
 				},
 			],
 		].filter(Boolean),
+		/* 适用环境配置 */
+		env: {
+			test: {
+				plugins: [
+					'@babel/plugin-transform-modules-commonjs',
+					'dynamic-import-node',  // babel-plugin-dynamic-import-node
+					[
+						'import',
+						{
+							libraryName: 'antd',
+							style: true,
+						},
+					],
+				],
+			},
+		},
 	}
 }

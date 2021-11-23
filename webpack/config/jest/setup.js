@@ -1,4 +1,29 @@
 /* setup 可预置为空 */
+
+// jest.mock('react-router-dom', () => {
+// 	const originalModule = jest.requireActual('react-router-dom')
+// 	return {
+// 		__esModule: true,
+// 		...originalModule,
+// 		useLocation: jest.fn().mockReturnValue({
+// 			pathname: '/',
+// 			search: '',
+// 			hash: '',
+// 			state: null,
+// 			key: '5nvxpbdafa',
+// 		}),
+// 		useHistory: jest.fn().mockReturnValue({
+// 			length: 2,
+// 			action: 'POP',
+// 			location: {
+// 				pathname: '/',
+// 				search: '',
+// 				hash: '',
+// 			},
+// 		}),
+// 	}
+// })
+
 Object.defineProperty(window, 'matchMedia', {
 	writable: true,
 	value: jest.fn().mockImplementation(query => ({

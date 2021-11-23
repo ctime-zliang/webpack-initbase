@@ -28,19 +28,24 @@ module.exports = {
 	/* 
 		模块目录
 	 */
-	moduleDirectories: ['./src', 'node_modules'],
+	moduleDirectories: ['node_modules', './src'],
 	/*
-		依赖缓存临时目录 
+		依赖缓存临时目录
+			执行测试时需要读取的依赖的缓存目录
 	 */
 	cacheDirectory: `./.cache`,
 	/*
 		测试忽略文件 
 	 */
-	testPathIgnorePatterns: ['./webpack/dist/', './node_modules/'],
+	// testPathIgnorePatterns: ['./webpack/dist/', './node_modules/'],
 	/* 
 		watch 忽略目录
 	 */
 	watchPathIgnorePatterns: ['./webpack/dist/'],
+	/* 
+		测试对象扫描规则
+	 */
+	testRegex: 'tests/.*\\.test\\.js(x)$',
 	/*********************************** ***********************************/
 	/*********************************** ***********************************/
 	/*********************************** ***********************************/
@@ -60,7 +65,7 @@ module.exports = {
 	 */
 	transform: {
 		'^.+\\.(js|jsx|mjs|ts|tsx)$': '<rootDir>/node_modules/babel-jest',
-		'^.+\\.css$': '<rootDir>/webpack/config/jest/cssTransform.js',
+		'^.+\\.(css|less)$': '<rootDir>/webpack/config/jest/cssTransform.js',
 		'^(?!.*\\.(js|jsx|mjs|ts|tsx|css|json)$)': '<rootDir>/webpack/config/jest/fileTransform.js',
 	},
 	/*
@@ -89,8 +94,28 @@ module.exports = {
 	coverageProvider: 'babel',
 	/*
 		测试覆盖率忽略目录 
+			过滤无需统计的代码范围
 	 */
 	coveragePathIgnorePatterns: ['node_modules', 'test-config', 'interfaces', './src/types'],
+	/*
+		测试覆盖率报告规则
+	 */
+	coverageReporters: ['json-summary', 'text', 'lcov'],
+	/*
+		指定覆盖率目标
+			- branches: 分支覆盖率 
+			- functions: 函数执行的覆盖率 
+			- lines: 代码函数覆盖率 
+			- statements: 声明的覆盖率 
+	 */
+	coverageThreshold: {
+		global: {
+			statements: 90,
+			branches: 90,
+			functions: 90,
+			lines: 90,
+		},
+	},
 	/*********************************** ***********************************/
 	/*********************************** ***********************************/
 	/*********************************** ***********************************/
