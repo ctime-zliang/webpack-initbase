@@ -127,7 +127,7 @@ module.exports = api => {
 			test: {
 				plugins: [
 					'@babel/plugin-transform-modules-commonjs',
-					'dynamic-import-node',  // babel-plugin-dynamic-import-node
+					'dynamic-import-node', // babel-plugin-dynamic-import-node
 					[
 						'import',
 						{

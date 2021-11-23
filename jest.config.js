@@ -11,15 +11,17 @@ module.exports = {
 	/*
 		运行前置启动器 
 	 */
-	setupFiles: ['./webpack/config/jest/setup.js'],
+	setupFiles: ['./config/jest-setup/setup.js'],
 	/*********************************** ***********************************/
 	/*********************************** ***********************************/
 	/*********************************** ***********************************/
 	/*
-		路径别名 
+		路径别名映射
 	 */
 	moduleNameMapper: {
 		'^@/(.*)$': '<rootDir>/src/$1',
+		'.*\\.(css|less|styl|scss|sass)$': '<rootDir>/config/jest-mocks/cssModule.js',
+		'.*\\.(jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$': '<rootDir>/config/jest-mocks/image.js',
 	},
 	/*
 		文件名后缀缺省预置 
@@ -37,7 +39,7 @@ module.exports = {
 	/*
 		测试忽略文件 
 	 */
-	// testPathIgnorePatterns: ['./webpack/dist/', './node_modules/'],
+	testPathIgnorePatterns: ['./webpack/dist/', './node_modules/'],
 	/* 
 		watch 忽略目录
 	 */
@@ -65,8 +67,8 @@ module.exports = {
 	 */
 	transform: {
 		'^.+\\.(js|jsx|mjs|ts|tsx)$': '<rootDir>/node_modules/babel-jest',
-		'^.+\\.(css|less)$': '<rootDir>/webpack/config/jest/cssTransform.js',
-		'^(?!.*\\.(js|jsx|mjs|ts|tsx|css|json)$)': '<rootDir>/webpack/config/jest/fileTransform.js',
+		'^.+\\.(css|less)$': '<rootDir>/config/jest-setup/cssTransform.js',
+		'^(?!.*\\.(js|jsx|mjs|ts|tsx|css|json)$)': '<rootDir>/config/jest-setup/fileTransform.js',
 	},
 	/*
 		在转换时需要被忽略的文件目录 
@@ -78,7 +80,7 @@ module.exports = {
 	/*
 		设置是否收集覆盖率信息 
 	 */
-	collectCoverage: false,
+	collectCoverage: true,
 	/*
 		测试覆盖率输出目录 
 	 */
