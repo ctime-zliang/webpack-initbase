@@ -9,7 +9,7 @@ const Main = () => {
 	)
 }
 
-describe(`Test React Component`, () => {
+describe(`React Demo Test`, () => {
 	test('DOM Operation', () => {
 		render(<Main />)
 		// screen.debug()

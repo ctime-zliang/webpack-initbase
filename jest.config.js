@@ -16,6 +16,12 @@ module.exports = {
 	/*********************************** ***********************************/
 	/*********************************** ***********************************/
 	/*
+		路径别名 
+	 */
+	moduleNameMapper: {
+		'^@/(.*)$': '<rootDir>/src/$1',
+	},
+	/*
 		文件名后缀缺省预置 
 	 */
 	moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx', 'json', 'node'],
@@ -30,7 +36,11 @@ module.exports = {
 	/*
 		测试忽略文件 
 	 */
-	testPathIgnorePatterns: ['node_modules'],
+	testPathIgnorePatterns: ['./webpack/dist/', './node_modules/'],
+	/* 
+		watch 忽略目录
+	 */
+	watchPathIgnorePatterns: ['./webpack/dist/'],
 	/*********************************** ***********************************/
 	/*********************************** ***********************************/
 	/*********************************** ***********************************/
@@ -49,20 +59,21 @@ module.exports = {
 		定义转换器 
 	 */
 	transform: {
-		'^.+\\.(js|jsx|mjs|ts|tsx)$': './node_modules/babel-jest',
-		'^.+\\.css$': './webpack/config/jest/cssTransform.js',
-		'^(?!.*\\.(js|jsx|mjs|ts|tsx|css|json)$)': './webpack/config/jest/fileTransform.js',
+		'^.+\\.(js|jsx|mjs|ts|tsx)$': '<rootDir>/node_modules/babel-jest',
+		'^.+\\.css$': '<rootDir>/webpack/config/jest/cssTransform.js',
+		'^(?!.*\\.(js|jsx|mjs|ts|tsx|css|json)$)': '<rootDir>/webpack/config/jest/fileTransform.js',
 	},
 	/*
 		在转换时需要被忽略的文件目录 
 	 */
+	// transformIgnorePatterns: ['./node_modules/'],
 	/*********************************** ***********************************/
 	/*********************************** ***********************************/
 	/*********************************** ***********************************/
 	/*
 		设置是否收集覆盖率信息 
 	 */
-	collectCoverage: true,
+	collectCoverage: false,
 	/*
 		测试覆盖率输出目录 
 	 */
@@ -73,8 +84,9 @@ module.exports = {
 	collectCoverageFrom: ['./src/**/*.ts?(x)'],
 	/* 
 		指定哪种程序确定代码覆盖率
+			'v8' || 'babel'
 	 */
-	// coverageProvider: 'v8' || 'babel',
+	coverageProvider: 'babel',
 	/*
 		测试覆盖率忽略目录 
 	 */
