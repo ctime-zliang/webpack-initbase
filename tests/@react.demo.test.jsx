@@ -7,7 +7,8 @@
 
 import React from 'react'
 import { render as testingReactRender, screen } from '@testing-library/react'
-import { render as enzymeRender } from 'enzyme'
+import { render as enzymeRender, shallow } from 'enzyme'
+import enzymeToJson from 'enzyme-to-json'
 
 const Main = () => {
 	return (
@@ -29,10 +30,8 @@ describe(`React Demo Test 1`, () => {
 
 describe(`React Demo Test 2`, () => {
 	test('DOM Operation', () => {
-		enzymeRender(<Main />)
-		// screen.debug()
-		const element = document.querySelector(`.demo-jest-test`)
-		expect(element).toBeTruthy()
-		expect(element.textContent).toBe(`Demo Jest Test`)
+		const wrapper = shallow(<Main />)
+		expect(wrapper.find('.demo-jest-test').length).toEqual(1)
+		expect(enzymeToJson(wrapper)).toMatchSnapshot()
 	})
 })
