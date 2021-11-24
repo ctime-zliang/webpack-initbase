@@ -1,4 +1,7 @@
 module.exports = {
+	/*
+		以层级显示地方式在控制台展示测试结果 
+	 */
 	verbose: true,
 	/*
 		设置 jest 是否自动 mock 所有导入模块 
@@ -105,10 +108,10 @@ module.exports = {
 	coverageReporters: ['json-summary', 'text', 'lcov'],
 	/*
 		指定覆盖率目标
-			- branches: 分支覆盖率 
-			- functions: 函数执行的覆盖率 
-			- lines: 代码函数覆盖率 
-			- statements: 声明的覆盖率 
+			- branches: 分支覆盖率(是否执行到每个判断语句(块))
+			- functions: 函数执行的覆盖率(是否调用到每个函数)
+			- lines: 代码函数覆盖率(是否执行了所有代码行) 
+			- statements: 表达式覆盖率(是否执行到每个表达式) 
 	 */
 	coverageThreshold: {
 		global: {

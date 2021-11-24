@@ -1,5 +1,10 @@
 /* setup 可预置为空 */
 
+import Enzyme from 'enzyme'
+import Adapter from 'enzyme-adapter-react-16'
+
+Enzyme.configure({ adapter: new Adapter() })
+
 // jest.mock('react-router-dom', () => {
 // 	const originalModule = jest.requireActual('react-router-dom')
 // 	return {
