@@ -1,11 +1,10 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`React Demo Test 2 DOM Operation 1`] = `
+exports[`React Test Demo Match Snapshot Demo 1`] = `
 <Fragment>
-  <div
-    className="demo-jest-test"
-  >
-    Demo Jest Test
+  <div>
+    Hello, React Component 
+    <Button />
   </div>
 </Fragment>
 `;
