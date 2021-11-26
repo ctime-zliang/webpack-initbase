@@ -83,7 +83,7 @@ module.exports = {
 	/*
 		设置是否收集覆盖率信息 
 	 */
-	collectCoverage: true,
+	collectCoverage: false,
 	/*
 		测试覆盖率输出目录 
 	 */

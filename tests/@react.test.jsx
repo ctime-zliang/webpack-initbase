@@ -33,14 +33,11 @@ const HelloComponent = () => {
 /********************************************* *********************************************/
 
 describe(`React Test Demo`, () => {
-	test(`Match Snapshot Demo`, () => {
+	test(`React 快照测试`, () => {
 		const wrapper = shallow(<HelloComponent />)
 		expect(enzymeToJson(wrapper)).toMatchSnapshot()
 	})
-})
-
-describe(`React Test Demo`, () => {
-	test(`DOM Operation Demo`, () => {
+	test(`React DOM 操作`, () => {
 		const wrapper = shallow(<Button />)
 		expect(wrapper.find(`button`).hasClass(`btn`)).toBeTruthy()
 	})

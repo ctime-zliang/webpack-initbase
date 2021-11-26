@@ -7,6 +7,7 @@ import '@/assets/style/prefix.less'
 import '@/assets/style/bootstrap.less'
 import decorator from '@/utils/decorator/decorator'
 import { sleep } from '@/utils/utils'
+import { requestByGet, TRequestResponse } from '@/utils/request'
 
 function importLodash() {
 	import('lodash').then(res => {
@@ -33,6 +34,9 @@ async function main() {
 	// importLodash()
 	// decorator()
 	// await wait()
+
+	const res: TRequestResponse = await requestByGet(`http://www.dell-lee.com/react/api/demo.jsons`)
+	console.log(res)
 }
 
 main()
