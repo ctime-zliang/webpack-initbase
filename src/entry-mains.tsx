@@ -8,6 +8,10 @@ import '@/assets/style/bootstrap.less'
 import decorator from '@/utils/decorator/decorator'
 import { sleep } from '@/utils/utils'
 import { requestByGet, TRequestResponse } from '@/utils/request'
+import EventBus from '@/utils/EventBus'
+import ColorTool from '@/utils/Color.Tool'
+
+const colorTool: ColorTool = new ColorTool()
 
 function importLodash() {
 	import('lodash').then(res => {
@@ -24,8 +28,15 @@ async function wait() {
 	console.log(`End Sleep.`)
 }
 
+async function fetchJson() {
+	const res: TRequestResponse = await requestByGet(`http://www.dell-lee.com/react/api/demo.json`)
+	EventBus.emit(`fetchJson`, { ...res })
+}
+
 async function main() {
 	renderReactApp()
+
+	console.log(colorTool.setHex2RGBA(`#ff6600`))
 
 	// console.log(`运行环境: `, process.env.NODE_ENV)
 	// console.log(`运行配置: `, runProfile)
@@ -35,8 +46,11 @@ async function main() {
 	// decorator()
 	// await wait()
 
-	const res: TRequestResponse = await requestByGet(`http://www.dell-lee.com/react/api/demo.jsons`)
-	console.log(res)
+	EventBus.on(`fetchJson`, (res: any) => {
+		console.log(`fetchJson`, res.data)
+	})
+
+	fetchJson()
 }
 
 main()

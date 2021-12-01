@@ -4,10 +4,10 @@ Object.defineProperty(Array.prototype, 'sum', {
 	},
 })
 
-export async function sleep(delay: number = 500): Promise<null> {
+export async function sleep(delay: number = 500, ...args: any): Promise<null> {
 	return new Promise((_, reject) => {
 		window.setTimeout(() => {
-			_(null)
+			_(args)
 		}, delay)
 	})
 }

@@ -5,6 +5,8 @@ import Adapter from 'enzyme-adapter-react-16'
 
 Enzyme.configure({ adapter: new Adapter() })
 
+jest.setTimeout(30000)
+
 // jest.mock('react-router-dom', () => {
 // 	const originalModule = jest.requireActual('react-router-dom')
 // 	return {

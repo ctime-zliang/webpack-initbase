@@ -25,9 +25,9 @@ describe(`Func Mock Test Demo`, () => {
 		runCallback(fn)
 		expect(fn).toBeCalled()
 		// console.log(fn.mock)
-		// /*
-		//     测试: 函数调用次数
-		//  */
+		/*
+		    测试: 函数调用次数
+		 */
 		// expect(func.mock.calls.length).toBe(2)
 	})
 	/*
@@ -36,11 +36,9 @@ describe(`Func Mock Test Demo`, () => {
 	test(`jest.fn().mockImplementationOnce 同步接口返回`, () => {
 		const fn = jest.fn()
 		fn.mockImplementationOnce(() => {
-			console.log(1)
 			return 'First Result'
 		})
 		fn.mockImplementationOnce(() => {
-			console.log(2)
 			return 'Second Result'
 		})
 		runCallback(fn)
@@ -48,9 +46,9 @@ describe(`Func Mock Test Demo`, () => {
 		expect(fn).toBeCalled()
 		// console.log(fn.mock)
 	})
-	test(`Jest Mock Axios`, async () => {
-		axios.get.mockResolvedValue({ textContent: 'hello' })
-		const res = await requestByGet(``)
-		expect(res.data.textContent).toBe('hello')
-	})
+	// test(`Jest Mock Axios`, async () => {
+	// 	axios.get.mockResolvedValue({ textContent: 'hello' })
+	// 	const res = await requestByGet(``)
+	// 	expect(res.data.textContent).toBe('hello')
+	// })
 })
