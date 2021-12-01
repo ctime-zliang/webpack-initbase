@@ -182,7 +182,7 @@ const lessLoader = {
 		},
 		{
 			/*
-				将 css 转换成 AST 
+				将 css 转换成 AST
 			 */
 			loader: `postcss-loader`,
 		},
