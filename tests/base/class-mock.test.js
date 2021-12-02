@@ -1,6 +1,6 @@
-import ColorTool from '../src/utils/Color.Tool'
+import ColorTool from '../../src/utils/Color.Tool'
 
-jest.mock('../src/utils/Color.Tool')
+jest.mock('../../src/utils/Color.Tool')
 
 describe(`Class Mock Demo`, () => {
 	/* 

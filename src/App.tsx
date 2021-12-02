@@ -5,7 +5,7 @@ import '../node_modules/antd/dist/antd.css'
 export default function App() {
 	return (
 		<section>
-			<div>Hello World</div>
+			<div className="wel-wrapper">Hello World</div>
 			<div style={{ maxWidth: '960px' }}>
 				<UserForm />
 			</div>

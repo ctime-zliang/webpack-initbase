@@ -1,0 +1,8 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`JavaScript Test Demo 快照测试 1`] = `
+Object {
+  "id": "234",
+  "name": "LeBron James",
+}
+`;

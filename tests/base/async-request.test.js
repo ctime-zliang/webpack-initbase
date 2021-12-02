@@ -1,4 +1,4 @@
-import { requestByGet } from '../src/utils/request'
+import { requestByGet } from '../../src/utils/request'
 
 describe(`Async Request Test`, () => {
 	/* 

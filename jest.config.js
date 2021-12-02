@@ -83,7 +83,7 @@ module.exports = {
 	/*
 		设置是否收集覆盖率信息 
 	 */
-	collectCoverage: false,
+	collectCoverage: true,
 	/*
 		测试覆盖率输出目录 
 	 */
@@ -91,7 +91,12 @@ module.exports = {
 	/*
 		测试覆盖率收集源(文件/目录) 
 	 */
-	collectCoverageFrom: ['./src/**/*.ts?(x)'],
+	collectCoverageFrom: [
+		// './src/**/*.{ts,tsx}',
+		// !'./src/**/*.test.{ts,tsx}',
+		'./tests/**/*.{js,jsx}',
+		'!./tests/**/*.test.{js,jsx}',
+	],
 	/* 
 		指定哪种程序确定代码覆盖率
 			'v8' || 'babel'

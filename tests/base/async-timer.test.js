@@ -1,4 +1,4 @@
-import { sleep } from '../src/utils/utils'
+import { sleep } from '../../src/utils/utils'
 
 beforeEach(() => {
 	jest.useFakeTimers()

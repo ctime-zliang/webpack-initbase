@@ -1,0 +1,10 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`React Test Demo React 快照测试 1`] = `
+<Fragment>
+  <div>
+    Hello, React Component 
+    <Button />
+  </div>
+</Fragment>
+`;
