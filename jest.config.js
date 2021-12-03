@@ -1,5 +1,9 @@
 module.exports = {
 	/*
+		根目录 
+	 */
+	rootDir: './',
+	/*
 		以层级显示地方式在控制台展示测试结果 
 	 */
 	verbose: true,
@@ -42,15 +46,19 @@ module.exports = {
 	/*
 		测试忽略文件 
 	 */
-	testPathIgnorePatterns: ['./webpack/dist/', './node_modules/'],
+	testPathIgnorePatterns: [
+		'webpack/dist', 
+		'node_modules',
+		'tests/@reference'
+	],
 	/* 
 		watch 忽略目录
 	 */
-	watchPathIgnorePatterns: ['./webpack/dist/'],
+	watchPathIgnorePatterns: ['webpack/dist'],
 	/* 
 		测试对象扫描规则
 	 */
-	testRegex: 'tests/.*\\.test\\.(js|jsx)$',
+	testRegex: './tests/.*\\.(test|spec)\\.(js|jsx)$',
 	/*********************************** ***********************************/
 	/*********************************** ***********************************/
 	/*********************************** ***********************************/
@@ -92,10 +100,7 @@ module.exports = {
 		测试覆盖率收集源(文件/目录) 
 	 */
 	collectCoverageFrom: [
-		// './src/**/*.{ts,tsx}',
-		// !'./src/**/*.test.{ts,tsx}',
-		'./tests/**/*.{js,jsx}',
-		'!./tests/**/*.test.{js,jsx}',
+		'tests/*.js',
 	],
 	/* 
 		指定哪种程序确定代码覆盖率
@@ -106,7 +111,7 @@ module.exports = {
 		测试覆盖率忽略目录 
 			过滤无需统计的代码范围
 	 */
-	coveragePathIgnorePatterns: ['node_modules', 'test-config', 'interfaces', './src/types'],
+	coveragePathIgnorePatterns: ['node_modules', 'test-config', 'interfaces', 'src/types'],
 	/*
 		测试覆盖率报告规则
 	 */
