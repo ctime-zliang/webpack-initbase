@@ -18,7 +18,7 @@ module.exports = {
 	/*
 		运行前置启动器 
 	 */
-	setupFiles: ['./config/jest-setup/setup.js'],
+	setupFiles: ['./config/jest/setup/setup.js'],
 	/*********************************** ***********************************/
 	/*********************************** ***********************************/
 	/*********************************** ***********************************/
@@ -27,8 +27,8 @@ module.exports = {
 	 */
 	moduleNameMapper: {
 		'^@/(.*)$': '<rootDir>/src/$1',
-		'.*\\.(css|less|styl|scss|sass)$': '<rootDir>/config/jest-mocks/cssModule.js',
-		'.*\\.(jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$': '<rootDir>/config/jest-mocks/image.js',
+		'.*\\.(css|less|styl|scss|sass)$': '<rootDir>/config/jest/mocks/cssModule.js',
+		'.*\\.(jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$': '<rootDir>/config/jest/mocks/image.js',
 	},
 	/*
 		文件名后缀缺省预置 
@@ -58,7 +58,8 @@ module.exports = {
 	/* 
 		测试对象扫描规则
 	 */
-	testRegex: './tests/.*\\.(test|spec)\\.(js|jsx)$',
+	// testRegex: './tests/.*\\.(test|spec)\\.(js|jsx)$',
+	testRegex: './tests/.*\\.(test|spec)\\.(js|jsx)?$',
 	/*********************************** ***********************************/
 	/*********************************** ***********************************/
 	/*********************************** ***********************************/
@@ -78,8 +79,8 @@ module.exports = {
 	 */
 	transform: {
 		'^.+\\.(js|jsx|mjs|ts|tsx)$': '<rootDir>/node_modules/babel-jest',
-		'^.+\\.(css|less)$': '<rootDir>/config/jest-setup/cssTransform.js',
-		'^(?!.*\\.(js|jsx|mjs|ts|tsx|css|json)$)': '<rootDir>/config/jest-setup/fileTransform.js',
+		'^.+\\.(css|less)$': '<rootDir>/config/jest/setup/cssTransform.js',
+		'^(?!.*\\.(js|jsx|mjs|ts|tsx|css|json)$)': '<rootDir>/config/jest/setup/fileTransform.js',
 	},
 	/*
 		在转换时需要被忽略的文件目录 
@@ -96,22 +97,32 @@ module.exports = {
 		测试覆盖率输出目录 
 	 */
 	coverageDirectory: './coverage',
-	/*
-		测试覆盖率收集源(文件/目录) 
-	 */
-	collectCoverageFrom: [
-		'tests/*.js',
-	],
 	/* 
 		指定哪种程序确定代码覆盖率
 			'v8' || 'babel'
 	 */
 	coverageProvider: 'babel',
 	/*
+		测试覆盖率收集源(文件/目录) 
+	 */
+	collectCoverageFrom: [
+		'src/**/*.{js,jsx,mjs,ts,tsx}'
+	],
+	/*
 		测试覆盖率忽略目录 
 			过滤无需统计的代码范围
 	 */
-	coveragePathIgnorePatterns: ['node_modules', 'test-config', 'interfaces', 'src/types'],
+	coveragePathIgnorePatterns: [
+		'node_modules',		
+		'config',
+		'src/types',
+		/* ... */
+		'webpack/',
+		/* ... */
+		'src/modules',
+		'src/public',
+		'src/template'
+	],
 	/*
 		测试覆盖率报告规则
 	 */
