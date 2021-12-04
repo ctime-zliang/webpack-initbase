@@ -46,11 +46,7 @@ module.exports = {
 	/*
 		测试忽略文件 
 	 */
-	testPathIgnorePatterns: [
-		'webpack/dist', 
-		'node_modules',
-		'tests/@reference'
-	],
+	testPathIgnorePatterns: ['webpack/dist', 'node_modules', 'tests/@reference'],
 	/* 
 		watch 忽略目录
 	 */
@@ -105,15 +101,13 @@ module.exports = {
 	/*
 		测试覆盖率收集源(文件/目录) 
 	 */
-	collectCoverageFrom: [
-		'src/**/*.{js,jsx,mjs,ts,tsx}'
-	],
+	collectCoverageFrom: ['src/**/*.{js,jsx,mjs,ts,tsx}'],
 	/*
 		测试覆盖率忽略目录 
 			过滤无需统计的代码范围
 	 */
 	coveragePathIgnorePatterns: [
-		'node_modules',		
+		'node_modules',
 		'config',
 		'src/types',
 		/* ... */
@@ -121,7 +115,7 @@ module.exports = {
 		/* ... */
 		'src/modules',
 		'src/public',
-		'src/template'
+		'src/template',
 	],
 	/*
 		测试覆盖率报告规则
