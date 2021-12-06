@@ -55,4 +55,5 @@ export default () => {
 	const myClass: MyClass = new MyClass()
 	console.log(myClass.add(1, 2))
 	console.log(myClass)
+	return true
 }

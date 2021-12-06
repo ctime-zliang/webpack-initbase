@@ -88,7 +88,7 @@ module.exports = {
 	/*
 		设置是否收集覆盖率信息 
 	 */
-	collectCoverage: true,
+	// collectCoverage: true,
 	/*
 		测试覆盖率输出目录 
 	 */
@@ -115,7 +115,7 @@ module.exports = {
 		/* ... */
 		'src/modules',
 		'src/public',
-		'src/template',
+		'src/entry-mains.tsx',
 	],
 	/*
 		测试覆盖率报告规则

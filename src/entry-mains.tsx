@@ -13,7 +13,7 @@ import ColorTool from '@/utils/Color.Tool'
 
 const colorTool: ColorTool = new ColorTool()
 
-function importLodash() {
+export function importLodash() {
 	import('lodash').then(res => {
 		console.log(res)
 	})
@@ -23,7 +23,7 @@ function renderReactApp() {
 	ReactDOM.render(<App />, document.getElementById('app'))
 }
 
-async function wait() {
+export async function wait() {
 	await sleep(2000)
 	console.log(`End Sleep.`)
 }
@@ -31,9 +31,10 @@ async function wait() {
 async function fetchJson() {
 	const res: TRequestResponse = await requestByGet(`http://www.dell-lee.com/react/api/demo.json`)
 	EventBus.emit(`fetchJson`, { ...res })
+	return res
 }
 
-async function main() {
+export async function main() {
 	renderReactApp()
 
 	console.log(colorTool.setHex2RGBA(`#ff6600`))
@@ -51,6 +52,7 @@ async function main() {
 	})
 
 	fetchJson()
+	return true
 }
 
 main()
