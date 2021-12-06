@@ -46,7 +46,7 @@ module.exports = {
 	/*
 		测试忽略文件 
 	 */
-	testPathIgnorePatterns: ['webpack/dist', 'node_modules', 'tests/@reference'],
+	testPathIgnorePatterns: ['webpack/dist', 'node_modules', 'tests/@reference', 'tests/@puppeteer'],
 	/* 
 		watch 忽略目录
 	 */
@@ -60,9 +60,13 @@ module.exports = {
 	/*********************************** ***********************************/
 	/*********************************** ***********************************/
 	/*
-		定义测试环境: node/jsdom 
+		定义测试环境: 
+			node
+			jsdom
+			[path-to-js-file]
 	 */
 	testEnvironment: 'jsdom',
+	// testEnvironment: `./puppeteer/puppeteer-environment.js`,
 	/*
 		jsdom 测试环境测试地址, 反应在 location.herf 属性上 
 	 */
