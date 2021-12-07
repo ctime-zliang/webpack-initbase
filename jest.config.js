@@ -5,13 +5,13 @@ const base = () => {
 		automock: false,
 		clearMocks: false,
 		setupFiles: ['./config/jest/setup/setup.js'],
-		preset: 'jest-puppeteer',
 		// dependencyExtractor: {},
 		errorOnDeprecated: true,
 		testEnvironment: 'jsdom',
 		testURL: 'http://localhost',
 	}
 	if (process.argv.includes('--puppeteer=true')) {
+		profile.preset = 'jest-puppeteer'
 		delete profile.testEnvironment
 		delete profile.setupFiles
 	}
@@ -19,7 +19,7 @@ const base = () => {
 }
 
 const testRule = () => {
-	const _testPathIgnorePatterns = ['webpack/dist', 'node_modules', 'puppeteer', 'tests/@reference']
+	const _testPathIgnorePatterns = ['webpack/dist', 'node_modules', 'e2e', 'tests/@reference']
 	let testPathIgnorePatterns = []
 	let testRegex = './tests/.*\\.(test|spec)\\.(js|jsx)?$'
 	if (process.argv.includes('--puppeteer=true')) {
