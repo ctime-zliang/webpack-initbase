@@ -1,5 +1,3 @@
-const puppeteer = require('puppeteer')
-
 const timeout = process.env.SLOWMO ? 30000 : 10000
 
 const TEST_URL = `http://www.baidu.com/`

@@ -1,32 +1,47 @@
+const utils = require('./config/utils')
+
 const base = () => {
 	const profile = {
 		rootDir: './',
 		verbose: true,
 		automock: false,
 		clearMocks: false,
-		setupFiles: ['./config/jest/setup/setup.js'],
 		// dependencyExtractor: {},
 		errorOnDeprecated: true,
-		testEnvironment: 'jsdom',
-		testURL: 'http://localhost',
 	}
-	if (process.argv.includes('--puppeteer=true')) {
+	if (utils.puppeteerCustomOnly()) {
+		profile.globalSetup = './config/puppeteer/setup.js'
+		profile.globalTeardown = './config/puppeteer/teardown.js'
+		profile.testEnvironment = './config/puppeteer/puppeteer-environment.js'
+	} else if (utils.puppeteerOnly()) {
+		/*
+			使用 jest-puppteer 预设来初始化 jest puppeteer 环境及基础配置
+		 */
 		profile.preset = 'jest-puppeteer'
-		delete profile.testEnvironment
-		delete profile.setupFiles
+	} else {
+		profile.setupFiles = ['./config/jest/setup/setup.js']
+		profile.testEnvironment = 'jsdom'
+		profile.testURL = 'http://localhost'
 	}
 	return profile
 }
 
 const testRule = () => {
-	const _testPathIgnorePatterns = ['webpack/dist', 'node_modules', 'e2e', 'tests/@reference']
+	const TEST_PATH_IGNORE_PATTERNS = [
+		'webpack/dist',
+		'node_modules',
+		/* ... */
+		'e2e',
+		'tests/@reference',
+	]
 	let testPathIgnorePatterns = []
-	let testRegex = './tests/.*\\.(test|spec)\\.(js|jsx)?$'
-	if (process.argv.includes('--puppeteer=true')) {
-		testPathIgnorePatterns = [_testPathIgnorePatterns[0], _testPathIgnorePatterns[1], 'tests']
+	let testRegex = undefined
+	if (utils.puppeteerOnly() || utils.puppeteerCustomOnly()) {
+		testPathIgnorePatterns = [TEST_PATH_IGNORE_PATTERNS[0], TEST_PATH_IGNORE_PATTERNS[1], 'tests']
 		testRegex = './e2e/.*\\.(test|spec)\\.(js|jsx)?$'
 	} else {
-		testPathIgnorePatterns = [..._testPathIgnorePatterns]
+		testPathIgnorePatterns = [...TEST_PATH_IGNORE_PATTERNS]
+		testRegex = './tests/.*\\.(test|spec)\\.(js|jsx)?$'
 	}
 	return {
 		moduleNameMapper: {
@@ -54,7 +69,7 @@ const transofrm = () => {
 }
 
 const coverage = () => {
-	if (process.argv.includes('--puppeteer=true')) {
+	if (utils.puppeteerOnly() || utils.puppeteerCustomOnly()) {
 		return {
 			collectCoverage: false,
 		}

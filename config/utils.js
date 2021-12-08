@@ -1,11 +1,22 @@
 const fs = require('fs')
 const path = require('path')
+const chalk = require('chalk')
 
 const ApplicationDirectory = fs.realpathSync(process.cwd())
 
 module.exports = {
 	resolveDirectory(relativePath) {
 		return path.resolve(ApplicationDirectory, relativePath)
+	},
+	syncReadJsonFile(path, encode = 'utf-8') {
+		try {
+			const fileContent = fs.readFileSync(path, encode)
+			return JSON.parse(fileContent)
+		} catch (e) {
+			console.log(`Read JSON File Error`)
+			console.log(e)
+			return null
+		}
 	},
 	timeStamp() {
 		const d = new Date()
@@ -18,6 +29,12 @@ module.exports = {
 	},
 	clientOnly() {
 		return process.argv.includes('client-only=true')
+	},
+	puppeteerOnly() {
+		return process.argv.includes('--puppeteer=true')
+	},
+	puppeteerCustomOnly() {
+		return process.argv.includes('--puppeteer=true') && process.argv.includes('--user-custom=true')
 	},
 	createLoaderResult(string, isEsm = false) {
 		const prefix = isEsm ? 'export default ' : 'module.exports = '

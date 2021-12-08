@@ -2,6 +2,7 @@
 
 import Enzyme from 'enzyme'
 import Adapter from 'enzyme-adapter-react-16'
+import utils from '../../utils'
 
 Enzyme.configure({ adapter: new Adapter() })
 
@@ -31,16 +32,18 @@ jest.setTimeout(30000)
 // 	}
 // })
 
-Object.defineProperty(window, 'matchMedia', {
-	writable: true,
-	value: jest.fn().mockImplementation(query => ({
-		matches: false,
-		media: query,
-		onchange: null,
-		addListener: jest.fn(),
-		removeListener: jest.fn(),
-		addEventListener: jest.fn(),
-		removeEventListener: jest.fn(),
-		dispatchEvent: jest.fn(),
-	})),
-})
+if (!utils.puppeteerOnly()) {
+	Object.defineProperty(window, 'matchMedia', {
+		writable: true,
+		value: jest.fn().mockImplementation(query => ({
+			matches: false,
+			media: query,
+			onchange: null,
+			addListener: jest.fn(),
+			removeListener: jest.fn(),
+			addEventListener: jest.fn(),
+			removeEventListener: jest.fn(),
+			dispatchEvent: jest.fn(),
+		})),
+	})
+}
