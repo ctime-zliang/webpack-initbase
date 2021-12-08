@@ -15,7 +15,7 @@ export default new (class EventBus {
 	public on(eventName: string, callback: Function, spaceName: string = DEFAULT_NS): void {
 		const handlers: { [key: string]: any } = this.handlers
 		const sn: string = spaceName || DEFAULT_NS
-		if (!eventName || typeof callback !== 'function') {
+		if (!eventName || typeof eventName !== 'string' || typeof callback !== 'function') {
 			return
 		}
 		if (!handlers[sn] || !handlers[sn][eventName]) {
@@ -27,7 +27,7 @@ export default new (class EventBus {
 	public async emit(eventName: string, params: any, spaceName: string = DEFAULT_NS): Promise<void> {
 		const handlers: { [key: string]: any } = this.handlers
 		const sn: string = spaceName || DEFAULT_NS
-		if (!eventName || !handlers[sn]) {
+		if (!eventName || typeof eventName !== 'string' || !handlers[sn]) {
 			return
 		}
 		const length = (handlers[sn][eventName] || []).length
@@ -39,7 +39,7 @@ export default new (class EventBus {
 	public subscribe(eventName: string, callback: Function, spaceName: string = DEFAULT_NS): void {
 		const handlers: { [key: string]: any } = this.handlers
 		const sn: string = spaceName || DEFAULT_NS
-		if (!eventName || typeof callback !== 'function') {
+		if (!eventName || typeof eventName !== 'string' || typeof callback !== 'function') {
 			return
 		}
 		if (!handlers[sn]) {
@@ -53,8 +53,18 @@ export default new (class EventBus {
 		const sn: string = spaceName || DEFAULT_NS
 		return new Promise(async (_, reject) => {
 			try {
-				if (!eventName || !handlers[sn] || !handlers[sn][eventName]) {
-					_({ error: new Error(`Invilid Params`), data: null, __arguments: { eventName, params, spaceName: sn } })
+				let errorMsg: RangeError | null = null
+				if (!eventName || typeof eventName !== 'string') {
+					errorMsg = new Error(`Illegal parameter`)
+				}
+				if (!handlers[sn]) {
+					errorMsg = new Error(`Unknown namespace`)
+				}
+				if (!handlers[sn][eventName] || typeof handlers[sn][eventName] !== 'function') {
+					errorMsg = new Error(`Unknown listening function`)
+				}
+				if (errorMsg) {
+					_({ error: errorMsg, data: null, __arguments: { eventName, params, spaceName: sn } })
 					return
 				}
 				const fn = handlers[sn][eventName]
@@ -69,7 +79,7 @@ export default new (class EventBus {
 	public clearEvent(eventName: string, spaceName: string = DEFAULT_NS): void {
 		const handlers: { [key: string]: any } = this.handlers
 		const sn: string = spaceName || DEFAULT_NS
-		if (!eventName || !handlers[sn]) {
+		if (!eventName || typeof eventName !== 'string' || !handlers[sn]) {
 			return
 		}
 		delete handlers[sn][eventName]
