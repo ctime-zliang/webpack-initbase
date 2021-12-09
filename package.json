@@ -7,7 +7,8 @@
 		"doc": "doc"
 	},
 	"scripts": {
-		"gits:precommit": "lint-staged",
+		"prepare": "husky install",
+		"gits:precommit": "echo 'git commit trigger husky pre-commit hook' ",
 		"husky:install": "husky install",
 		"prettier:write-all": "prettier --write .",
 		"prettier:check-all": "prettier --check .",
@@ -18,11 +19,6 @@
 		"jest:coverage": "cross-env NODE_ENV=test jest --coverage",
 		"jest:puppeteer": "cross-env NODE_ENV=test jest --puppeteer=true",
 		"jest:puppeteer-custom": "cross-env NODE_ENV=test jest --puppeteer=true --user-custom=true"
-	},
-	"husky": {
-		"hooks": {
-			"pre-commit": "echo 'git commit trigger husky pre-commit hook' "
-		}
 	},
 	"lint-staged": {
 		"*.{js, ts, tsx, jsx}": [

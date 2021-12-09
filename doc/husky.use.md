@@ -2,6 +2,12 @@
 
 #### 使用 husky
 
+- 清楚历史 husky 设置
+
+  ```
+  git config  --unset core.hookspath
+  ```
+
 -   安装 husky
 
     ```
@@ -19,11 +25,11 @@
 -   针对某一个 git hook 增加一条指令
 
     ```
-    npx husky add .husky/[git-hook name] [script name in package.json]
+    npx husky add .husky/[git-hook name] "npm run [script name in package.json]"
     
     
     // 此命令将在 <rootDir>/.husky 下新建一条 pre-commit shell 脚本
-    npx husky add .husky/pre-commit "npm run git:precommit"
+    npx husky add .husky/pre-commit "npm run gits:precommit"
     ```
 
 -   增加 lint-stage 指令
