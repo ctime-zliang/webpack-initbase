@@ -20,4 +20,3 @@ Only a test project....to me.
 -   Prettier
 -   Less
 -   Eslint
-
