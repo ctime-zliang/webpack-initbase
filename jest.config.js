@@ -19,9 +19,9 @@ const base = () => {
 		 */
 		profile.preset = 'jest-puppeteer'
 	} else {
-		profile.setupFiles = ['./config/jest/setup/setup.js']
-		profile.testEnvironment = 'jsdom'
-		profile.testURL = 'http://localhost'
+		profile.setupFiles = ['./config/jest/setup/setup.js'];
+		profile.testEnvironment = 'jsdom';
+		profile.testURL = 'http://localhost';
 	}
 	return profile
 }
