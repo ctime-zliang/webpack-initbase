@@ -7,7 +7,7 @@
 		"doc": "doc"
 	},
 	"scripts": {
-		"git:precommit": "lint-staged",
+		"gits:precommit": "lint-staged",
 		"husky:install": "husky install",
 		"prettier:write-all": "prettier --write .",
 		"prettier:check-all": "prettier --check .",
@@ -21,13 +21,12 @@
 	},
 	"husky": {
 		"hooks": {
-			"pre-commit": "git:precommit"
+			"pre-commit": "echo 'git commit trigger husky pre-commit hook' "
 		}
 	},
 	"lint-staged": {
 		"*.{js, ts, tsx, jsx}": [
-			"prettier:write-all",
-			"git add ."
+			"prettier:write-all"
 		]
 	},
 	"repository": {
