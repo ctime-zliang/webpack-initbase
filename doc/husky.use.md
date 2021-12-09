@@ -30,14 +30,14 @@
 
     ```
     // 此命令将在 <rootDir>/.husky 下新建一条 pre-commit shell 脚本
-    npx husky add .husky/pre-commit "npm run prettier:write-all"
+    npx husky add .husky/pre-commit "npm run tsc:check"
 
     // 此命令将在 <rootDir>/.husky/ 下增加一个名称为 pre-commit 的无扩展名文件
     // 如果 add 命令无法正常生成该文件, 手抖创建即可(文件内容如下)
     #!/bin/sh
     . "$(dirname "$0")/_/husky.sh"
 
-    npm run prettier:write-all
+    npm run tsc:check
     ```
 
 #### 使用 lint-stage
@@ -48,8 +48,7 @@
     // 在 package.json 根层级中增加指令
     "lint-staged": {
     	"*.{js, ts, tsx, jsx}": [
-    		"prettier:write-all",
-    		"git add"
+    		"tsc:check"
     	]
     }
     ```
