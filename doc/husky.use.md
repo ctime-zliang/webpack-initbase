@@ -30,6 +30,13 @@
     
     // 此命令将在 <rootDir>/.husky 下新建一条 pre-commit shell 脚本
     npx husky add .husky/pre-commit "npm run gits:precommit"
+    
+    // 此命令将在 <rootDir>/.husky/ 下增加一个名称为 pre-commit 的无扩展名文件
+    // 如果 add 命令无法正常生成该文件, 手抖创建即可(文件内容如下)
+    #!/bin/sh
+    . "$(dirname "$0")/_/husky.sh"
+    
+    npm run gits:precommit
     ```
 
 -   增加 lint-stage 指令
