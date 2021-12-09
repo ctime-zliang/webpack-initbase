@@ -17,7 +17,7 @@ const base = () => {
 		/*
 			使用 jest-puppteer 预设来初始化 jest puppeteer 环境及基础配置
 		 */
-		profile.preset = 'jest-puppeteer'
+		profile.preset = 'jest-puppeteer';
 	} else {
 		profile.setupFiles = ['./config/jest/setup/setup.js'];
 		profile.testEnvironment = 'jsdom';
