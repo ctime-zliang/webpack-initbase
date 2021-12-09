@@ -8,8 +8,8 @@
 	},
 	"scripts": {
 		"prepare": "husky install",
-		"gits:pre-commit": "lint-staged",
 		"husky:install": "husky install",
+		"lint:staged": "lint-staged",
 		"prettier:write-all": "prettier --write .",
 		"prettier:check-all": "prettier --check .",
 		"tsc:check": "tsc --noEmit",
