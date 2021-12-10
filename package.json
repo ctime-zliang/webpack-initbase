@@ -9,7 +9,6 @@
 	"scripts": {
 		"prepare": "husky install",
 		"husky:install": "husky install",
-		"lint:staged": "lint-staged",
 		"prettier:write-all": "prettier --write .",
 		"prettier:check-all": "prettier --check .",
 		"eslint:check-src": "eslint --ext .js,.ts,.jsx,.tsx src",
@@ -21,12 +20,6 @@
 		"jest:coverage": "cross-env NODE_ENV=test jest --coverage",
 		"jest:puppeteer": "cross-env NODE_ENV=test jest --puppeteer=true",
 		"jest:puppeteer-custom": "cross-env NODE_ENV=test jest --puppeteer=true --user-custom=true"
-	},
-	"lint-staged": {
-		"src/**/*.{js, ts, tsx, jsx}": [
-			"eslint:check-src",
-			"tsc:check"
-		]
 	},
 	"repository": {
 		"type": "git",
