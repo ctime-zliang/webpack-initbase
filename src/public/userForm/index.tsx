@@ -13,8 +13,8 @@ const UserFormRoot = () => {
 	return (
 		<Form
 			name="basic"
-			labelCol={{ span: 8 }}
-			wrapperCol={{ span: 16 }}
+			labelCol={{ span: 4 }}
+			wrapperCol={{ span: 12 }}
 			initialValues={{ remember: true }}
 			onFinish={onFinish}
 			onFinishFailed={onFinishFailed}
