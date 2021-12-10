@@ -1,3 +1,10 @@
+.cache
+.husky
+doc
 node_modules
 webpack
 config
+tests
+e2e
+coverage
+*.d.ts

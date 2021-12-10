@@ -9,8 +9,8 @@ export type TRequestResponse = {
 	data: any
 	remote?: any
 }
-export function requestByGet(url: string, data: any = null, options: { [key: string]: any } = {}): Promise<TRequestResponse> {
-	return new Promise(async (_, reject) => {
+export async function requestByGet(url: string, data: any = null, options: { [key: string]: any } = {}): Promise<TRequestResponse> {
+	return new Promise(async _ => {
 		try {
 			axios.defaults.withCredentials = true
 			const sourceRes: AxiosResponse = await axios.get(url, { ...data, ...options })

@@ -48,10 +48,10 @@ export default new (class EventBus {
 		handlers[sn][eventName] = callback
 	}
 
-	public exec(eventName: string, params: any, spaceName: string = DEFAULT_NS): Promise<TRPCResult> {
+	public async exec(eventName: string, params: any, spaceName: string = DEFAULT_NS): Promise<TRPCResult> {
 		const handlers: { [key: string]: any } = this.handlers
 		const sn: string = spaceName || DEFAULT_NS
-		return new Promise(async (_, reject) => {
+		return new Promise(async _ => {
 			try {
 				let errorMsg: RangeError | null = null
 				if (!eventName || typeof eventName !== 'string') {

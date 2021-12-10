@@ -10,7 +10,8 @@
 		postcss-loader 处理完毕后将处理结果传递给下一个 loader 处理
  */
 
-module.exports = api => {
+module.exports = () => {
+	// api
 	return {
 		/* 在 CSS-in-JS 中启用/禁用 PostCSS Parser 支持 */
 		// execute: true,

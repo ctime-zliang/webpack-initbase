@@ -1,15 +1,20 @@
 module.exports = {
 	root: true,
+	parser: '@typescript-eslint/parser',
 	parserOptions: {
-		ecmaVersion: 6,
+		tsconfigRootDir: __dirname,
+		project: './tsconfig.json',
+		createDefaultProgram: true,
+		parser: 'babel-eslint',
+		ecmaVersion: 2018,
 		sourceType: 'module',
-		ecmaFeatures: {},
 	},
 	rules: {
+		'no-var': 'error',
 		'constructor-super': 2,
 		'for-direction': 2,
 		'getter-return': 2,
-		'no-async-promise-executor': 2,
+		// 'no-async-promise-executor': 2,
 		'no-case-declarations': 2,
 		'no-class-assign': 2,
 		'no-compare-neg-zero': 2,
