@@ -10,9 +10,9 @@ const base = () => {
 		errorOnDeprecated: true,
 	}
 	if (utils.puppeteerCustomOnly()) {
-		profile.globalSetup = './config/puppeteer/setup.js'
-		profile.globalTeardown = './config/puppeteer/teardown.js'
-		profile.testEnvironment = './config/puppeteer/puppeteer-environment.js'
+		profile.globalSetup = './config/jest-puppeteer/setup.js'
+		profile.globalTeardown = './config/jest-puppeteer/teardown.js'
+		profile.testEnvironment = './config/jest-puppeteer/puppeteer-environment.js'
 	} else if (utils.puppeteerOnly()) {
 		/*
 			使用 jest-puppteer 预设来初始化 jest puppeteer 环境及基础配置

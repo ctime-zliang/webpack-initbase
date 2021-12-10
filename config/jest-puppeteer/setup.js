@@ -8,7 +8,7 @@ const getJestPuppeteerConfig = require('./get.jest-puppeteer.config')
 
 const DIR = path.join(os.tmpdir(), 'jest_puppeteer_global_setup')
 
-module.exports = async function () {
+module.exports = async () => {
 	console.log(`\n`)
 	console.log(chalk.green('Puppeteer Setup >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>'))
 	const jestPuppeteerConfig = getJestPuppeteerConfig()
