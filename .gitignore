@@ -1,5 +1,6 @@
 .cache
 cache
+.puppeteer.runtime
 coverage
 dist
 node_modules

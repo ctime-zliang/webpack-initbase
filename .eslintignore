@@ -1,5 +1,6 @@
 .cache
 .husky
+.puppeteer.runtime
 doc
 node_modules
 webpack

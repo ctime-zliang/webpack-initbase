@@ -1,5 +1,10 @@
 const utils = require('./config/utils')
 
+/*
+	jest --runInBand
+		使用参数 --runInBand 执行 jest 命令, 即禁用并行测试执行
+ */
+
 const base = () => {
 	const profile = {
 		rootDir: './',
@@ -10,8 +15,18 @@ const base = () => {
 		errorOnDeprecated: true,
 	}
 	if (utils.puppeteerCustomOnly()) {
+		/*
+			每次所有测试执行前需要执行的脚本(测试起始前置脚本)
+		 */
 		profile.globalSetup = './config/jest-puppeteer/setup.js'
+		/*
+			每次所有测试执行结束后需要执行的脚本(测试结束后置脚本) 
+		 */
 		profile.globalTeardown = './config/jest-puppeteer/teardown.js'
+		/* 
+			测试开始前预置环境的执行脚本
+				一个可以实例化的类
+		 */
 		profile.testEnvironment = './config/jest-puppeteer/puppeteer-environment.js'
 	} else if (utils.puppeteerOnly()) {
 		/*
@@ -69,10 +84,9 @@ const transofrm = () => {
 }
 
 const coverage = () => {
+	let collectCoverage = true
 	if (utils.puppeteerOnly() || utils.puppeteerCustomOnly()) {
-		return {
-			collectCoverage: false,
-		}
+		collectCoverage = false
 	}
 	return {
 		coverageDirectory: './coverage',
@@ -98,6 +112,7 @@ const coverage = () => {
 				lines: 90,
 			},
 		},
+		collectCoverage,
 	}
 }
 
@@ -109,7 +124,12 @@ const snapshot = () => {
 
 const extend = () => {
 	return {
+		/* 
+			定义在 globals 中的属性将被写入 jest 运行时的全局对象中, 且不会写入 node 内置的 global 全局对象中
+				例如使用类 const JestEnvironmentNode = require('jest-environment-node') 即可通过 this.global 来访问被定义好的属性
+		 */
 		globals: {
+			__JEST_SETUP__: true,
 			__DEV__: true,
 		},
 	}
