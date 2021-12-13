@@ -6,6 +6,7 @@ const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPl
 const HelloPlugin = require('./user-webpack-plugins/hello-plugins')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const ESLintPlugin = require('eslint-webpack-plugin')
+const ReactRefreshWebpackPlugin = require('@pmmmwh/react-refresh-webpack-plugin')
 const webpack = require('webpack')
 const chalk = require('chalk')
 
@@ -94,9 +95,13 @@ module.exports = mode => {
 			format: `:msg [:bar] ${chalk.green.bold(':percent')} (:elapsed s)`,
 		}),
 		/* 
-			启用热更新
+			启用热重载
 		*/
 		new webpack.HotModuleReplacementPlugin(),
+		/*
+			React 热更新
+		 */
+		new ReactRefreshWebpackPlugin()
 	]
 	if (mode === 'production') {
 		plugins.push(
