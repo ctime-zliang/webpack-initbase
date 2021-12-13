@@ -101,7 +101,7 @@ module.exports = mode => {
 		/*
 			React 热更新
 		 */
-		new ReactRefreshWebpackPlugin()
+		new ReactRefreshWebpackPlugin(),
 	]
 	if (mode === 'production') {
 		plugins.push(
