@@ -18,6 +18,7 @@ const cssLoaderOptions = {
 	/* 在编译后的 url 字符串中前置该 key 值  */
 	// root: `.`
 }
+
 const cssLoaderModuleOptions = {
 	...cssLoaderOptions,
 	modules: {
@@ -104,7 +105,6 @@ const jsxBabelLoader = {
 		},
 	],
 }
-
 const tsxBabelLoader = {
 	test: /\.ts[x]?$/,
 	exclude: /node_modules/,

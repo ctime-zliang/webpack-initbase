@@ -5,7 +5,8 @@ const rules = require('./webpack.rules')
 console.log(`__dirname: `, __dirname)
 console.log(`process.cwd: `, process.cwd())
 
-const webpackDevConfig = {
+const webpackBaseConfig = {
+	name: `client`,
 	target: `web`,
 	/* 
 		启用缓存
@@ -69,4 +70,4 @@ const webpackDevConfig = {
 	},
 }
 
-module.exports = webpackDevConfig
+module.exports = webpackBaseConfig

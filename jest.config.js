@@ -43,7 +43,7 @@ const base = () => {
 
 const testRule = () => {
 	const TEST_PATH_IGNORE_PATTERNS = [
-		'webpack/dist',
+		'webpack',
 		'node_modules',
 		/* ... */
 		'e2e',
