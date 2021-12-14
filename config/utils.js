@@ -36,6 +36,9 @@ module.exports = {
 	puppeteerCustomOnly() {
 		return process.argv.includes('--puppeteer=true') && process.argv.includes('--user-custom=true')
 	},
+	jestCoverage() {
+		return process.argv.includes('--coverage')
+	},
 	createLoaderResult(string, isEsm = false) {
 		const prefix = isEsm ? 'export default ' : 'module.exports = '
 		return prefix + string

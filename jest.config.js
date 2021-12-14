@@ -84,7 +84,7 @@ const transofrm = () => {
 }
 
 const coverage = () => {
-	let collectCoverage = true
+	let collectCoverage = utils.jestCoverage()
 	if (utils.puppeteerOnly() || utils.puppeteerCustomOnly()) {
 		collectCoverage = false
 	}
