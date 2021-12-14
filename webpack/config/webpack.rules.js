@@ -196,7 +196,7 @@ const lessLoader = {
 	],
 }
 const lessModuleLoader = {
-	test: /\.module\.lss$/,
+	test: /\.module\.less$/,
 	use: [
 		{
 			loader: MiniCssExtractPlugin.loader,
