@@ -43,7 +43,7 @@ const base = () => {
 
 const testRule = () => {
 	const TEST_PATH_IGNORE_PATTERNS = [
-		'webpack',
+		'dist',
 		'node_modules',
 		/* ... */
 		'e2e',
@@ -52,7 +52,13 @@ const testRule = () => {
 	let testPathIgnorePatterns = []
 	let testRegex = undefined
 	if (utils.puppeteerOnly() || utils.puppeteerCustomOnly()) {
-		testPathIgnorePatterns = [TEST_PATH_IGNORE_PATTERNS[0], TEST_PATH_IGNORE_PATTERNS[1], 'tests']
+		testPathIgnorePatterns = [
+			'dist',
+			'node_modules',
+			/* ... */
+			'tests',
+			'tests/@reference',
+		]
 		testRegex = './e2e/.*\\.(test|spec)\\.(js|jsx)?$'
 	} else {
 		testPathIgnorePatterns = [...TEST_PATH_IGNORE_PATTERNS]
@@ -95,13 +101,8 @@ const coverage = () => {
 		coveragePathIgnorePatterns: [
 			'node_modules',
 			'config',
+			/* ... */
 			'src/types',
-			/* ... */
-			'webpack/',
-			/* ... */
-			'src/modules',
-			'src/public',
-			'src/entry-mains.tsx',
 		],
 		coverageReporters: ['json-summary', 'text', 'lcov'],
 		coverageThreshold: {
@@ -124,10 +125,6 @@ const snapshot = () => {
 
 const extend = () => {
 	return {
-		/* 
-			定义在 globals 中的属性将被写入 jest 运行时的全局对象中, 且不会写入 node 内置的 global 全局对象中
-				例如使用类 const JestEnvironmentNode = require('jest-environment-node') 即可通过 this.global 来访问被定义好的属性
-		 */
 		globals: {
 			__JEST_SETUP__: true,
 			__DEV__: true,
