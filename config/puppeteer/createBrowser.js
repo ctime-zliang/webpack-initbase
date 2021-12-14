@@ -9,6 +9,10 @@ module.exports = async () => {
 		timeout: 30000,
 		dumpio: true,
 		devtools: true,
+		defaultViewport: {
+			width: 1024,
+			height: 720,
+		},
 		args: ['–no-sandbox', '--start-maximized'],
 	})
 	return browser
