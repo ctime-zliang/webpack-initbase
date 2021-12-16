@@ -69,6 +69,20 @@ const webpackBaseConfig = {
 		 */
 		enforceExtension: false,
 	},
+	performance: {
+		hints: `warning`,
+		/*
+			生成文件的最大体积 
+		 */
+		maxAssetSize: 40000000,
+		/*
+			入口起点的最大体积 
+		 */
+		maxEntrypointSize: 60000000,
+		// assetFilter(assetFilename) {
+		// 	return !(/\.map$/.test(assetFilename))
+		// },
+	},
 	stats,
 }
 
