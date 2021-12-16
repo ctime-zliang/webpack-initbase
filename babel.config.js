@@ -114,7 +114,7 @@ module.exports = api => {
 					libraryName: 'antd',
 					/* 
 						定义样式导入规则
-							- true: 模块化导入 js 和 css/less/sass 源文件
+							- true: 模块化导入 js 和 css/less/scss/sass 源文件
 							- css: 模块化导入 js 和 css, 库预先内置的 css 文件将原样导入
 							- <Function>: 返回 true 时导入, 否则过滤当前文件
 					 */

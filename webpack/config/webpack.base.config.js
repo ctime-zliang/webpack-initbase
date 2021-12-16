@@ -18,15 +18,15 @@ const webpackBaseConfig = {
 	/* 
         入口配置
      */
-	entry: utils.resolveDirectory(`./src/entry-mains.tsx`),
-	// entry: {
-	// 	// main: utils.resolveDirectory(`./src/main.js`),
-	// 	// index: utils.resolveDirectory(`./src/index.js`),
-	// 	// index: [
-	// 	// 	utils.resolveDirectory(`./src/index.js`),
-	// 	// 	utils.resolveDirectory(`./src/main.js`),
-	// 	// ]
-	// },
+	// entry: utils.resolveDirectory(`./src/entry-mains.tsx`),
+	entry: {
+		main: utils.resolveDirectory(`./src/entry-mains.tsx`),
+		// index: utils.resolveDirectory(`./src/entry-index.tsx`),
+		// index: [
+		// 	utils.resolveDirectory(`./src/index.js`),
+		// 	utils.resolveDirectory(`./src/main.js`),
+		// ]
+	},
 	module: {
 		rules,
 	},

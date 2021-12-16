@@ -101,13 +101,25 @@ module.exports = {
 				reuseExistingChunk: true,
 				enforce: true,
 			},
+			/*
+				抽离 src/assets/style 中的公共样式到独立的文件 
+			 */
+			public: {
+				test: path.resolve('src/assets/style'),
+				// test: /\/src\/assets\/style\/*.(css|scss|sass|less)$/,
+				name: `style`,
+				chunks: `all`,
+				priority: -7,
+				reuseExistingChunk: true,
+				enforce: true,
+			},
 			// react: {
 			// 	test(module) {
 			// 		return /react/.test(module.context)
 			// 	},
 			// 	name: `react`,
 			// 	chunks: `all`,
-			// 	priority: -8
+			// 	priority: -6
 			// }
 		},
 	},
