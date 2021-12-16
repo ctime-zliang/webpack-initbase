@@ -1,6 +1,7 @@
 const path = require('path')
 const utils = require('../../config/utils')
 const rules = require('./webpack.rules')
+const stats = require('./webpack.stats')
 
 console.log(`__dirname: `, __dirname)
 console.log(`process.cwd: `, process.cwd())
@@ -68,6 +69,7 @@ const webpackBaseConfig = {
 		 */
 		enforceExtension: false,
 	},
+	stats,
 }
 
 module.exports = webpackBaseConfig
