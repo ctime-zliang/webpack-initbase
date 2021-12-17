@@ -83,6 +83,10 @@ const webpackBaseConfig = {
 		// 	return !(/\.map$/.test(assetFilename))
 		// },
 	},
+	/*
+		优化配置 
+	 */
+	optimization: { ...webpackOptimization },
 	stats,
 }
 

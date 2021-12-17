@@ -26,10 +26,6 @@ const webpackDevConfig = {
 	},
 	devServer: webpackDevServerConfig,
 	plugins: [...webpackPlugins(`production`)],
-	/*
-		优化配置 
-	 */
-	optimization: { ...webpackOptimization },
 }
 
 module.exports = merge(webpackDevConfig, webpackBaseConfig)

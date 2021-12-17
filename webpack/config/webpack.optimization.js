@@ -1,5 +1,6 @@
 const path = require('path')
 const UglifyjsWebpackPlugin = require('uglifyjs-webpack-plugin')
+const { ESBuildMinifyPlugin } = require('esbuild-loader')
 
 module.exports = {
 	/*
@@ -10,6 +11,13 @@ module.exports = {
 		启用压缩
 	*/
 	minimizer: [
+		/*
+			启用 ESBuild 代码压缩 
+		 */
+		new ESBuildMinifyPlugin({
+			target: `es2018`,
+			minify: true,
+		}),
 		/*
 			启用 uglifyjs-webpack-plugin 插件压缩
 				仅配置 webpack.mode === 'production' 时有效
