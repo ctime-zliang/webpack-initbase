@@ -4,7 +4,6 @@ const utils = require('../../config/utils')
 const webpackPlugins = require('./webpack.plugins')
 const webpackBaseConfig = require('./webpack.base.config')
 const webpackDevServerConfig = require('./webpack.dev-server.config')
-const webpackOptimization = require('./webpack.optimization')
 
 const webpackDevConfig = {
 	mode: `production`,

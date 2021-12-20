@@ -1,5 +1,7 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
+import jQuery from 'jquery'
+import $ from 'jquery'
 import App from '@/App'
 import runProfile from '@/config/run.ini'
 import log2xPng from '@/assets/images/log.2x.png'
@@ -29,6 +31,7 @@ async function fetchJson() {
 }
 
 export async function main() {
+	console.log(jQuery, $)
 	renderReactApp()
 
 	console.log(`运行环境: `, process.env.NODE_ENV)

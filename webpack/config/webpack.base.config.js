@@ -1,7 +1,9 @@
 const path = require('path')
 const utils = require('../../config/utils')
-const rules = require('./webpack.rules')
-const stats = require('./webpack.stats')
+const webpackRules = require('./webpack.rules')
+const webpackStats = require('./webpack.stats')
+const webpackExternals = require('./webpack.externals')
+const webpackOptimization = require('./webpack.optimization')
 
 console.log(`__dirname: `, __dirname)
 console.log(`process.cwd: `, process.cwd())
@@ -29,7 +31,7 @@ const webpackBaseConfig = {
 		// ]
 	},
 	module: {
-		rules,
+		rules: webpackRules,
 	},
 	/*
 		定义 loader 的引入目录范围 
@@ -86,8 +88,9 @@ const webpackBaseConfig = {
 	/*
 		优化配置 
 	 */
-	optimization: { ...webpackOptimization },
-	stats,
+	optimization: webpackOptimization,
+	stats: webpackStats,
+	externals: webpackExternals,
 }
 
 module.exports = webpackBaseConfig
