@@ -7,7 +7,6 @@ const webpackDevServerConfig = require('./webpack.dev-server.config')
 
 const webpackDevConfig = {
 	mode: `production`,
-	target: `web`,
 	/* 
         出口配置
 			1. 多入口单出口时, 即报错: Multiple chunks emit assets to the same filename ${filename}
