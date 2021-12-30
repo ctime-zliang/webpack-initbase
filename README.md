@@ -1,22 +1,27 @@
 # webpack-initbase
 
-Only a test project....to me.
+一个用于测试 webpack 的测试项目
 
-> At present, this project is mainly developed on Windows OS, so I can't guarantee whether there are problems when compiling on other platforms, such Mac……
+> 基于 Windows 平台的构建、开发和测试，因此可能在别的平台上还存在一些问题
 >
-> Windows: recommend Win10 and above versions.
+> Windows: 推荐 Windows 10 及以上版本
 
-### Features
 
--   Webpack5
--   Babel
--   Esbuild
--   PostCSS
--   Jest(+Enzyme)
--   Puppeteer
--   Typescrtpt
--   Testing-Library
--   Mock
--   Prettier
--   Less
--   Eslint
+
+#### fetch
+
+```
+git clone https://github.com/ctime-zliang/webpack-initbase
+```
+
+
+
+#### usage
+
+```
+// 具体以 package.json 中定义的命令为准
+
+// 运行 webpack
+npm run webpack:*
+```
+
