@@ -12,9 +12,12 @@ const sortKeys = async function (key) {
 			const sourcePkgData = JSON.parse(data)
 			const sourceKeyObject = sourcePkgData[key]
 			const newPkgData = { ...sourcePkgData }
+			const sourceKeys = Object.keys(sourceKeyObject)
 			newPkgData[key] = {}
-			Object.keys(sourceKeyObject)
-				.sort()
+			sourceKeys
+				.sort((a, b) => {
+					return a.localeCompare(b)
+				})
 				.forEach((item, index) => {
 					newPkgData[key][item] = sourceKeyObject[item]
 				})
