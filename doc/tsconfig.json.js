@@ -56,7 +56,7 @@ module.exports = {
 		declarationMap: true,
 		/*
             module 为 'amd' 或 'system' 时, 使用此命令可以将ts文件打包到一个目录下 
-          */
+         */
 		outFile: './',
 		/* 配置输出目录 */
 		outDir: './build',
