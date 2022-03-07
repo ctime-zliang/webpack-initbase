@@ -15,7 +15,7 @@ import EventBus from '@/utils/EventBus'
 import logoImgView from '@/modules/logoImgView'
 
 function importLodash() {
-	import('lodash').then(res => {
+	import('lodash').then((res: any) => {
 		console.log(res)
 	})
 }
@@ -42,7 +42,7 @@ export async function main() {
 	logoImgView()
 	// decorator()
 
-	EventBus.on(`fetchJson`, (res: any) => {
+	EventBus.on(`fetchJson`, (res: any): void => {
 		console.log(`fetchJson`, res)
 	})
 
