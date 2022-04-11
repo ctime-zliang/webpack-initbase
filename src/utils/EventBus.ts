@@ -6,7 +6,7 @@ export type TRPCResult = {
 	__arguments: any
 }
 
-export default new (class EventBus {
+class EventBus {
 	private handlers: { [key: string]: any } = {}
 	constructor() {
 		this.handlers = {}
@@ -18,13 +18,16 @@ export default new (class EventBus {
 		if (!eventName || typeof eventName !== 'string' || typeof callback !== 'function') {
 			return
 		}
-		if (!handlers[sn] || !handlers[sn][eventName]) {
-			handlers[sn] = { [eventName]: [] }
+		if (!handlers[sn]) {
+			handlers[sn] = {}
+		}
+		if (!handlers[sn][eventName] || !handlers[sn][eventName].length) {
+			handlers[sn][eventName] = []
 		}
 		handlers[sn][eventName].push(callback)
 	}
 
-	public async emit(eventName: string, params: any, spaceName: string = DEFAULT_NS): Promise<void> {
+	public async emit(eventName: string, params: any = null, spaceName: string = DEFAULT_NS): Promise<void> {
 		const handlers: { [key: string]: any } = this.handlers
 		const sn: string = spaceName || DEFAULT_NS
 		if (!eventName || typeof eventName !== 'string' || !handlers[sn]) {
@@ -93,4 +96,6 @@ export default new (class EventBus {
 		}
 		handlers[sn] = {}
 	}
-})()
+}
+
+export default new EventBus()
