@@ -19,10 +19,10 @@ class Overlay extends React.Component {
 		document.body.removeChild(this.container)
 	}
 
-	render(): React.ReactNode {
+	render(): React.ReactElement {
 		return ReactDOM.createPortal(
 			<>
-				<div>{this.props.children}</div>
+				<div data-tagitem="OverlayContainer">{this.props.children}</div>
 			</>,
 			this.container
 		)

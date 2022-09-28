@@ -1,12 +1,12 @@
 import React from 'react'
 import { Form, Input, Button, Checkbox } from 'antd'
 
-const UserFormRoot = () => {
-	const onFinish = (values: any) => {
+const UserFormRoot = (): React.ReactElement => {
+	const onFinish = (values: any): void => {
 		console.log('Success:', values)
 	}
 
-	const onFinishFailed = (errorInfo: any) => {
+	const onFinishFailed = (errorInfo: any): void => {
 		console.log('Failed:', errorInfo)
 	}
 
@@ -28,11 +28,11 @@ const UserFormRoot = () => {
 				<Input.Password />
 			</Form.Item>
 
-			<Form.Item name="remember" valuePropName="checked" wrapperCol={{ offset: 8, span: 16 }}>
+			<Form.Item name="remember" valuePropName="checked" wrapperCol={{ offset: 4, span: 16 }}>
 				<Checkbox>Remember me</Checkbox>
 			</Form.Item>
 
-			<Form.Item wrapperCol={{ offset: 8, span: 16 }}>
+			<Form.Item wrapperCol={{ offset: 4, span: 16 }}>
 				<Button type="primary" htmlType="submit">
 					Submit
 				</Button>

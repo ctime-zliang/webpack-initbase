@@ -15,22 +15,22 @@ import EventBus from '@/utils/EventBus'
 import logoImgView from '@/modules/logoImgView'
 
 function importLodash() {
-	import('lodash').then((res: any) => {
+	import('lodash').then((res: any): void => {
 		console.log(res)
 	})
 }
 
-function renderReactApp() {
-	ReactDOM.render(<App />, document.getElementById('app'))
+function renderReactApp(): void {
+	ReactDOM.render(<App />, document.getElementById('reactApp'))
 }
 
-async function fetchJson() {
+async function fetchJson(): Promise<TRequestResponse> {
 	const res: TRequestResponse = await requestByGet(`http://www.dell-lee.com/react/api/demo.json`)
 	EventBus.emit(`fetchJson`, { ...res })
 	return res
 }
 
-export async function main() {
+export async function main(): Promise<boolean> {
 	console.log(jQuery, $)
 	renderReactApp()
 
