@@ -8,12 +8,12 @@ function ReduxView(props: TProps): React.ReactElement {
 			<h3 style={{ marginTop: '1em' }}>Section: redux test</h3>
 			<div>
 				<div>
-					<span>redux store - Count: {count}</span>
-					<span></span>
+					<span>redux store - Count: </span>
+					<span>{count}</span>
 				</div>
 				<div>
-					<span>redux store - TimeStamp: {timeStamp}</span>
-					<span></span>
+					<span>redux store - TimeStamp: </span>
+					<span>{timeStamp}</span>
 				</div>
 			</div>
 			<div>
