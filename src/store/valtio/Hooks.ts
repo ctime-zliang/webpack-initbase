@@ -1,5 +1,5 @@
 import { proxy, useSnapshot } from 'valtio'
-import { valtioStore } from './Store'
+import { valtioStore } from './store'
 
 export const useComparisonThreshold = (): boolean => {
 	const threshold: number = 3

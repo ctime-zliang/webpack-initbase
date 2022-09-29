@@ -1,8 +1,8 @@
 import React from 'react'
 import { useSnapshot } from 'valtio'
 import { Button } from 'antd'
-import { useComparisonThreshold } from '@/store/valtio/Hooks'
-import { valtioStore, valtioAction, TValtioStore } from '@/store/valtio/Store'
+import { useComparisonThreshold } from '@/store/valtio/hooks'
+import { valtioStore, valtioAction, TValtioStore } from '@/store/valtio/store'
 
 function ValtioRoot(props: any): React.ReactElement {
 	const isThan: boolean = useComparisonThreshold()
