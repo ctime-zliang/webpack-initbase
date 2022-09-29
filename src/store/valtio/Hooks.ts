@@ -4,5 +4,5 @@ import { valtioStore } from './store'
 export const useComparisonThreshold = (): boolean => {
 	const THRESHOLD: number = 3
 	const valtioStoreSnapshot = useSnapshot(valtioStore)
-	return valtioStoreSnapshot.counter >= THRESHOLD
+	return valtioStoreSnapshot.count >= THRESHOLD
 }

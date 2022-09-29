@@ -1,16 +1,13 @@
 import { proxy, useSnapshot } from 'valtio'
+import { TValtioStore } from './types'
 
-export type TValtioStore = {
-	counter: number
-	timeStamp: number
-}
 export const valtioStore = proxy<TValtioStore>({
-	counter: 0,
+	count: 0,
 	timeStamp: -1,
 })
 export const valtioAction = {
 	modifyCounter(): void {
-		valtioStore.counter += 1
+		valtioStore.count += 1
 	},
 	modifyTimeStamp(timeStamp: number): void {
 		valtioStore.timeStamp = timeStamp
