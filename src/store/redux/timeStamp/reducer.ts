@@ -9,6 +9,11 @@ const actionTypeReducers: { [key: string]: (state: TStore, actionData: any) => T
 		newState.stamp = actionData.stamp
 		return newState
 	},
+	[ACTION_TYPE.SETTING_BTN_LOADIG]: (state: TStore, actionData: any): TStore => {
+		const newState: TStore = JSON.parse(JSON.stringify(state))
+		newState.isLoading = !!actionData.isLoading
+		return newState
+	},
 }
 
 export const initialState: TStore = createInitialState()

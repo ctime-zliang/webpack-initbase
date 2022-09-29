@@ -2,7 +2,8 @@ import React from 'react'
 import { Button } from 'antd'
 
 function ReduxView(props: TProps): React.ReactElement {
-	const { count, stamp, changeCountAction, changeStampAction } = props
+	const { count, stamp, btnLoading, changeCountAction, changeStampAction } = props
+	const settingBtnLoading: boolean = typeof btnLoading === 'undefined' ? false : !!btnLoading
 	return (
 		<div data-tagitem="reduxView">
 			<h3 style={{ marginTop: '1em' }}>Section: redux test</h3>
@@ -18,7 +19,9 @@ function ReduxView(props: TProps): React.ReactElement {
 			</div>
 			<div>
 				<Button onClick={changeCountAction}>Change Count</Button>
-				<Button onClick={changeStampAction}>Change TimeStamp</Button>
+				<Button loading={settingBtnLoading} onClick={changeStampAction}>
+					Change TimeStamp
+				</Button>
 			</div>
 		</div>
 	)
@@ -29,5 +32,6 @@ type TProps = {
 	stamp: number
 	changeCountAction: (...args: Array<any>) => void
 	changeStampAction: (...args: Array<any>) => void
+	btnLoading?: boolean
 }
 export default ReduxView
