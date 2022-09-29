@@ -6,7 +6,7 @@ import { ACTION_TYPE, TStore } from './types'
 const actionTypeReducers: { [key: string]: (state: TStore, actionData: any) => TStore } = {
 	[ACTION_TYPE.CHANGE_STAMP]: (state: TStore, actionData: any): TStore => {
 		const newState: TStore = JSON.parse(JSON.stringify(state))
-		newState.stamp = actionData.timeStamp
+		newState.stamp = actionData.stamp
 		return newState
 	},
 }
