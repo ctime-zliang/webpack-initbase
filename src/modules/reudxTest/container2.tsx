@@ -5,6 +5,8 @@ import { ACTION_TYPE as timeStamp_ACTION_TYPE } from '@/store/redux/timeStamp/ty
 import ReduxView from './view'
 import { store, TCombineState } from '@/store/redux'
 import { sleep } from '@/utils/utils'
+import { changeCountAction } from '@/store/redux/counter/actions'
+import { changeStampAction } from '@/store/redux/timeStamp/actions'
 
 function ReduxWrapper1(props: TReduxWrapper1Props) {
 	const { count, stamp, btnLoading, changeCountAction, changeStampAction } = props
@@ -34,35 +36,38 @@ const mapStateToProps = (combineState: TCombineState): TReduxWrapper1State => {
 	}
 }
 
-const mapDispatchToProps = (dispatch: any): TReduxWrapper1Dispatch => {
-	return {
-		changeCountAction(params: any): void {
-			console.log(params)
-			dispatch({
-				type: counter_ACTION_TYPE.MODIFY_COUNTER,
-				data: null,
-			})
-		},
-		async changeStampAction(params: any): Promise<void> {
-			console.log(params)
-			dispatch({
-				type: timeStamp_ACTION_TYPE.SETTING_BTN_LOADIG,
-				data: { isLoading: true },
-			})
-			await sleep(1500)
-			dispatch({
-				type: timeStamp_ACTION_TYPE.CHANGE_STAMP,
-				data: { stamp: new Date().getTime() },
-			})
-			dispatch({
-				type: timeStamp_ACTION_TYPE.SETTING_BTN_LOADIG,
-				data: { isLoading: false },
-			})
-		},
-	}
-}
+// const mapDispatchToProps = (dispatch: any): TReduxWrapper1Dispatch => {
+// 	return {
+// 		changeCountAction(params: any): void {
+// 			console.log(params)
+// 			dispatch({
+// 				type: counter_ACTION_TYPE.MODIFY_COUNTER,
+// 				data: null,
+// 			})
+// 		},
+// 		async changeStampAction(params: any): Promise<void> {
+// 			console.log(params)
+// 			dispatch({
+// 				type: timeStamp_ACTION_TYPE.SETTING_BTN_LOADIG,
+// 				data: { isLoading: true },
+// 			})
+// 			await sleep(1500)
+// 			dispatch({
+// 				type: timeStamp_ACTION_TYPE.CHANGE_STAMP,
+// 				data: { stamp: new Date().getTime() },
+// 			})
+// 			dispatch({
+// 				type: timeStamp_ACTION_TYPE.SETTING_BTN_LOADIG,
+// 				data: { isLoading: false },
+// 			})
+// 		},
+// 	}
+// }
 
-const ReduxContainer2 = connect(mapStateToProps, mapDispatchToProps)(ReduxWrapper1)
+const ReduxContainer2 = connect(mapStateToProps, {
+	changeCountAction,
+	changeStampAction,
+})(ReduxWrapper1)
 
 const ReduxContainer2App = (): React.ReactElement => {
 	return (
