@@ -21,7 +21,7 @@ export const changeStampAction = (params: any): ((dispatch: (a: TStoreCommonActi
 			data: { isLoading: false },
 		})
 		/**
-		 * 派发其他 store 模块中的 action
+		 * 派发其他 store 模块中的 action-type
 		 */
 		dispatch({
 			type: counter_ACTION_TYPE.MODIFY_COUNTER,
