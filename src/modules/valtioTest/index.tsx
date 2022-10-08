@@ -1,11 +1,12 @@
-import React from 'react'
-import { useSnapshot } from 'valtio'
+import React, { useEffect, useRef } from 'react'
+import { useSnapshot, subscribe } from 'valtio'
 import { Button } from 'antd'
 import { useComparisonThreshold } from '@/store/valtio/hooks'
 import { valtioStore, valtioAction } from '@/store/valtio/store'
 import { TValtioStore } from '@/store/valtio/types'
 
 function ValtioRoot(props: any): React.ReactElement {
+	const subscribeHandler: { current: any } = useRef<any>(null)
 	const isThan: boolean = useComparisonThreshold()
 	const valtioStoreSnapshot: TValtioStore = useSnapshot(valtioStore)
 	const changeCountAction = (): void => {
@@ -14,6 +15,16 @@ function ValtioRoot(props: any): React.ReactElement {
 	const changeTimeStampAction = (): void => {
 		valtioAction.modifyTimeStamp(new Date().getTime())
 	}
+
+	useEffect((): (() => void) => {
+		subscribeHandler.current = subscribe(valtioStore, (modifies: Array<Array<any>>): void => {
+			console.log(modifies)
+		})
+		return (): void => {
+			subscribeHandler.current()
+		}
+	}, [])
+
 	return (
 		<div data-tagitem="valtioRoot">
 			<h3 style={{ marginTop: '1em' }}>Section: valtio test</h3>
