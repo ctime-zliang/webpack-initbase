@@ -1,12 +1,14 @@
 import React, { useEffect, useRef } from 'react'
 import { useSnapshot, subscribe } from 'valtio'
+import { watch } from 'valtio/utils'
 import { Button } from 'antd'
 import { useComparisonThreshold } from '@/store/valtio/hooks'
 import { valtioStore, valtioAction } from '@/store/valtio/store'
 import { TValtioStore } from '@/store/valtio/types'
 
 function ValtioRoot(props: any): React.ReactElement {
-	const subscribeHandler: { current: any } = useRef<any>(null)
+	const valtioSubscribeHandler: { current: any } = useRef<any>(null)
+	const valtioWatchHandler: { current: any } = useRef<any>(null)
 	const isThan: boolean = useComparisonThreshold()
 	const valtioStoreSnapshot: TValtioStore = useSnapshot(valtioStore)
 	const changeCountAction = (): void => {
@@ -17,11 +19,15 @@ function ValtioRoot(props: any): React.ReactElement {
 	}
 
 	useEffect((): (() => void) => {
-		subscribeHandler.current = subscribe(valtioStore, (modifies: Array<Array<any>>): void => {
-			console.log(modifies)
+		valtioSubscribeHandler.current = subscribe(valtioStore, (modifies: Array<Array<any>>): void => {
+			console.log('valtio-store-state has modified to', modifies)
+		})
+		valtioWatchHandler.current = watch((get: (a: TValtioStore) => any): void => {
+			console.log('valtio-store-state has changed to', get(valtioStore))
 		})
 		return (): void => {
-			subscribeHandler.current()
+			valtioSubscribeHandler.current()
+			valtioWatchHandler.current()
 		}
 	}, [])
 
