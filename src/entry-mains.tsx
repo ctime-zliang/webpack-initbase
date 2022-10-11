@@ -2,26 +2,22 @@ import React from 'react'
 import ReactDOM from 'react-dom'
 import jQuery from 'jquery'
 import $ from 'jquery'
-import App from '@/App'
-import runProfile from '@/config/run.ini'
-import log2xPng from '@/assets/images/log.2x.png'
-// import '@/assets/style/prefix.less'
-// import '@/assets/style/bootstrap.less'
-import '@/assets/style/common.a.less'
-import '@/assets/style/common.b.less'
-import decorator from '@/utils/decorator/decorator'
-import { requestByGet, TRequestResponse } from '@/utils/request'
-import EventBus from '@/utils/EventBus'
-import logoImgView from '@/modules/logoImgView'
+import App from '@/app/App'
+import runProfile from '@/app/config/run.ini'
+import log2xPng from '@/app/assets/images/log.2x.png'
+// import '@/app/assets/style/prefix.less'
+// import '@/app/assets/style/bootstrap.less'
+import '@/app/assets/style/common.a.less'
+import '@/app/assets/style/common.b.less'
+import decorator from '@/app/utils/decorator/decorator'
+import { requestByGet, TRequestResponse } from '@/app/utils/request'
+import EventBus from '@/app/utils/EventBus'
+import { renderReactApp } from '@/client'
 
 function importLodash() {
 	import('lodash').then((res: any): void => {
 		console.log(res)
 	})
-}
-
-function renderReactApp(): void {
-	ReactDOM.render(<App />, document.getElementById('reactApp'))
 }
 
 async function fetchJson(): Promise<TRequestResponse> {
@@ -39,7 +35,6 @@ export async function main(): Promise<boolean> {
 	console.log(`log.2x.png 编译文件路径: `, log2xPng)
 
 	importLodash()
-	logoImgView()
 	// decorator()
 
 	EventBus.on(`fetchJson`, (res: any): void => {

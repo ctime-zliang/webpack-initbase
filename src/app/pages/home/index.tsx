@@ -1,0 +1,49 @@
+import ClockCanvas from '@/app/modules/Componnet/ClockCanvas'
+import React from 'react'
+import styled from 'styled-components'
+import AbstractRoot from './abstract'
+import LinkRoot from './link'
+
+const HomeContainer = styled.section`
+	width: 100%;
+	height: 100%;
+	display: flex;
+	flex-direction: column;
+	flex-wrap: nowrap;
+	align-content: space-between;
+	height: 100%;
+	overflow: hidden;
+	opacity: 1;
+`
+const HomeContent = styled.div`
+	width: 100%;
+	height: 100%;
+	overflow: auto;
+	display: flex;
+	flex-direction: column;
+	justify-content: flex-start;
+	align-content: center;
+	align-items: center;
+	flex-wrap: nowrap;
+`
+const ClockcanvasWrapper = styled.div`
+	padding: 80px 0 0 0;
+`
+
+function HomePageRoot(props: any): React.ReactElement {
+	return (
+		<>
+			<HomeContainer>
+				<HomeContent>
+					<ClockcanvasWrapper>
+						<ClockCanvas />
+					</ClockcanvasWrapper>
+					<AbstractRoot />
+					<LinkRoot />
+				</HomeContent>
+			</HomeContainer>
+		</>
+	)
+}
+
+export default React.memo(HomePageRoot)

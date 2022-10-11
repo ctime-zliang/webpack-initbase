@@ -1,8 +1,0 @@
-.log1x {
-	background-image: url('@/assets/images/log.1x.png');
-	transform: translate3d(0, 0, 0);
-}
-.log2x {
-	background-image: url('@/assets/images/log.2x.png');
-	transform: translate3d(0, 0, 0);
-}
