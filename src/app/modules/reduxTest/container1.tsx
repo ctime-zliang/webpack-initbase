@@ -5,32 +5,32 @@ import { ACTION_TYPE as timeStamp_ACTION_TYPE } from '@/app/store/redux/timeStam
 import ReduxView from './view'
 
 function ReduxContainer1(props: any): React.ReactElement {
-	const { store } = props
-	const combineState: TCombineState = store.getState()
+	const { reduxStore } = props
+	const combineState: TCombineState = reduxStore.getState()
 	const subscribeHandler: { current: any } = useRef<any>(null)
 	const [count, setCount] = useState<number>(combineState.counter.count)
 	const [stamp, setStamp] = useState<number>(combineState.timeStamp.stamp)
 	const changeCountAction = (): void => {
-		store.dispatch({
+		reduxStore.dispatch({
 			type: counter_ACTION_TYPE.MODIFY_COUNTER,
 			data: null,
 		})
 	}
 	const changeStampAction = (): void => {
-		store.dispatch({
+		reduxStore.dispatch({
 			type: timeStamp_ACTION_TYPE.CHANGE_STAMP,
 			data: { stamp: new Date().getTime() },
 		})
 	}
 
 	useEffect((): (() => void) => {
-		subscribeHandler.current = store.subscribe((): void => {
-			const newCombineStore: TCombineState = store.getState()
+		subscribeHandler.current = reduxStore.subscribe((): void => {
+			const newCombineStore: TCombineState = reduxStore.getState()
 			setCount(newCombineStore.counter.count)
 			setStamp(newCombineStore.timeStamp.stamp)
 		})
 		return (): void => {
-			subscribeHandler.current.unsubscribe()
+			subscribeHandler.current()
 		}
 	}, [])
 

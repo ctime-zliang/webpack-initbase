@@ -5,8 +5,8 @@ import ReduxContainer2 from './container2'
 function ReduxRoot(props: any): React.ReactElement {
 	return (
 		<>
-			<ReduxContainer1 />
-			<ReduxContainer2 />
+			<ReduxContainer1 {...props} />
+			<ReduxContainer2 {...props} />
 		</>
 	)
 }

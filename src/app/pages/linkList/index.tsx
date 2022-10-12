@@ -1,14 +1,18 @@
 import React from 'react'
 import { Helmet } from 'react-helmet-async'
+import { connect } from 'react-redux'
 import { Layout, List } from 'antd'
 import { Link } from 'react-router-dom'
 import styles from './index.module.less'
+import { TLinkListItem } from '@/app/store/globalDefault/types'
+import { TCommonComponentBaseProps } from '@/app/types/comm.types'
+import { TCombineState } from '@/app/store/redux'
 
 const { Content } = Layout
 
-function ListRoot(props: any): React.ReactElement {
+function ListRoot(props: TProps): React.ReactElement {
 	console.log(`ListRoot ☆☆☆`, props)
-	const { list } = props
+	const { linkList } = props
 	return (
 		<>
 			<Helmet>
@@ -23,7 +27,7 @@ function ListRoot(props: any): React.ReactElement {
 						<List
 							size="small"
 							bordered
-							dataSource={list}
+							dataSource={linkList}
 							renderItem={(item: any, index: number) => {
 								const number: string = (++index, index) <= 9 ? '0' + index : String(index)
 								return (
@@ -43,4 +47,22 @@ function ListRoot(props: any): React.ReactElement {
 	)
 }
 
-export default React.memo(ListRoot)
+type TReduxStoreState = {
+	linkList: Array<TLinkListItem>
+}
+
+type TReduxStoreActions = {}
+
+type TProps = TReduxStoreState & TReduxStoreActions & TCommonComponentBaseProps
+
+const mapStateToProps = (combineState: TCombineState): TReduxStoreState => {
+	return {
+		linkList: combineState.globalDefault.linkList,
+	}
+}
+
+const mapActionsToProps = {}
+
+const ListRootContainer = connect(mapStateToProps, mapActionsToProps)(ListRoot)
+
+export default React.memo(ListRootContainer)

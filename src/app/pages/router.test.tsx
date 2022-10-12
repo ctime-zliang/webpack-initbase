@@ -5,6 +5,7 @@ import { error404Route } from '@/app/pages/errorPage/route'
 import { linkListRoute } from '@/app/pages/linkList/route'
 import { articleListRoute } from '@/app/pages/article/list/route'
 import { articleDetailRoute } from '@/app/pages/article/detail/route'
+import { articleErrorRoute } from '@/app/pages/article/error/route'
 import { TCommonComponentBaseProps } from '../types/comm.types'
 
 const homeRouteItem = homeRoute()
@@ -12,6 +13,7 @@ const error404RouteItem = error404Route()
 const linkListRouteItem = linkListRoute()
 const articleListRouteItem = articleListRoute()
 const articleDetailRouteItem = articleDetailRoute()
+const articleErrorRouteItem = articleErrorRoute()
 
 export function routerTest(params: TCommonComponentBaseProps): React.ReactElement {
 	return (
@@ -25,7 +27,7 @@ export function routerTest(params: TCommonComponentBaseProps): React.ReactElemen
 						<Routes>
 							<Route path="/" element={<articleListRouteItem.element {...params} />} />
 							<Route path="/detail" element={<articleDetailRouteItem.element {...params} />} />
-							<Route path="*" element={<error404RouteItem.element {...params} />} />
+							<Route path="*" element={<articleErrorRouteItem.element {...params} />} />
 						</Routes>
 					</>
 				}

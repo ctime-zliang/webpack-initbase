@@ -1,7 +1,7 @@
 import React from 'react'
-import PageHeader from '@/app/modules/Public/PageHeader'
-import PageFooter from '@/app/modules/Public/PageFooter'
-import PageContent from '@/app/modules/Public/PageContent'
+import PageHeader from '@/app/modules/public/PageHeader'
+import PageFooter from '@/app/modules/public/PageFooter'
+import PageContent from '@/app/modules/public/PageContent'
 import { TCommonComponentBaseProps } from '../types/comm.types'
 
 function Layout(props: TCommonComponentBaseProps): React.ReactElement {

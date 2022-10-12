@@ -6,12 +6,10 @@ import { error404Route } from '@/app/pages/errorPage/route'
 import { linkListRoute } from '@/app/pages/linkList/route'
 import { articleListRoute } from '@/app/pages/article/list/route'
 import { articleDetailRoute } from '@/app/pages/article/detail/route'
-
-const homeRouteItem = homeRoute()
-const error404RouteItem = error404Route()
-const linkListRouteItem = linkListRoute()
-const articleListRouteItem = articleListRoute()
-const articleDetailRouteItem = articleDetailRoute()
+import { articleErrorRoute } from '@/app/pages/article/error/route'
+import { reduxContainerRoute } from '@/app/pages/redux/route'
+import { valtioContainerRoute } from '@/app/pages/valtio/route'
+import { testpageRoute } from '@/app/pages/testpage/route'
 
 export const createRoutes = (): Array<TRouteItem> => {
 	return [
@@ -19,8 +17,11 @@ export const createRoutes = (): Array<TRouteItem> => {
 		linkListRoute(),
 		{
 			path: '/article/*',
-			routes: [articleListRoute(), articleDetailRoute()],
+			routes: [articleListRoute(), articleDetailRoute(), articleErrorRoute()],
 		},
+		reduxContainerRoute(),
+		valtioContainerRoute(),
+		testpageRoute(),
 		error404Route(),
 	]
 }

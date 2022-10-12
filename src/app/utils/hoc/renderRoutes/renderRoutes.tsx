@@ -39,7 +39,7 @@ const createRouteComponentList = (routes: Array<TRouteItem>, profile: { [key: st
 				path={item.path}
 				element={
 					<item.layout {...props}>
-						<item.element></item.element>
+						<item.element {...props}></item.element>
 					</item.layout>
 				}
 				key={index}
