@@ -1,8 +1,9 @@
-import ClockCanvas from '@/app/modules/Componnet/ClockCanvas'
 import React from 'react'
 import styled from 'styled-components'
+import { useParams, useNavigate, useSearchParams } from 'react-router-dom'
 import AbstractRoot from './abstract'
 import LinkRoot from './link'
+import ClockCanvas from '@/app/modules/Componnet/ClockCanvas'
 
 const HomeContainer = styled.section`
 	width: 100%;
@@ -31,6 +32,13 @@ const ClockcanvasWrapper = styled.div`
 `
 
 function HomePageRoot(props: any): React.ReactElement {
+	console.log(`HomeRoot ☆☆☆`, props)
+	const useParamsRes = useParams()
+	console.log(`useParams`, useParamsRes)
+	const useNavigateRes = useNavigate()
+	console.log(`useNavigate`, useNavigateRes)
+	const useSearchParamsRes = useSearchParams()
+	console.log(`useSearchParams`, useSearchParamsRes)
 	return (
 		<>
 			<HomeContainer>

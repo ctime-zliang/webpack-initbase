@@ -5,6 +5,6 @@ export const linkListRoute = (): TRouteItem => {
 	return {
 		path: '/link',
 		exact: true,
-		component: Index,
+		element: Index,
 	}
 }

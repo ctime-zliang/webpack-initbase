@@ -7,6 +7,7 @@ import styles from './index.module.less'
 const { Content } = Layout
 
 function ListRoot(props: any): React.ReactElement {
+	console.log(`ListRoot ☆☆☆`, props)
 	const { list } = props
 	return (
 		<>

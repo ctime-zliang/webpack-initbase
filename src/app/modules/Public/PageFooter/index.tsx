@@ -2,10 +2,12 @@ import React from 'react'
 import { useTranslation } from 'react-i18next'
 import { Layout } from 'antd'
 import './index.less'
+import { TCommonComponentBaseProps } from '@/app/types/comm.types'
 
 const { Footer } = Layout
 
-function PageFooterRoot(props: any): React.ReactElement {
+function PageFooterRoot(props: TCommonComponentBaseProps): React.ReactElement {
+	console.log(`PageFooterRoot ☆☆☆`, props)
 	const { t } = useTranslation()
 	return (
 		<footer className="app-page-footer">

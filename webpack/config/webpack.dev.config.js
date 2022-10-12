@@ -12,6 +12,7 @@ const webpackDevConfig = {
 			1. 多入口单出口时, 即报错: Multiple chunks emit assets to the same filename ${filename}
      */
 	output: {
+		publicPath: '/',
 		/* 配置输出根目录 */
 		path: utils.resolveDirectory(`./webpack/dist/dev-build`),
 		/* 配置生成文件名(可带路径) */

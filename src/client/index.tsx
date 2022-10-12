@@ -16,7 +16,7 @@ export function renderReactApp(): void {
 			<I18nProvider>
 				<BrowserRouter>
 					<HelmetProvider>
-						<App __RenderProps__={{ __render_id__ }} store={store} />
+						<App __RenderProps__={{ __render_id__ }} reduxStore={store} />
 					</HelmetProvider>
 				</BrowserRouter>
 			</I18nProvider>

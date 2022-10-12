@@ -1,9 +1,10 @@
+import { TCommonComponentBaseProps } from '@/app/types/comm.types'
 import React from 'react'
 import { Route, Routes, Navigate } from 'react-router-dom'
 
 export type TRouteItem = {
 	path: string
-	component: React.ReactElement | React.FC | any
+	element?: React.ReactElement | React.FC | any
 	layout?: React.ReactElement | React.FC | any
 	render?: (...r: any[]) => {}
 	requiresAuth?: boolean
@@ -18,58 +19,35 @@ export type TRouteItem = {
 	[key: string]: any
 }
 
-const createSpecRoute = function (route: TRouteItem, profile: { [key: string]: any }, outerProps: { [key: string]: any }): React.ReactElement {
-	let SpecComponent: any = null
-	if (route.noMatch) {
-		SpecComponent = route.noMatch
-	}
-	if (profile.noMatch) {
-		SpecComponent = profile.noMatch
-	}
-	if (SpecComponent) {
+const createRouteComponentList = (routes: Array<TRouteItem>, profile: { [key: string]: any }, props: TCommonComponentBaseProps) => {
+	return routes.map((item: TRouteItem, index: number) => {
+		if (item && item.routes) {
+			return (
+				<Route
+					path={item.path}
+					element={
+						<>
+							<Routes>{createRouteComponentList(item.routes, profile, props)}</Routes>
+						</>
+					}
+					key={index}
+				></Route>
+			)
+		}
 		return (
 			<Route
-				path={route.path}
-				element={(props: any): React.ReactElement => {
-					return <SpecComponent path={route.path} {...props} {...outerProps}></SpecComponent>
-				}}
-			/>
-		)
-	}
-	return null as unknown as React.ReactElement
-}
-
-const createRouteComponentList = function (
-	routes: Array<TRouteItem>,
-	profile: { [key: string]: any },
-	outerProps: { [key: string]: any }
-): Array<React.ReactElement> {
-	return routes.map((route: TRouteItem): React.ReactElement => {
-		return (
-			<Route
-				key={route.path}
-				path={route.path}
+				path={item.path}
 				element={
-					<>
-						<Routes>
-							{createRouteComponentList(route.routes || [], profile, outerProps)}
-							<Route
-								path={route.path}
-								element={
-									<route.layout {...outerProps} {...route}>
-										<route.component {...outerProps} {...route}></route.component>
-									</route.layout>
-								}
-							/>
-							{createSpecRoute(route, profile, outerProps)}
-						</Routes>
-					</>
+					<item.layout {...props}>
+						<item.element></item.element>
+					</item.layout>
 				}
-			/>
+				key={index}
+			></Route>
 		)
 	})
 }
 
-export function renderRoutes(routes: TRouteItem[], profile: { [key: string]: any }, outerProps: { [key: string]: any }): React.ReactElement {
-	return <Routes>{createRouteComponentList(routes, profile, outerProps)}</Routes>
+export function renderRoutes(routes: Array<TRouteItem>, profile: { [key: string]: any }, props: TCommonComponentBaseProps): React.ReactElement {
+	return <Routes>{createRouteComponentList(routes, profile, props)}</Routes>
 }

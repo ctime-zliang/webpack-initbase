@@ -5,6 +5,6 @@ export const error404Route = (): TRouteItem => {
 	return {
 		path: '*',
 		exact: true,
-		component: Error404,
+		element: Error404,
 	}
 }

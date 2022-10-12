@@ -1,3 +1,4 @@
+import { TCommonComponentBaseProps } from '@/app/types/comm.types'
 import React from 'react'
 import './index.less'
 
@@ -7,7 +8,8 @@ const appPageContentStyle: { [key: string]: string | number } = {
 	overflow: 'auto',
 }
 
-function PageContentRoot(props: any): React.ReactElement {
+function PageContentRoot(props: TCommonComponentBaseProps): React.ReactElement {
+	console.log(`PageContentRoot ☆☆☆`, props)
 	return (
 		<main className="app-page-content" style={appPageContentStyle}>
 			{props.children}

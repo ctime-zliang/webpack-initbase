@@ -58,9 +58,9 @@ module.exports = mode => {
 		*/
 		new MiniCssExtractPlugin({
 			/* 配置生成文件名(可带路径) */
-			filename: `app/assets/styles/style.[name].[hash:8].css`,
+			filename: `assets/styles/style.[name].[hash:8].css`,
 			/* 控制从打包后的非入口 JS 文件中提取 CSS 样式生成的 CSS 文件的名称 */
-			chunkFilename: `app/assets/styles/chunks.[name].[chunkhash:8].css`,
+			chunkFilename: `assets/styles/chunks.[name].[chunkhash:8].css`,
 			/*
 				当
 					在 1.js 中分别前后引入 a.css 和 b.css

@@ -4,8 +4,9 @@ import '../../node_modules/antd/dist/antd.css'
 import Overlay from '@/app/utils/hoc/overlay/overlay'
 import Root from '@/app/pages/root'
 import favicon from '@/app/assets/images/log.jpg'
+import { TCommonComponentBaseProps } from './types/comm.types'
 
-export default function App(props: any): React.ReactElement {
+export default function App(props: TCommonComponentBaseProps): React.ReactElement {
 	console.log(`App ☆☆☆`, props)
 	const __app_id__: number = Math.random()
 	return (

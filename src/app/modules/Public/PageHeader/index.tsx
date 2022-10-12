@@ -5,10 +5,12 @@ import './index.less'
 import logoImage from '@/app/assets/images/log.jpg'
 import { TCombineState } from '@/app/store/redux'
 import { changeLanguageSettingAction } from '@/app/store/globalDefault/actions'
+import { TCommonComponentBaseProps } from '@/app/types/comm.types'
 
 const { Header } = Layout
 
 function PageHeaderRoot(props: TProps): React.ReactElement {
+	console.log(`PageHeaderRoot ☆☆☆`, props)
 	const { g_languageSetting, changeLanguageSettingAction } = props
 	return (
 		<header className="app-page-header">
@@ -40,7 +42,7 @@ type TReduxStoreActions = {
 	changeLanguageSettingAction: (...args: Array<any>) => void
 }
 
-type TProps = TReduxStoreState & TReduxStoreActions
+type TProps = TReduxStoreState & TReduxStoreActions & TCommonComponentBaseProps
 
 const mapStateToProps = (combineState: TCombineState): TReduxStoreState => {
 	return {
