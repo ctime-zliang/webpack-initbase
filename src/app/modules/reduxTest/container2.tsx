@@ -1,12 +1,10 @@
 import React, { useEffect, useRef, useState } from 'react'
 import { connect, Provider } from 'react-redux'
-import { ACTION_TYPE as counter_ACTION_TYPE } from '@/app/store/redux/counter/types'
-import { ACTION_TYPE as timeStamp_ACTION_TYPE } from '@/app/store/redux/timeStamp/types'
 import ReduxView from './view'
 import { TCombineState } from '@/app/store/redux'
 import { sleep } from '@/app/utils/utils'
-import { changeCountAction } from '@/app/store/redux/counter/actions'
-import { changeStampAction } from '@/app/store/redux/timeStamp/actions'
+import { changeCountAction } from '@/app/store/redux-counter/actions'
+import { changeStampAction } from '@/app/store/redux-timeStamp/actions'
 
 function ReduxWrapper1(props: TReduxWrapper1Props) {
 	const { count, stamp, btnLoading, changeCountAction, changeStampAction } = props

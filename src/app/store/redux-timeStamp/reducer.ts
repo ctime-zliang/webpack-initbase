@@ -1,4 +1,4 @@
-import { TStoreReduxCommonAction } from '../../public/types'
+import { TStoreReduxCommonAction } from '../public/types'
 import { moduleKey } from './config'
 import { createInitialState } from './store'
 import { ACTION_TYPE, TStore } from './types'

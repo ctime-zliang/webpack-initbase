@@ -1,13 +1,13 @@
 import { createStore, combineReducers, applyMiddleware } from 'redux'
 import thunkMiddleware from 'redux-thunk'
 /* ... */
-import { createReducer as counter_createReducer, initialState as counter_initialState } from './redux/counter/reducer'
-import { TStore as counter_TStore } from './redux/counter/types'
-import { moduleKey as counter_moduleKey } from './redux/counter/config'
+import { createReducer as counter_createReducer, initialState as counter_initialState } from './redux-counter/reducer'
+import { TStore as counter_TStore } from './redux-counter/types'
+import { moduleKey as counter_moduleKey } from './redux-counter/config'
 /* ... */
-import { createReducer as timeStamp_createReducer, initialState as timeStamp_initialState } from './redux/timeStamp/reducer'
-import { TStore as timeStamp_TStore } from './redux/timeStamp/types'
-import { moduleKey as timeStamp_moduleKey } from './redux/timeStamp/config'
+import { createReducer as timeStamp_createReducer, initialState as timeStamp_initialState } from './redux-timeStamp/reducer'
+import { TStore as timeStamp_TStore } from './redux-timeStamp/types'
+import { moduleKey as timeStamp_moduleKey } from './redux-timeStamp/config'
 /* ... */
 import { createReducer as globalDefault_createReducer, initialState as globalDefault_initialState } from './globalDefault/reducer'
 import { TStore as globalDefault_TStore } from './globalDefault/types'

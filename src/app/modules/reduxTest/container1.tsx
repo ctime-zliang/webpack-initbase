@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react'
 import { TCombineState } from '@/app/store/redux'
-import { ACTION_TYPE as counter_ACTION_TYPE } from '@/app/store/redux/counter/types'
-import { ACTION_TYPE as timeStamp_ACTION_TYPE } from '@/app/store/redux/timeStamp/types'
+import { ACTION_TYPE as counter_ACTION_TYPE } from '@/app/store/redux-counter/types'
+import { ACTION_TYPE as timeStamp_ACTION_TYPE } from '@/app/store/redux-timeStamp/types'
 import ReduxView from './view'
 
 function ReduxContainer1(props: any): React.ReactElement {
