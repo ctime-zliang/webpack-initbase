@@ -10,19 +10,20 @@ import { articleErrorRoute } from '@/app/pages/article/error/route'
 import { reduxContainerRoute } from '@/app/pages/redux/route'
 import { valtioContainerRoute } from '@/app/pages/valtio/route'
 import { testpageRoute } from '@/app/pages/testpage/route'
+import { TReduxStore } from '../store/public/types'
 
-export const createRoutes = (): Array<TRouteItem> => {
+export const createRoutes = (reduxStore: TReduxStore): Array<TRouteItem> => {
 	return [
-		homeRoute(),
-		linkListRoute(),
+		homeRoute(reduxStore),
+		linkListRoute(reduxStore),
 		{
 			path: '/article/*',
-			routes: [articleListRoute(), articleDetailRoute(), articleErrorRoute()],
+			routes: [articleListRoute(reduxStore), articleDetailRoute(reduxStore), articleErrorRoute(reduxStore)],
 		},
-		reduxContainerRoute(),
-		valtioContainerRoute(),
-		testpageRoute(),
-		error404Route(),
+		reduxContainerRoute(reduxStore),
+		valtioContainerRoute(reduxStore),
+		testpageRoute(reduxStore),
+		error404Route(reduxStore),
 	]
 }
 
@@ -42,5 +43,3 @@ export const filterRoutes = (routes: Array<TRouteItem> = []): Array<TRouteItem> 
 		}
 	}
 }
-
-export const noMatchComponent = error404Route()

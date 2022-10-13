@@ -2,15 +2,16 @@ import React, { useEffect, useRef, useState } from 'react'
 import { connect, Provider } from 'react-redux'
 import ReduxView from './view'
 import { TCombineState } from '@/app/store/redux'
-import { sleep } from '@/app/utils/utils'
+import { ACTION_TYPE as counter_ACTION_TYPE } from '@/app/store/redux-counter/types'
+import { TStore as counter_TStore } from '@/app/store/redux-counter/types'
+import { ACTION_TYPE as timeStamp_ACTION_TYPE } from '@/app/store/redux-timeStamp/types'
+import { TStore as timeStamp_TStore } from '@/app/store/redux-timeStamp/types'
 import { changeCountAction } from '@/app/store/redux-counter/actions'
 import { changeStampAction } from '@/app/store/redux-timeStamp/actions'
 
-function ReduxWrapper1(props: TReduxWrapper1Props) {
-	const { count, stamp, btnLoading, changeCountAction, changeStampAction } = props
-	return (
-		<ReduxView count={count} btnLoading={btnLoading} stamp={stamp} changeCountAction={changeCountAction} changeStampAction={changeStampAction} />
-	)
+type TTCombineExtendState = TCombineState & {
+	counter: counter_TStore
+	timeStamp: timeStamp_TStore
 }
 
 type TReduxWrapper1State = {
@@ -26,7 +27,7 @@ type TReduxWrapper1Dispatch = {
 
 type TReduxWrapper1Props = TReduxWrapper1State & TReduxWrapper1Dispatch
 
-const mapStateToProps = (combineState: TCombineState): TReduxWrapper1State => {
+const mapStateToProps = (combineState: TTCombineExtendState): TReduxWrapper1State => {
 	return {
 		count: combineState.counter.count,
 		stamp: combineState.timeStamp.stamp,
@@ -66,6 +67,13 @@ const mapActionsToProps = {
 // 		},
 // 	}
 // }
+
+function ReduxWrapper1(props: TReduxWrapper1Props) {
+	const { count, stamp, btnLoading, changeCountAction, changeStampAction } = props
+	return (
+		<ReduxView count={count} btnLoading={btnLoading} stamp={stamp} changeCountAction={changeCountAction} changeStampAction={changeStampAction} />
+	)
+}
 
 const ReduxContainer2 = connect(mapStateToProps, mapActionsToProps)(ReduxWrapper1)
 

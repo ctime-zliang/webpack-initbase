@@ -1,12 +1,19 @@
 import React, { useEffect, useRef, useState } from 'react'
 import { TCombineState } from '@/app/store/redux'
 import { ACTION_TYPE as counter_ACTION_TYPE } from '@/app/store/redux-counter/types'
+import { TStore as counter_TStore } from '@/app/store/redux-counter/types'
 import { ACTION_TYPE as timeStamp_ACTION_TYPE } from '@/app/store/redux-timeStamp/types'
+import { TStore as timeStamp_TStore } from '@/app/store/redux-timeStamp/types'
 import ReduxView from './view'
+
+type TTCombineExtendState = TCombineState & {
+	counter: counter_TStore
+	timeStamp: timeStamp_TStore
+}
 
 function ReduxContainer1(props: any): React.ReactElement {
 	const { reduxStore } = props
-	const combineState: TCombineState = reduxStore.getState()
+	const combineState: TTCombineExtendState = reduxStore.getState()
 	const subscribeHandler: { current: any } = useRef<any>(null)
 	const [count, setCount] = useState<number>(combineState.counter.count)
 	const [stamp, setStamp] = useState<number>(combineState.timeStamp.stamp)
