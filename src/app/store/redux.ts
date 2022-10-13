@@ -18,7 +18,7 @@ function createCombineReducers(asyncReducers: { [key: string]: any } = {}) {
 	}
 }
 
-export function modulesInjectReducer(store: TReduxStore, key: string, createAsyncReducer: Function) {
+export function modulesInjectReducer(store: TReduxStore, key: string, createAsyncReducer: Function): TReduxStore {
 	const concernedStoreKeys: Array<string> = Object.keys(store.asyncReducers || {})
 	if (concernedStoreKeys.includes(key)) {
 		return store
