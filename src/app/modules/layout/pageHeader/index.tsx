@@ -10,7 +10,7 @@ import { TCommonComponentBaseProps } from '@/app/types/comm.types'
 const { Header } = Layout
 
 function PageHeaderRoot(props: TProps): React.ReactElement {
-	console.log(`PageHeaderRoot ☆☆☆`, props)
+	// console.log(`PageHeaderRoot ☆☆☆`, props)
 	const { g_languageSetting, changeLanguageSettingAction } = props
 	return (
 		<header className="app-page-header">

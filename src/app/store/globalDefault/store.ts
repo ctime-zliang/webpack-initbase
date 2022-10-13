@@ -1,9 +1,10 @@
+import { globalConfig } from '@/app/config/config'
 import { v4 as uuidv4 } from 'uuid'
 import { TStore } from './types'
 
 export const createInitialState = (): TStore => {
 	return {
-		g_languageSetting: 'zh_cn', // zh_cn | en_us
+		g_languageSetting: globalConfig.lang,
 		linkList: [
 			{ id: uuidv4(), title: 'Article', path: '/article' },
 			{ id: uuidv4(), title: 'Valtio State Manager', path: '/valtio' },

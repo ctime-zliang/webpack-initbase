@@ -8,7 +8,6 @@ import { configureStore } from '@/app/store/redux'
 import App from '../app/App'
 
 export function renderReactApp(): void {
-	console.log(`renderReactApp ☆☆☆`)
 	const __render_id__: number = Math.random()
 	const store = configureStore()
 	ReactDOM.render(

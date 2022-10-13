@@ -3,13 +3,12 @@ import { Helmet } from 'react-helmet-async'
 
 function ListRoot(props: any): React.ReactElement {
 	console.log(`ListRoot ☆☆☆`, props)
-	const { list } = props
 	return (
 		<>
 			<Helmet>
-				<title>Article Link List</title>
+				<title>Article List</title>
 			</Helmet>
-			<section>Article Link List</section>
+			<section>Article List</section>
 		</>
 	)
 }

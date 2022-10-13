@@ -7,9 +7,9 @@ function DetailRoot(props: any): React.ReactElement {
 	return (
 		<>
 			<Helmet>
-				<title>Article Detail List</title>
+				<title>Article Detail</title>
 			</Helmet>
-			<section>Article Detail List</section>
+			<section>Article Detail</section>
 		</>
 	)
 }

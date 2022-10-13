@@ -3,7 +3,6 @@ import { Helmet } from 'react-helmet-async'
 
 function Error404Root(props: any): React.ReactElement {
 	console.log(`Error404Root ☆☆☆`, props)
-	const { list } = props
 	return (
 		<>
 			<Helmet>

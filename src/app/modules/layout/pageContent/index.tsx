@@ -9,7 +9,7 @@ const appPageContentStyle: { [key: string]: string | number } = {
 }
 
 function PageContentRoot(props: TCommonComponentBaseProps): React.ReactElement {
-	console.log(`PageContentRoot ☆☆☆`, props)
+	// console.log(`PageContentRoot ☆☆☆`, props)
 	return (
 		<main className="app-page-content" style={appPageContentStyle}>
 			{props.children}

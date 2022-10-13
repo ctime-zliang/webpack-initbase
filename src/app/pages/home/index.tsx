@@ -3,7 +3,7 @@ import styled from 'styled-components'
 import { useParams, useNavigate, useSearchParams } from 'react-router-dom'
 import AbstractRoot from './abstract'
 import LinkRoot from './link'
-import ClockCanvas from '@/app/modules/componnet/ClockCanvas'
+import ClockCanvas from '@/app/modules/componnet/clockCanvas'
 
 const HomeContainer = styled.section`
 	width: 100%;

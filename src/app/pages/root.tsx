@@ -18,4 +18,4 @@ function Root(props: TCommonComponentBaseProps): React.ReactElement {
 	)
 }
 
-export default Root
+export default React.memo(Root)

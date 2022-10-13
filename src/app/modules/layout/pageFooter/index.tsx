@@ -7,7 +7,7 @@ import { TCommonComponentBaseProps } from '@/app/types/comm.types'
 const { Footer } = Layout
 
 function PageFooterRoot(props: TCommonComponentBaseProps): React.ReactElement {
-	console.log(`PageFooterRoot ☆☆☆`, props)
+	// console.log(`PageFooterRoot ☆☆☆`, props)
 	const { t } = useTranslation()
 	return (
 		<footer className="app-page-footer">
