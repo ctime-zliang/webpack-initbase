@@ -2,6 +2,7 @@ import React from 'react'
 import { Helmet } from 'react-helmet-async'
 import { TCommonComponentBaseProps } from '@/app/types/comm.types'
 import OverlayTestRoot from './overlayTest'
+import ContexTesttRoot from './contextTest'
 
 function TestPageRoot(props: TCommonComponentBaseProps): React.ReactElement {
 	console.log(`TestPageRoot ☆☆☆`, props)
@@ -10,7 +11,7 @@ function TestPageRoot(props: TCommonComponentBaseProps): React.ReactElement {
 			<Helmet>
 				<title>Test Page</title>
 			</Helmet>
-			<OverlayTestRoot />
+			<ContexTesttRoot />
 		</>
 	)
 }
