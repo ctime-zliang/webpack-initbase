@@ -1,7 +1,6 @@
 import React from 'react'
-import { Helmet } from 'react-helmet-async'
+import { HelmetProvider, Helmet } from 'react-helmet-async'
 import '../../node_modules/antd/dist/antd.css'
-import Overlay from '@/app/utils/hoc/overlay/overlay'
 import Root from '@/app/pages/root'
 import favicon from '@/app/assets/images/log.jpg'
 import { TCommonComponentBaseProps } from './types/comm.types'
@@ -15,9 +14,6 @@ export default function App(props: TCommonComponentBaseProps): React.ReactElemen
 				<title>React Application</title>
 			</Helmet>
 			<Root __AppProps__={{ __app_id__ }} {...props} />
-			{/* <Overlay>
-				<div>Overlay Component Call In App</div>
-			</Overlay> */}
 		</section>
 	)
 }
