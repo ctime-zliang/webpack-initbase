@@ -15,8 +15,8 @@
 		"jest:coverage": "cross-env NODE_ENV=test jest --coverage",
 		"jest:puppeteer": "cross-env NODE_ENV=test jest --puppeteer=true",
 		"jest:puppeteer-custom": "cross-env NODE_ENV=test jest --puppeteer=true --user-custom=true",
-		"webpack:dev": "cross-env NODE_ENV=development webpack server --config ./webpack/config/webpack.dev.config.js",
-		"webpack:prod": "cross-env NODE_ENV=production webpack --config ./webpack/config/webpack.prod.config.js"
+		"webpack:react-client:dev": "cross-env NODE_ENV=development webpack server --config ./webpack/config/srcReact/webpack.client-dev.config.js",
+		"webpack:react-client:prod": "cross-env NODE_ENV=production webpack --config ./webpack/config/srcReact/webpack.client-prod.config.js"
 	},
 	"repository": {
 		"type": "git",

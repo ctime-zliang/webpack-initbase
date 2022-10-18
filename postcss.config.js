@@ -35,7 +35,7 @@ module.exports = () => {
 			/*
 				自定义插件 
 			 */
-			require('./webpack/config/user-postcss-plugins/postcss-hex-2-rgba'),
+			require('./webpack/config/public/user-postcss-plugins/postcss-hex-2-rgba'),
 		],
 	}
 }
