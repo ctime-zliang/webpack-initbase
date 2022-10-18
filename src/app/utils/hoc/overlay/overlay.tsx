@@ -1,10 +1,16 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
 
+type TReactClassComponentProps = {
+	children: React.Component | Array<React.Component> | any
+	[key: string]: any
+}
+
 class Overlay extends React.Component {
 	state: Readonly<{}>
+	props: TReactClassComponentProps
 	container: HTMLElement
-	constructor(props: any) {
+	constructor(props: TReactClassComponentProps) {
 		super(props)
 		this.state = {}
 		this.container = document.createElement('section')

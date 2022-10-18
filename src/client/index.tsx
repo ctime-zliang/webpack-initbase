@@ -1,5 +1,5 @@
 import React from 'react'
-import ReactDOM from 'react-dom'
+import ReactDOMClient from 'react-dom/client'
 import { BrowserRouter } from 'react-router-dom'
 import { Provider } from 'react-redux'
 import { HelmetProvider } from 'react-helmet-async'
@@ -10,7 +10,7 @@ import App from '../app/App'
 export function renderReactApp(): void {
 	const __render_id__: number = Math.random()
 	const store = configureStore()
-	ReactDOM.render(
+	ReactDOMClient.createRoot(document.getElementById('reactApp') as HTMLElement).render(
 		<Provider store={store}>
 			<I18nProvider>
 				<BrowserRouter>
@@ -19,7 +19,6 @@ export function renderReactApp(): void {
 					</HelmetProvider>
 				</BrowserRouter>
 			</I18nProvider>
-		</Provider>,
-		document.getElementById('reactApp')
+		</Provider>
 	)
 }
