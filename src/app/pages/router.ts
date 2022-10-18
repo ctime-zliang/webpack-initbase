@@ -1,5 +1,6 @@
 import Layout from '@/app/pages/layout'
 import { TRouteItem } from '@/app/utils/hoc/renderRoutes/renderRoutes'
+import { TReduxStore } from '../store/public/types'
 /* ... */
 import { homeRoute } from '@/app/pages/home/route'
 import { error404Route } from '@/app/pages/errorPage/route'
@@ -10,7 +11,7 @@ import { articleErrorRoute } from '@/app/pages/article/error/route'
 import { reduxContainerRoute } from '@/app/pages/redux/route'
 import { valtioContainerRoute } from '@/app/pages/valtio/route'
 import { testpageRoute } from '@/app/pages/testpage/route'
-import { TReduxStore } from '../store/public/types'
+import { scrollingRoute } from '@/app/pages/infiniteScrolling/route'
 
 export const createRoutes = (reduxStore: TReduxStore): Array<TRouteItem> => {
 	return [
@@ -23,6 +24,7 @@ export const createRoutes = (reduxStore: TReduxStore): Array<TRouteItem> => {
 		reduxContainerRoute(reduxStore),
 		valtioContainerRoute(reduxStore),
 		testpageRoute(reduxStore),
+		scrollingRoute(reduxStore),
 		error404Route(reduxStore),
 	]
 }
