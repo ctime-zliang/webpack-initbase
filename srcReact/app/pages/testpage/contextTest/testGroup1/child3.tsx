@@ -1,5 +1,5 @@
-import React, { useContext, useState } from 'react'
-import { defaultValue, LocalContext } from './contextManager'
+import React, { useContext } from 'react'
+import { LocalContext } from './contextManager'
 
 function Child3Root(props: any): React.ReactElement {
 	console.log(`Component: Child3Root`)

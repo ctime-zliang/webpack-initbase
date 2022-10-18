@@ -1,12 +1,14 @@
 import React from 'react'
-import ParentRoot from './parent'
+import Group1Parent1Root from './testGroup1/parent1'
+import Group2Parent1Root from './testGroup2/parent1'
 
-function ContexTesttRoot(props: any): React.ReactElement {
+function ContexTestRoot(props: any): React.ReactElement {
 	return (
 		<>
-			<ParentRoot />
+			<Group1Parent1Root />
+			<Group2Parent1Root />
 		</>
 	)
 }
 
-export default ContexTesttRoot
+export default ContexTestRoot

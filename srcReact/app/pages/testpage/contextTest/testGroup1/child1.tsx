@@ -1,9 +1,9 @@
-import React, { useContext, useState } from 'react'
-import { defaultValue, LocalContext } from './contextManager'
+import React, { useContext } from 'react'
+import { LocalContext } from './contextManager'
 
 function Child1Root(props: any): React.ReactElement {
 	console.log(`Component: Child1Root`)
-	const { name, number, setName, setNumber } = useContext(LocalContext)
+	const { number, setNumber } = useContext(LocalContext)
 	const changeNumberAction = (): void => {
 		if (setNumber) {
 			setNumber((preValue): number => {
@@ -16,7 +16,6 @@ function Child1Root(props: any): React.ReactElement {
 			<div>
 				<strong>Child 1</strong>
 			</div>
-			<div>The name is {name}</div>
 			<div>The number is {number}</div>
 			<div>
 				<button onClick={changeNumberAction}>Change Number</button>
