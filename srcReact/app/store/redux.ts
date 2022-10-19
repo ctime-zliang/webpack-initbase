@@ -16,7 +16,10 @@ function createCombineReducers(asyncReducers: { [key: string]: any } = {}) {
 		[globalDefault_moduleKey]: globalDefault_createReducer(),
 		...asyncReducers,
 	}
-	return combineReducers(o)
+	return {
+		combinedReducer: combineReducers(o),
+		syncReducerKeys: Object.keys(o),
+	}
 }
 
 /**
@@ -29,14 +32,14 @@ export function modulesInjectReducer(store: TReduxStore, key: string, createAsyn
 		return store
 	}
 	store.asyncReducers[key] = createAsyncReducer()
-	const combineReducers = createCombineReducers(store.asyncReducers)
-	store.replaceReducer(combineReducers)
+	const ccr = createCombineReducers(store.asyncReducers)
+	store.replaceReducer(ccr.combinedReducer)
 	return store
 }
 
 export const configureStore = (): TReduxStore => {
-	const combineReducers = createCombineReducers()
-	const store = createStoreWithMiddleware(combineReducers, {
+	const ccr = createCombineReducers()
+	const store = createStoreWithMiddleware(ccr.combinedReducer, {
 		[globalDefault_moduleKey as string]: globalDefault_initialState,
 	}) as TReduxStore
 	/**

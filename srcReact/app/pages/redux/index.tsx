@@ -4,7 +4,7 @@ import ReduxRoot from '../../modules/reduxTest'
 import { TCommonComponentBaseProps } from '../../types/comm.types'
 
 function ReduxContainerRoot(props: TCommonComponentBaseProps): React.ReactElement {
-	console.log(`ValtioContainerRoot ☆☆☆`, props)
+	console.log(`ReduxContainerRoot ☆☆☆`, props)
 	return (
 		<>
 			<Helmet>

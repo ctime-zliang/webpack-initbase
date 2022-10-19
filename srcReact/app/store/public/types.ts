@@ -1,4 +1,4 @@
-import { Store } from 'redux'
+import { Store as ReduxStore } from 'redux'
 
 export type TStoreReduxCommonAction<T> = {
 	type: T
@@ -6,7 +6,9 @@ export type TStoreReduxCommonAction<T> = {
 }
 
 export type TReduxStoreExtend = {
-	asyncReducers: any
+	syncInitialState?: any
+	asyncReducers?: any
+	replaceReducer?: Function
 }
 
-export type TReduxStore = Store & TReduxStoreExtend
+export type TReduxStore = ReduxStore & TReduxStoreExtend
