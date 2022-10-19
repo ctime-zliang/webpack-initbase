@@ -69,7 +69,7 @@ function drawCanvas(canvasElement: HTMLCanvasElement, profile: any) {
 	if (!canvasElement || canvasElement.nodeName.toUpperCase() != 'CANVAS') {
 		return
 	}
-	const ctx: any = canvasElement.getContext('2d')
+	const ctx: CanvasRenderingContext2D = canvasElement.getContext('2d') as CanvasRenderingContext2D
 	const now = new Date()
 	const sec = now.getSeconds()
 	const min = now.getMinutes()
@@ -247,22 +247,40 @@ function drawCanvas(canvasElement: HTMLCanvasElement, profile: any) {
 export default class Clock {
 	rAFHandle: any = null
 	canvasElement: HTMLCanvasElement
+	params: { [key: string]: any }
 	profile: { [key: string]: any }
 
-	constructor(canvasElement: HTMLCanvasElement, profile: any) {
+	constructor(canvasElement: HTMLCanvasElement, params: any) {
 		this.canvasElement = canvasElement
-		this.profile = initialProfile(profile)
+		this.params = params
 	}
 
-	render() {
+	public render() {
 		const r = () => {
+			this.profile = initialProfile(this.params)
 			drawCanvas(this.canvasElement, this.profile)
 			this.rAFHandle = window.requestAnimationFrame(r)
 		}
 		r()
 	}
 
-	cancel() {
+	public setCanvasRect(width: number, height: number) {
+		this.canvasElement.setAttribute('width', String(width))
+		this.canvasElement.setAttribute('height', String(height))
+		this.params.canvasWidth = width
+		this.params.canvasHeight = height
+	}
+
+	public setCockRadius(radius: number) {
+		this.params.clockRadius = radius
+	}
+
+	public clear() {
+		const ctx: CanvasRenderingContext2D = this.canvasElement.getContext('2d') as CanvasRenderingContext2D
+		ctx.clearRect(0, 0, this.profile.canvasWidth, this.profile.canvasHeight)
+	}
+
+	public cancel() {
 		window.cancelAnimationFrame(this.rAFHandle)
 	}
 }

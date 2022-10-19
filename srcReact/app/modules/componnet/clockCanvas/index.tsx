@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react'
+import React, { useCallback, useEffect, useRef } from 'react'
 import styled from 'styled-components'
 import Clock from '../../../utils/clockCanvas'
 
@@ -10,23 +10,38 @@ const Container = styled.section`
 	flex-wrap: nowrap;
 `
 
+const BETWEEN_HEIGHT: number = 100
+const RATIO: number = 0.55
+
 function ClockCanvasRoot() {
 	const clockReference = useRef<any>(null as any)
 	const canvsElementReference = useRef<any>(null as any)
 	const canvasWidth: number = 400
 	const canvasHeight: number = 400
-	const renderClock = (): void => {
+	const initClock = (): void => {
 		clockReference.current = new Clock(canvsElementReference.current, {
 			canvasWidth,
 			canvasHeight,
-			clockRadius: 165,
+			clockRadius: (canvasWidth / 2) * 0.825,
 		})
-		clockReference.current.render()
 	}
+	const resizeHandler = useCallback((e?: any): void => {
+		const rootElement: HTMLElement = document.documentElement || document.body
+		const areaHeight: number = rootElement.getBoundingClientRect().height - BETWEEN_HEIGHT
+		if (clockReference.current) {
+			clockReference.current.cancel()
+			clockReference.current.setCanvasRect(areaHeight * RATIO, areaHeight * RATIO)
+			clockReference.current.setCockRadius(areaHeight * RATIO * 0.5 * 0.825)
+			clockReference.current.render()
+		}
+	}, [])
 	useEffect((): (() => void) => {
-		renderClock()
+		initClock()
+		window.addEventListener('resize', resizeHandler)
+		resizeHandler()
 		return () => {
 			clockReference.current && clockReference.current.cancel()
+			window.removeEventListener('resize', resizeHandler)
 		}
 	}, [])
 	return (
