@@ -7,7 +7,7 @@ import { TCommonComponentBaseProps } from '../../../types/comm.types'
 const { Footer } = Layout
 
 const layoutStyle: { [key: string]: string | number } = {
-	backgroundColor: `rgba(202, 202, 202, 1)`,
+	backgroundColor: `rgba(202, 202, 202, 0.5)`,
 }
 
 function PageFooterRoot(props: TCommonComponentBaseProps): React.ReactElement {

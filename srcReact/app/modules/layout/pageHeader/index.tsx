@@ -10,7 +10,7 @@ import { TCommonComponentBaseProps } from '../../../types/comm.types'
 const { Header } = Layout
 
 const layoutStyle: { [key: string]: string | number } = {
-	backgroundColor: `rgba(202, 202, 202, 1)`,
+	backgroundColor: `rgba(202, 202, 202, 0.5)`,
 }
 
 function PageHeaderRoot(props: TProps): React.ReactElement {

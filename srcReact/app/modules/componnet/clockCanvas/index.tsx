@@ -1,6 +1,6 @@
 import React, { useCallback, useEffect, useRef } from 'react'
+import { ClockCanvas } from '../../../utils/hooks/ClockCanvas'
 import styled from 'styled-components'
-import Clock from '../../../utils/clockCanvas'
 
 const Container = styled.section`
 	display: flex;
@@ -14,39 +14,34 @@ const BETWEEN_HEIGHT: number = 100
 const RATIO: number = 0.55
 
 function ClockCanvasRoot() {
-	const clockReference = useRef<any>(null as any)
-	const canvsElementReference = useRef<any>(null as any)
-	const canvasWidth: number = 400
-	const canvasHeight: number = 400
+	const clockReference = useRef<ClockCanvas>(null as unknown as ClockCanvas)
+	const canvsElementReference = useRef<HTMLCanvasElement>(null as unknown as HTMLCanvasElement)
 	const initClock = (): void => {
-		clockReference.current = new Clock(canvsElementReference.current, {
-			canvasWidth,
-			canvasHeight,
-			clockRadius: (canvasWidth / 2) * 0.825,
-		})
+		clockReference.current = new ClockCanvas(canvsElementReference.current as HTMLCanvasElement)
 	}
 	const resizeHandler = useCallback((e?: any): void => {
 		const rootElement: HTMLElement = document.documentElement || document.body
 		const areaHeight: number = rootElement.getBoundingClientRect().height - BETWEEN_HEIGHT
 		if (clockReference.current) {
-			clockReference.current.cancel()
+			clockReference.current.stop()
 			clockReference.current.setCanvasRect(areaHeight * RATIO, areaHeight * RATIO)
-			clockReference.current.setCockRadius(areaHeight * RATIO * 0.5 * 0.825)
-			clockReference.current.render()
+			clockReference.current.start()
 		}
 	}, [])
 	useEffect((): (() => void) => {
 		initClock()
-		window.addEventListener('resize', resizeHandler)
 		resizeHandler()
-		return () => {
-			clockReference.current && clockReference.current.cancel()
+		window.addEventListener('resize', resizeHandler)
+		return (): void => {
+			if (clockReference.current) {
+				clockReference.current.stop()
+			}
 			window.removeEventListener('resize', resizeHandler)
 		}
 	}, [])
 	return (
 		<Container>
-			<canvas ref={canvsElementReference} width={canvasWidth} height={canvasHeight}></canvas>
+			<canvas ref={canvsElementReference} width={0} height={0}></canvas>
 		</Container>
 	)
 }
