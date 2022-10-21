@@ -13,7 +13,7 @@ const webpackDevConfig = {
 		filename: `scripts/build.[name].[hash:8].js`,
 		chunkFilename: `scripts/chunks.[name].[chunkhash:8].js`,
 	},
-	devServer: webpackDevServerConfig,
+	devServer: webpackDevServerConfig({ port: 12200 }),
 	plugins: [
 		...webpackPlugins({
 			mode: `development`,
