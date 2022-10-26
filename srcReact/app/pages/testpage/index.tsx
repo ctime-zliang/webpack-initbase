@@ -4,6 +4,7 @@ import { TCommonComponentBaseProps } from '../../types/comm.types'
 import OverlayTestRoot from './overlayTest'
 import ContexTesttRoot from './contextTest'
 import HookRefRoot from './hookRef'
+import { HookUseLayoutEffect } from './hookUseLayoutEffect'
 
 function TestPageRoot(props: TCommonComponentBaseProps): React.ReactElement {
 	console.log(`TestPageRoot ☆☆☆`, props)
