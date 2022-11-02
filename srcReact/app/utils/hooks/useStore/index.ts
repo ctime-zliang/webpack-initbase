@@ -11,7 +11,7 @@ export type TUseStore = {
 	flushListeners?: (store: any) => void
 }
 
-function useStore(initialState: any, actions: Array<(a: any) => any>) {
+function useStore(initialState: any, actions: { [Key: string]: any }) {
 	const store: TUseStore = {
 		state: initialState,
 		listeners: [],
