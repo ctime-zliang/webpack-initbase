@@ -1,7 +1,6 @@
 import React from 'react'
 import styled from 'styled-components'
 import { useParams, useNavigate, useSearchParams } from 'react-router-dom'
-import AbstractRoot from './abstract'
 import LinkRoot from './link'
 import ClockCanvas from '../../modules/componnet/clockCanvas'
 
@@ -28,7 +27,7 @@ const HomeContent = styled.div`
 	flex-wrap: nowrap;
 `
 const ClockcanvasWrapper = styled.div`
-	padding: 80px 0 0 0;
+	padding: 100px 0 0 0;
 `
 
 function HomePageRoot(props: any): React.ReactElement {
@@ -46,7 +45,6 @@ function HomePageRoot(props: any): React.ReactElement {
 					<ClockcanvasWrapper>
 						<ClockCanvas />
 					</ClockcanvasWrapper>
-					<AbstractRoot />
 					<LinkRoot />
 				</HomeContent>
 			</HomeContainer>

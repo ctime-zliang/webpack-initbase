@@ -4,9 +4,8 @@ import { Link } from 'react-router-dom'
 
 const containerStyle: { [key: string]: string | number } = {
 	textAlign: 'center',
-	padding: '0 0 35px 0',
+	padding: '25px 0 35px 0',
 	fontSize: '12px',
-	paddingTop: '5px',
 }
 
 function LinkRoot(props: any): React.ReactElement {
