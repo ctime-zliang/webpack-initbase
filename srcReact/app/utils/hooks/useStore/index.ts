@@ -1,17 +1,18 @@
 import { associateActions } from './associateActions'
 import { setState } from './setState'
-import { hook } from './hook'
+import { hook, THookReturnFunction, THookReturnFunctionResult } from './hook'
 import { flushListeners } from './flushListeners'
+import { TListenerEffectItem } from './newListenerEffect'
 
 export type TUseStore = {
 	state: any
 	actions?: { [key: string]: any }
-	listeners?: Array<(a: any) => any>
+	listeners?: Array<TListenerEffectItem>
 	setState?: (state: any, updatedCallback?: (a: any) => void) => void
-	flushListeners?: (store: any) => void
+	flushListeners?: (store: TUseStore) => void
 }
 
-function useStore(initialState: any, actions: { [Key: string]: any }) {
+function useStore(initialState: any, actions: { [Key: string]: any }): THookReturnFunction {
 	const store: TUseStore = {
 		state: initialState,
 		listeners: [],
@@ -19,10 +20,18 @@ function useStore(initialState: any, actions: { [Key: string]: any }) {
 		flushListeners: undefined,
 		actions: undefined,
 	}
-	store.setState = setState.bind(null, store)
-	store.flushListeners = flushListeners.bind(null, store)
+	// store.setState = setState.bind(undefined, store)
+	store.setState = (state: any, updatedCallback?: (a: TUseStore) => void): void => {
+		return setState(store, state, updatedCallback)
+	}
+	// store.flushListeners = flushListeners.bind(undefined, store)
+	store.flushListeners = (): void => {
+		return flushListeners(store)
+	}
 	store.actions = associateActions(store, actions)
-	return hook.bind(null, store)
+	return (mapState?: any, mapActions?: any): THookReturnFunctionResult => {
+		return hook(store, mapState, mapActions)
+	}
 }
 
 export default useStore

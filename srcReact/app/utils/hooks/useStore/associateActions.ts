@@ -1,4 +1,6 @@
-export function associateActions(store: any, actions: { [key: string]: any } = {}): { [key: string]: any } {
+import { TUseStore } from '.'
+
+export function associateActions(store: TUseStore, actions: { [key: string]: any } = {}): { [key: string]: any } {
 	const assActions: { [key: string]: any } = {}
 	const actionsKeys: Array<string> = Object.keys(actions)
 	for (let i: number = 0; i < actionsKeys.length; i++) {
