@@ -1,0 +1,120 @@
+.tree-section {
+	text-align: left;
+}
+.tree-section .child-element {
+	padding-left: 20px;
+	position: relative;
+	background-color: #ffffff;
+	z-index: 1;
+}
+.tree-section .child-element .element-label {
+	padding-left: 5px;
+	font-size: 14px;
+	color: #333333;
+	white-space: nowrap;
+	overflow: hidden;
+	line-height: 30px;
+	height: 30px;
+	text-overflow: ellipsis;
+	position: relative;
+	z-index: 1;
+	display: inline-block;
+	padding-right: 10px;
+}
+.tree-section .child-element .element-label.active {
+	background-color: #def1ff;
+}
+.tree-section .child-element .element-label:hover {
+	text-decoration: underline;
+	cursor: pointer;
+}
+.tree-section .child-element.open .open-toggle-btn {
+	background: url(../images/department-close.png) no-repeat center center;
+	background-size: 100% 100%;
+	background: none\9;
+	filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='./images/department-close.png', sizingMethod='scale') \9;
+}
+.tree-section .child-element.open .children-wrapper {
+	display: block;
+}
+.tree-section .child-element.close .open-toggle-btn {
+	background: url(../images/depart-open.png) no-repeat center center;
+	background-size: 100% 100%;
+	background: none\9;
+	filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='./images/depart-open.png', sizingMethod='scale') \9;
+}
+.tree-section .child-element.close .children-wrapper {
+	display: none;
+}
+.tree-section .child-element .fileBox {
+	position: absolute;
+	width: 16px;
+	left: 20px;
+	top: 0;
+	margin: 5px 10px 0;
+	z-index: 2;
+}
+.tree-section .child-element .fileBox:hover {
+	cursor: pointer;
+}
+.tree-section .child-element .fileBox img {
+	width: 16px;
+}
+.tree-section .child-element:before {
+	position: absolute;
+	left: -13px;
+	top: 15px;
+	width: 20px;
+	height: 100%;
+	border-top: 1px solid #cfcfcf;
+	border-right: 1px solid #cfcfcf;
+	content: '';
+	z-index: 1;
+}
+.tree-section .child-element:after {
+	position: absolute;
+	bottom: -12px;
+	left: 7px;
+	width: 1px;
+	height: 30px;
+	z-index: 3;
+	background-color: #ffffff;
+	content: '';
+}
+.tree-section .child-element.parentNode:before {
+	border-top: none;
+}
+.tree-section .child-element .open-toggle-btn {
+	position: absolute;
+	z-index: 5;
+	left: 0;
+	top: 8px;
+	width: 14px;
+	height: 14px;
+}
+.tree-section .child-element .open-toggle-btn:hover {
+	cursor: pointer;
+}
+.tree-section .child-element.last-child-element .open-toggle-btn {
+	width: 10px;
+	height: 10px;
+	top: 10px;
+	left: 7px;
+	background: url(../images/no-child.png) no-repeat center center;
+	background-size: 100% 100%;
+	background: none\9;
+	filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='./images/no-child.png', sizingMethod='scale') \9;
+}
+.tree-section .child-element.last-child-element .open-toggle-btn:hover {
+	cursor: default;
+}
+.tree-section .child-element .end-element-line {
+	position: absolute;
+	bottom: -15px;
+	left: -13px;
+	width: 1px;
+	height: 100%;
+	z-index: 4;
+	background-color: #ffffff;
+	display: none;
+}

@@ -6,6 +6,7 @@ import ContexTesttRoot from './contextTest'
 import HookRefRoot from './hookRef'
 import { HookUseLayoutEffect } from './hookUseLayoutEffect'
 import UseStoreRoot from './useStore'
+import { TreeRoot } from './tree'
 
 function TestPageRoot(props: TCommonComponentBaseProps): React.ReactElement {
 	console.log(`TestPageRoot ☆☆☆`, props)
@@ -14,7 +15,7 @@ function TestPageRoot(props: TCommonComponentBaseProps): React.ReactElement {
 			<Helmet>
 				<title>Test Page</title>
 			</Helmet>
-			<UseStoreRoot />
+			<TreeRoot />
 		</>
 	)
 }
