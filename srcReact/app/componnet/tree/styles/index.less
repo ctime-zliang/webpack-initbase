@@ -1,0 +1,154 @@
+// 扩展按钮包裹层样式类名标记符
+@rte: .tree-extends;
+// 层级指示线样式类名标记符
+@rtel: .tree-usertips-line;
+
+.tree-container {
+	width: 100%;
+}
+
+// Tree 单行样式
+.tree-rowline {
+	display: flex;
+	.tree-content {
+		flex: 1;
+		font-size: 12px;
+		cursor: pointer;
+		padding-left: 3px;
+		&:hover {
+			background-color: #efefef;
+		}
+	}
+}
+// 层级指示线样式
+.tree-rowline {
+	@{rte},
+	@{rtel},
+	@{rtel}-middle,
+	@{rtel}-turn,
+	@{rtel}-fork {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		width: var(--tree-usertips-line-width);
+		height: initial;
+		padding: 0;
+		flex-shrink: 0;
+	}
+	@{rtel}-middle {
+		width: 0;
+	}
+
+	@{rtel}::before,
+	@{rtel}-middle::before,
+	@{rtel}-turn::before,
+	@{rtel}-turn::after,
+	@{rtel}-fork::before,
+	@{rtel}-fork::after {
+		display: inline-block;
+		background-color: rgba(0, 0, 0, 0.4);
+		content: '';
+	}
+
+	@{rtel}::before {
+		width: 1px;
+		height: 100%;
+	}
+	@{rtel}-middle::before {
+		width: 100%;
+		height: 1px;
+	}
+
+	@{rtel}-turn {
+		position: relative;
+	}
+
+	@{rtel}-turn::before {
+		position: absolute;
+		top: 0%;
+		left: calc(50% - 0.5px);
+		width: 1px;
+		height: 50%;
+	}
+	@{rtel}-turn::after {
+		position: absolute;
+		top: calc(50% - 0.5px);
+		left: 50%;
+		width: 50%;
+		height: 1px;
+	}
+
+	@{rtel}-fork {
+		position: relative;
+	}
+	@{rtel}-fork::before {
+		position: absolute;
+		top: 0%;
+		left: calc(50% - 0.5px);
+		width: 1px;
+		height: 100%;
+	}
+	@{rtel}-fork::after {
+		position: absolute;
+		top: calc(50% - 0.5px);
+		left: 50%;
+		width: 50%;
+		height: 1px;
+	}
+}
+
+// 扩展按钮样式
+@{rte}-box {
+	width: 14px;
+	height: 14px;
+	box-sizing: border-box;
+	position: relative;
+	cursor: pointer;
+	border: 1px solid rgba(0, 0, 0, 0.4);
+	&::before,
+	&::after {
+		position: absolute;
+		top: 50%;
+		left: 50%;
+		transform: translate(-50%, -50%);
+		line-height: 100%;
+		content: '';
+		background-color: rgba(0, 0, 0, 0.4);
+		transition: transform 0.3s;
+	}
+	&::before {
+		width: 60%;
+		height: 1px;
+	}
+	&::after {
+		width: 1px;
+		height: 60%;
+	}
+}
+@{rte}-box-active {
+	&::after {
+		transform: translate(-50%, -50%) rotate(90deg);
+	}
+}
+
+// @{rte}-triangle {
+// 	&::before {
+// 		position: absolute;
+// 		top: 50%;
+// 		left: 50%;
+// 		transform: translate(-50%, -50%);
+// 		line-height: 100%;
+// 		content: '';
+// 		border-radius: 3px;
+// 		border-left: 5px solid var(--rtt-expand-color);
+// 		border-right: 5px solid transparent;
+// 		border-top: 5px solid transparent;
+// 		border-bottom: 5px solid transparent;
+// 		transition: transform 0.3s;
+// 	}
+// }
+// @{rte}-triangle-active {
+// 	&::before {
+// 		transform: translate(-50%, -25%) rotate(90deg);
+// 	}
+// }
