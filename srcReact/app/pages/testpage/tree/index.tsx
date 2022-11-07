@@ -78,12 +78,21 @@ function TreeRoot(props: any): React.ReactElement {
 	return (
 		<section style={{ padding: `5px 5px` }}>
 			<div style={{ margin: '5px 0' }}>
-				<ReactTree multiSelect={true} showExpandBtn={true} onExpand={expandAction} onClick={clickAction} data={dataLine1}></ReactTree>
+				<ReactTree
+					contentUnderline={false}
+					multiSelect={true}
+					showTagLine={true}
+					showExpandBtn={true}
+					onExpand={expandAction}
+					onClick={clickAction}
+					data={dataLine1}
+				></ReactTree>
 			</div>
 			<br />
 			<div style={{ margin: '5px 0' }}>
 				<ReactTree
 					selectedIds={['002']}
+					contentUnderline={true}
 					leftTranslationalAlignment={true}
 					showExpandBtn={false}
 					onExpand={expandAction}

@@ -43,6 +43,14 @@ export type TTreeRootPorps = {
 	 */
 	multiSelect?: boolean
 	/**
+	 * tree 每行所占行高
+	 */
+	itemHeight?: string
+	/**
+	 * ${data[index].title} 是否在所占区域显示下划线
+	 */
+	contentUnderline?: boolean
+	/**
 	 * 是否设置整体布局左移对齐外部容器左边界
 	 */
 	leftTranslationalAlignment?: boolean

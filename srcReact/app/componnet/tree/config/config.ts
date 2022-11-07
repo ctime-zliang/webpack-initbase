@@ -16,6 +16,8 @@ export const defaultProfile: TTreeRootPorps = {
 	expandAll: false,
 	leftTranslationalAlignment: false,
 	multiSelect: false,
+	itemHeight: '25px',
+	contentUnderline: false,
 	selectedIds: [],
 	onExpand: null,
 	onClick: null,

@@ -15,8 +15,12 @@ export type TLineComponentProps = {
 function TreeLine(props: TLineComponentProps): React.ReactElement {
 	const { lineKey, lineData, selectedKeys, profile, expandAction, contentClickAction } = props
 	const { levels = [], expand, sourceData } = lineData
-	const { leftTranslationalAlignment = false, itemStyleObject, showTagLine = true, showExpandBtn = true, itemRender } = profile
-	const treeContentClassString: string = `tree-content ${selectedKeys.indexOf(sourceData.id) >= 0 ? 'tree-content-selected' : ''}`
+	const { leftTranslationalAlignment = false, itemStyleObject, showTagLine = true, showExpandBtn = true, contentUnderline, itemRender } = profile
+	const treeContentClassString = classNames({
+		'tree-content': true,
+		'tree-content-selected': selectedKeys.indexOf(sourceData.id) >= 0,
+		'tree-content-underline': !!contentUnderline,
+	})
 	const blankWrapperClassName: string = 'tree-blank'
 	const extenBtnWrapperClassName: string = 'tree-extends'
 	const expandRenderClass = classNames({

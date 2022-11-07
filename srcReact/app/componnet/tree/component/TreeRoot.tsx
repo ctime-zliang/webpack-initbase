@@ -15,6 +15,7 @@ function TreeRoot(props: TTreeRootPorps, ref: any): React.ReactElement {
 		leftTranslationalAlignment,
 		multiSelect,
 		selectedIds = [],
+		itemHeight,
 		onExpand,
 		onClick,
 	} = globalProfile.current
@@ -25,6 +26,9 @@ function TreeRoot(props: TTreeRootPorps, ref: any): React.ReactElement {
 
 	const treeContainerClassString: string = `tree-container ${leftTranslationalAlignment ? 'tree-container-leftalignment' : ''}`
 	const treeRowlineClassString: string = 'tree-rowline'
+	const treeRowlineStyleObject: { [key: string]: any } = {
+		lineHeight: itemHeight,
+	}
 
 	useImperativeHandle(ref, () => {
 		return {
@@ -99,7 +103,7 @@ function TreeRoot(props: TTreeRootPorps, ref: any): React.ReactElement {
 			const { id, children, expand, isLeaf } = lineData
 			const showchildren: boolean = !!(expand && !isLeaf && children?.length)
 			return [
-				<div key={id} className={treeRowlineClassString}>
+				<div key={id} className={treeRowlineClassString} style={treeRowlineStyleObject}>
 					<TreeLine
 						lineKey={index}
 						lineData={lineData}
