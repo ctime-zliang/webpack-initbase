@@ -1,7 +1,9 @@
 // 扩展按钮包裹层样式类名标记符
-@rte: .tree-extends;
+@tree-extend: .tree-extends;
+// 空白占位标记符
+@tree-blank: .tree-blank;
 // 层级指示线样式类名标记符
-@rtel: .tree-usertips-line;
+@tree-tline: .tree-usertips-line;
 
 .tree-container {
 	width: 100%;
@@ -14,63 +16,87 @@
 		flex: 1;
 		font-size: 12px;
 		cursor: pointer;
-		padding-left: 3px;
+		padding: 3px 0 3px 3px;
 		&:hover {
-			background-color: #efefef;
+			background-color: rgba(230, 247, 255, 0.75);
 		}
+	}
+	.tree-content-selected {
+		color: #1890ff;
+		background-color: rgba(230, 247, 255, 1);
 	}
 }
 // 层级指示线样式
 .tree-rowline {
-	@{rte},
-	@{rtel},
-	@{rtel}-middle,
-	@{rtel}-turn,
-	@{rtel}-fork {
+	@{tree-extend} {
 		display: flex;
 		align-items: center;
 		justify-content: center;
-		width: var(--tree-usertips-line-width);
+		width: var(--tree-widget-item-width);
 		height: initial;
 		padding: 0;
 		flex-shrink: 0;
 	}
-	@{rtel}-middle {
+	@{tree-blank} {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		width: var(--tree-widget-item-width);
+		height: initial;
+		padding: 0;
+		flex-shrink: 0;
+	}
+}
+// 层级指示线样式
+.tree-rowline {
+	@{tree-tline},
+	@{tree-tline}-middle,
+	@{tree-tline}-turn,
+	@{tree-tline}-fork {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		width: var(--tree-widget-item-width);
+		height: initial;
+		padding: 0;
+		flex-shrink: 0;
+	}
+	@{tree-tline}-middle {
 		width: 0;
 	}
 
-	@{rtel}::before,
-	@{rtel}-middle::before,
-	@{rtel}-turn::before,
-	@{rtel}-turn::after,
-	@{rtel}-fork::before,
-	@{rtel}-fork::after {
+	@{tree-tline}::before,
+	@{tree-tline}-middle::before,
+	@{tree-tline}-turn::before,
+	@{tree-tline}-turn::after,
+	@{tree-tline}-fork::before,
+	@{tree-tline}-fork::after {
 		display: inline-block;
 		background-color: rgba(0, 0, 0, 0.4);
 		content: '';
 	}
 
-	@{rtel}::before {
+	@{tree-tline}::before {
 		width: 1px;
 		height: 100%;
 	}
-	@{rtel}-middle::before {
+	@{tree-tline}-middle::before {
 		width: 100%;
 		height: 1px;
 	}
 
-	@{rtel}-turn {
+	@{tree-tline}-turn {
 		position: relative;
 	}
 
-	@{rtel}-turn::before {
+	@{tree-tline}-turn::before {
 		position: absolute;
 		top: 0%;
 		left: calc(50% - 0.5px);
 		width: 1px;
 		height: 50%;
 	}
-	@{rtel}-turn::after {
+	@{tree-tline}-turn::after {
 		position: absolute;
 		top: calc(50% - 0.5px);
 		left: 50%;
@@ -78,17 +104,17 @@
 		height: 1px;
 	}
 
-	@{rtel}-fork {
+	@{tree-tline}-fork {
 		position: relative;
 	}
-	@{rtel}-fork::before {
+	@{tree-tline}-fork::before {
 		position: absolute;
 		top: 0%;
 		left: calc(50% - 0.5px);
 		width: 1px;
 		height: 100%;
 	}
-	@{rtel}-fork::after {
+	@{tree-tline}-fork::after {
 		position: absolute;
 		top: calc(50% - 0.5px);
 		left: 50%;
@@ -98,7 +124,7 @@
 }
 
 // 扩展按钮样式
-@{rte}-box {
+@{tree-extend}-box {
 	width: 14px;
 	height: 14px;
 	box-sizing: border-box;
@@ -125,13 +151,13 @@
 		height: 60%;
 	}
 }
-@{rte}-box-active {
+@{tree-extend}-box-active {
 	&::after {
 		transform: translate(-50%, -50%) rotate(90deg);
 	}
 }
 
-// @{rte}-triangle {
+// @{tree-extend}-triangle {
 // 	&::before {
 // 		position: absolute;
 // 		top: 50%;
@@ -147,7 +173,7 @@
 // 		transition: transform 0.3s;
 // 	}
 // }
-// @{rte}-triangle-active {
+// @{tree-extend}-triangle-active {
 // 	&::before {
 // 		transform: translate(-50%, -25%) rotate(90deg);
 // 	}
