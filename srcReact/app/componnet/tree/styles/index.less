@@ -12,11 +12,18 @@
 // Tree 单行样式
 .tree-rowline {
 	display: flex;
+	min-height: 26px;
 	.tree-content {
+		display: flex;
+		justify-content: flex-start;
+		align-items: center;
+		align-content: center;
+		word-break: break-all;
+		white-space: nowrap;
 		flex: 1;
 		font-size: 12px;
 		cursor: pointer;
-		padding: 0 0 0 3px;
+		padding: 3px 0 3px 3px;
 		&:hover {
 			background-color: rgba(230, 247, 255, 0.75);
 		}

@@ -26,9 +26,7 @@ function TreeRoot(props: TTreeRootPorps, ref: any): React.ReactElement {
 
 	const treeContainerClassString: string = `tree-container ${leftTranslationalAlignment ? 'tree-container-leftalignment' : ''}`
 	const treeRowlineClassString: string = 'tree-rowline'
-	const treeRowlineStyleObject: { [key: string]: any } = {
-		lineHeight: itemHeight,
-	}
+	const treeRowlineStyleObject: { [key: string]: any } = {}
 
 	useImperativeHandle(ref, () => {
 		return {
@@ -37,6 +35,10 @@ function TreeRoot(props: TTreeRootPorps, ref: any): React.ReactElement {
 			},
 		}
 	})
+
+	useEffect((): void => {
+		setSelectedKeys(selectedIds)
+	}, [selectedIds])
 
 	useEffect((): void => {
 		const handleData: Array<TComponentTreeRowData> = handleFormatData(data, [], expandedKeys.current, expandAll)
