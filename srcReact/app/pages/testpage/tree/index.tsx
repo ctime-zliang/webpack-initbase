@@ -1,65 +1,6 @@
-import React, { useEffect } from 'react'
-import ReactTree from '../../../componnet/tree'
-
-const dataLine1: any = [
-	{
-		title: '001',
-		id: '001',
-		children: [
-			{
-				title: '0011',
-				id: '0011',
-				children: [
-					{
-						title: '00111',
-						id: '00111',
-						children: [
-							{
-								title: '001111',
-								id: '001111',
-								children: [
-									{
-										title: '0011111',
-										id: '0011111',
-									},
-								],
-							},
-						],
-					},
-				],
-			},
-			{
-				title: '0012',
-				id: '0012',
-			},
-			{
-				title: '0013',
-				id: '0013',
-				children: [
-					{
-						title: '00131',
-						id: '00131',
-					},
-				],
-			},
-		],
-	},
-]
-
-const dataLine2: any = [
-	{
-		title: '001',
-		id: '001',
-	},
-	{
-		title: '002',
-		id: '002',
-	},
-	{
-		title: '003',
-		id: '003',
-	},
-]
+import React, { useEffect, useState } from 'react'
+import ReactTree, { TTreeDataItem } from '../../../componnet/tree'
+import { dataLine1, dataLine2, dataLine3 } from './data'
 
 const clickAction = (a: any, b: any, c: any) => {
 	console.log(a, b, c)
@@ -69,14 +10,21 @@ const expandAction = (a: any, b: any) => {
 }
 
 function TreeRoot(props: any): React.ReactElement {
+	const [data2, setData2] = useState<Array<TTreeDataItem>>([])
 	useEffect(() => {
 		const el: HTMLElement = document.querySelector('.app-page-content') as HTMLElement
 		if (el) {
 			el.style.backgroundColor = '#ffffff'
 		}
 	}, [])
+	useEffect(() => {
+		window.setTimeout(() => {
+			setData2(dataLine2 as Array<TTreeDataItem>)
+		}, 2000)
+	}, [])
 	return (
 		<section style={{ padding: `5px 5px` }}>
+			<h2>Tree Case 01</h2>
 			<div style={{ margin: '5px 0' }}>
 				<ReactTree
 					contentUnderline={false}
@@ -88,7 +36,7 @@ function TreeRoot(props: any): React.ReactElement {
 					data={dataLine1}
 				></ReactTree>
 			</div>
-			<br />
+			<h2>Tree Case 02</h2>
 			<div style={{ margin: '5px 0' }}>
 				<ReactTree
 					selectedIds={['002']}
@@ -97,7 +45,18 @@ function TreeRoot(props: any): React.ReactElement {
 					showExpandBtn={false}
 					onExpand={expandAction}
 					onClick={clickAction}
-					data={dataLine2}
+					data={data2}
+				></ReactTree>
+			</div>
+			<h2>Tree Case 03</h2>
+			<div style={{ margin: '5px 0' }}>
+				<ReactTree
+					selectedIds={[]}
+					contentUnderline={true}
+					expandAll={true}
+					onExpand={expandAction}
+					onClick={clickAction}
+					data={dataLine3}
 				></ReactTree>
 			</div>
 		</section>

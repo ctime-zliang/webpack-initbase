@@ -24,8 +24,8 @@ function TreeLine(props: TLineComponentProps): React.ReactElement {
 	const blankWrapperClassName: string = 'tree-blank'
 	const extenBtnWrapperClassName: string = 'tree-extends'
 	const expandRenderClass = classNames({
-		['tree-extends-box']: true,
-		[`tree-extends-box-active`]: !!expand,
+		'tree-extends-box': true,
+		'tree-extends-box-active': !!expand,
 	})
 	const extendLineClassName: string = 'tree-usertips-line'
 	const extendLineMiddleClassName: string = 'tree-usertips-line-middle'

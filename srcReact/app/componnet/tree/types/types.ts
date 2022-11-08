@@ -36,8 +36,9 @@ export type TTreeRootPorps = {
 	showExpandBtn?: boolean
 	/**
 	 * 是否展开所有层级
+	 * 		不需要自动展开所有层级时请勿配置此项或者直接不配置即可
 	 */
-	expandAll?: boolean
+	expandAll?: boolean | undefined
 	/**
 	 * 是否支持多选
 	 */
@@ -52,6 +53,8 @@ export type TTreeRootPorps = {
 	contentUnderline?: boolean
 	/**
 	 * 是否设置整体布局左移对齐外部容器左边界
+	 * 		通常在展示不具有层级结构的数据时, 由于展开/收起按钮包裹层仍会占用一定的宽度, 导致整个列表左侧边线没有对齐外部容器的左侧内边界
+	 * 		可以通过配置此项来对齐容器左侧内边界
 	 */
 	leftTranslationalAlignment?: boolean
 	/**

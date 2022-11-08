@@ -4,7 +4,16 @@ import { TComponentTreeRowData, TLevels, TTreeDataItem } from '../types/types'
 let rowId: number = 1
 let levelId: number = 1
 
-function getExpands(id: string, expand: boolean, isLeaf: boolean, expandedKeys: Array<string>, defaultExpand: boolean): boolean {
+function getExpands(
+	id: string,
+	expand: boolean,
+	isLeaf: boolean,
+	expandedKeys: Array<string>,
+	defaultExpand: boolean | undefined = undefined
+): boolean {
+	if (typeof defaultExpand !== 'undefined') {
+		return defaultExpand
+	}
 	if (isLeaf) {
 		return false
 	} else if (typeof (expandedKeys as Array<string>)?.length === 'number') {
@@ -12,14 +21,14 @@ function getExpands(id: string, expand: boolean, isLeaf: boolean, expandedKeys: 
 	} else if (typeof expand === 'boolean') {
 		return expand
 	}
-	return defaultExpand
+	return !!defaultExpand
 }
 
 export function handleFormatData(
 	data: Array<TTreeDataItem | TComponentTreeRowData>,
 	levels: Array<TLevels>,
 	expandedKeys: Array<string>,
-	defaultExpand: boolean
+	defaultExpand: boolean | undefined = undefined
 ): Array<TComponentTreeRowData> {
 	const result: Array<TComponentTreeRowData> = []
 	for (let i: number = 0; i < data.length; i++) {

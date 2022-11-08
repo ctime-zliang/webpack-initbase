@@ -4,10 +4,9 @@ import TreeLine from './TreeLine'
 import { TComponentTreeRowData, TTreeDataItemID, TTreeRootPorps } from '../types/types'
 import { handleFormatData } from '../utils/filter'
 import { defaultProfile } from '../config/config'
-import { classNames } from '../utils/classNames'
 
 function TreeRoot(props: TTreeRootPorps, ref: any): React.ReactElement {
-	const globalProfile = useRef<TTreeRootPorps>({ ...defaultProfile, ...props })
+	const globalProfile: TTreeRootPorps = { ...defaultProfile, ...props }
 	const {
 		data,
 		containerStyleObject,
@@ -15,10 +14,11 @@ function TreeRoot(props: TTreeRootPorps, ref: any): React.ReactElement {
 		leftTranslationalAlignment,
 		multiSelect,
 		selectedIds = [],
+		expandAll,
 		itemHeight,
 		onExpand,
 		onClick,
-	} = globalProfile.current
+	} = globalProfile
 	const containerRef = useRef<HTMLDivElement>(null)
 	const expandedKeys = useRef<Array<string>>([])
 	const [selectedKeys, setSelectedKeys] = useState<Array<TTreeDataItemID>>(selectedIds)
@@ -39,7 +39,7 @@ function TreeRoot(props: TTreeRootPorps, ref: any): React.ReactElement {
 	})
 
 	useEffect((): void => {
-		const handleData: Array<TComponentTreeRowData> = handleFormatData(data, [], expandedKeys.current, false)
+		const handleData: Array<TComponentTreeRowData> = handleFormatData(data, [], expandedKeys.current, expandAll)
 		console.log(handleData)
 		setViewData(handleData)
 	}, [data])
@@ -72,18 +72,10 @@ function TreeRoot(props: TTreeRootPorps, ref: any): React.ReactElement {
 	const handleExpand = (data: TComponentTreeRowData): void => {
 		let result: Array<string> = []
 		if (data.expand) {
-			/**
-			 * 展开当前行的子层时
-			 * 		记录当前行的 level-key
-			 */
 			result = [...expandedKeys.current, data.id as string]
 			expandedKeys.current = result
 		} else {
 			const delIndex: number = expandedKeys.current.indexOf(data.id as string)
-			/**
-			 * 收起当前行的子层时
-			 * 		删除当前行的 level-key
-			 */
 			expandedKeys.current.splice(delIndex, 1)
 			result = [...expandedKeys.current]
 			expandedKeys.current = result
@@ -107,7 +99,7 @@ function TreeRoot(props: TTreeRootPorps, ref: any): React.ReactElement {
 					<TreeLine
 						lineKey={index}
 						lineData={lineData}
-						profile={globalProfile.current}
+						profile={globalProfile}
 						selectedKeys={selectedKeys}
 						contentClickAction={clickTreeItemAction}
 						expandAction={expandAction}
