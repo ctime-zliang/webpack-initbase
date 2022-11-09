@@ -15,7 +15,7 @@ function TestPageRoot(props: TCommonComponentBaseProps): React.ReactElement {
 			<Helmet>
 				<title>Test Page</title>
 			</Helmet>
-			<TreeRoot />
+			<UseStoreRoot />
 		</>
 	)
 }

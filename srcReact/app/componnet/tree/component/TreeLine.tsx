@@ -1,7 +1,7 @@
 import React from 'react'
+import { classNames } from 'srcReact/app/utils/utils'
 import { ELEVEL_STAG } from '../config/config'
 import { TComponentTreeRowData, TLevels, TTreeRootPorps } from '../types/types'
-import { classNames } from '../utils/classNames'
 
 export type TLineComponentProps = {
 	lineKey: number
