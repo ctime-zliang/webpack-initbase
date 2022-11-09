@@ -5,7 +5,7 @@ import OverlayTestRoot from './overlayTest'
 import ContexTesttRoot from './contextTest'
 import HookRefRoot from './hookRef'
 import { HookUseLayoutEffect } from './hookUseLayoutEffect'
-import UseStoreRoot from './useStore'
+import UseDervStoreRoot from './useDervStore'
 import TreeRoot from './tree'
 
 function TestPageRoot(props: TCommonComponentBaseProps): React.ReactElement {
@@ -15,7 +15,7 @@ function TestPageRoot(props: TCommonComponentBaseProps): React.ReactElement {
 			<Helmet>
 				<title>Test Page</title>
 			</Helmet>
-			<UseStoreRoot />
+			<UseDervStoreRoot />
 		</>
 	)
 }
