@@ -25,9 +25,6 @@ const useHook = useDervStore<TModuleState, TModuleActions>(initialState, actions
 function TestModules01(props: any): React.ReactElement {
 	const [state, action] = useHook()
 	const clickAction = (): void => {
-		// /**
-		//  * 参数字段类型提示
-		//  */
 		// action.setCounter({ kkk: 1 })
 		action.setCounter({ newCounter: Math.random() })
 	}

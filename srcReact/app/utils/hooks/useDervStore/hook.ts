@@ -1,6 +1,6 @@
 import React from 'react'
-import { TUseStore } from '.'
 import { FreeObject } from '../../utils'
+import { TUseStore } from './types'
 
 export type TUseStoreReturnFunction = (mapState?: any, mapActions?: any) => TUseStoreReturnFunctionResult
 export type TUseStoreReturnFunctionResult = [any, { [key: string]: any }]

@@ -1,5 +1,5 @@
-import { TUseStore } from '.'
 import { FreeObject } from '../../utils'
+import { TUseStore } from './types'
 
 export function setState(store: TUseStore, state: FreeObject<any>, updatedCallback?: (a: TUseStore) => void): void {
 	store.state = { ...store.state, ...state }

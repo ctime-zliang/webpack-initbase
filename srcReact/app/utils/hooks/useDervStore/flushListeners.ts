@@ -1,4 +1,4 @@
-import { TUseStore } from '.'
+import { TUseStore } from './types'
 
 export function flushListeners(store: TUseStore): void {
 	const listeners = store.listeners || []

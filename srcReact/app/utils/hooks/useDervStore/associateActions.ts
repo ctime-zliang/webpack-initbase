@@ -1,4 +1,4 @@
-import { TUseStore } from '.'
+import { TUseStore } from './types'
 
 export function associateActions(store: TUseStore, actions: { [key: string]: any } = {}): { [key: string]: any } {
 	const assActions: { [key: string]: any } = {}
