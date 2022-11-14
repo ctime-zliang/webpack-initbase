@@ -7,24 +7,13 @@ import { defaultProfile } from '../config/config'
 
 function TreeRoot(props: TTreeRootPorps, ref: any): React.ReactElement {
 	const globalProfile: TTreeRootPorps = { ...defaultProfile, ...props }
-	const {
-		data,
-		containerStyleObject,
-		treeWidgetItemWidth,
-		leftTranslationalAlignment,
-		multiSelect,
-		selectedIds = [],
-		expandAll,
-		itemHeight,
-		onExpand,
-		onClick,
-	} = globalProfile
+	const { data, containerStyleObject, treeWidgetItemWidth, multiSelect, selectedIds = [], expandAll, onExpand, onClick } = globalProfile
 	const containerRef = useRef<HTMLDivElement>(null)
 	const expandedKeys = useRef<Array<string>>([])
 	const [selectedKeys, setSelectedKeys] = useState<Array<TTreeDataItemID>>(selectedIds)
 	const [viewData, setViewData] = useState<Array<TComponentTreeRowData>>([])
 
-	const treeContainerClassString: string = `tree-container ${leftTranslationalAlignment ? 'tree-container-leftalignment' : ''}`
+	const treeContainerClassString: string = `tree-container`
 	const treeRowlineClassString: string = 'tree-rowline'
 	const treeRowlineStyleObject: { [key: string]: any } = {}
 
