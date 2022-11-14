@@ -2,7 +2,7 @@ import { associateActions } from './associateActions'
 import { setState } from './setState'
 import { hook, TUseStoreReturnFunction, TUseStoreReturnFunctionResult, TListenerEffectItem } from './hook'
 import { flushListeners } from './flushListeners'
-import { FreeObject } from '../../utils'
+import { FreeObject } from '../../../../types/common'
 import { Store as _Store, TUseStore, TUseStoreResult } from './types'
 
 export type Store<S, A> = _Store<S, A>

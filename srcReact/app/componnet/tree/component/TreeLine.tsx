@@ -1,5 +1,5 @@
 import React from 'react'
-import { classNames } from 'srcReact/app/utils/utils'
+import { classNames } from '../../utils/classNames'
 import { ELEVEL_STAG } from '../config/config'
 import { TComponentTreeRowData, TLevels, TTreeRootPorps } from '../types/types'
 
