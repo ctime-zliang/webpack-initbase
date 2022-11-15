@@ -2,10 +2,9 @@ import React, { useEffect, useState } from 'react'
 import { defaultProfile, EPageUpdateAction } from '../config/config'
 import { TPaginationProfile, TPagination } from '../types/types'
 import { correctionUserInput } from '../utils/correctionUserInput'
-import PageInput from './PageInput'
 import PageRange from './PageRange'
-import '../styles/index.less'
 import PageSelect from './PageSelect'
+import '../styles/index.less'
 
 type TPaginationProps = TPagination
 function PaginationRoot(props: TPaginationProps): React.ReactElement {
@@ -25,10 +24,13 @@ function PaginationRoot(props: TPaginationProps): React.ReactElement {
 	const _isLegalCutSize: boolean = !!cutSizeOptions.find((item: number): boolean => {
 		return item === _cutSize
 	})
+	const _calcCutSize: number = _isLegalCutSize ? _cutSize : cutSizeOptions[0]
+	const _calcPageTotal: number = Math.ceil(_countTotal / _calcCutSize)
+	const _calcPageNumber: number = correctionUserInput(_pageNumber, 1, _calcPageTotal)
+
 	const [countTotal, setCountTotal] = useState<number>(_countTotal)
-	const [cutSize, setCutSize] = useState<number>(_isLegalCutSize ? _cutSize : cutSizeOptions[0])
-	const [pageTotal, setPageTotal] = useState<number>(Math.ceil(countTotal / cutSize))
-	const _calcPageNumber: number = correctionUserInput(_pageNumber, 1, pageTotal)
+	const [cutSize, setCutSize] = useState<number>(_calcCutSize)
+	const [pageTotal, setPageTotal] = useState<number>(_calcPageTotal)
 	const [pageNumber, setPageNumber] = useState<number>(_calcPageNumber)
 	const [inputPageNumber, setInputPageNumber] = useState<number>(_calcPageNumber)
 
@@ -37,28 +39,29 @@ function PaginationRoot(props: TPaginationProps): React.ReactElement {
 	const theNextJumpWrapperClassName: string = `page-jump-wrapper page-nextjump-wrapper ${
 		pageNumber >= pageTotal ? 'page-item-wrapper-disabled' : ''
 	}`
+	const theTotalcountWrapperClassName: string = `page-totalcount-wrapper`
 	const theContentClassName: string = 'page-content'
 
-	useEffect((): void => {
-		if (_pageNumber === pageNumber) {
-			return
-		}
-		const _calcPageNumber: number = correctionUserInput(_pageNumber, 1, pageTotal)
-		setPageNumber(_calcPageNumber)
-		setInputPageNumber(_calcPageNumber)
-		pageToggle && pageToggle(EPageUpdateAction.REFRESH_PAGE, _calcPageNumber)
-	}, [_pageNumber])
+	// useEffect((): void => {
+	// 	if (_pageNumber === pageNumber) {
+	// 		return
+	// 	}
+	// 	const _calcPageNumber: number = correctionUserInput(_pageNumber, 1, pageTotal)
+	// 	setPageNumber(_calcPageNumber)
+	// 	setInputPageNumber(_calcPageNumber)
+	// 	pageToggle && pageToggle(EPageUpdateAction.REFRESH_PAGE, _calcPageNumber)
+	// }, [_pageNumber])
 
-	useEffect((): void => {
-		if (_countTotal === countTotal) {
-			return
-		}
-		setCountTotal(_countTotal)
-		setPageTotal(Math.ceil(_countTotal / cutSize))
-		setPageNumber(1)
-		setInputPageNumber(1)
-		pageToggle && pageToggle(EPageUpdateAction.REFRESH_PAGE, 1)
-	}, [_countTotal])
+	// useEffect((): void => {
+	// 	if (_countTotal === countTotal) {
+	// 		return
+	// 	}
+	// 	setCountTotal(_countTotal)
+	// 	setPageTotal(Math.ceil(_countTotal / cutSize))
+	// 	setPageNumber(1)
+	// 	setInputPageNumber(1)
+	// 	pageToggle && pageToggle(EPageUpdateAction.REFRESH_PAGE, 1)
+	// }, [_countTotal])
 
 	const piecewiseToggleAcion = (e: React.FormEvent): void => {
 		e.stopPropagation()
@@ -68,8 +71,8 @@ function PaginationRoot(props: TPaginationProps): React.ReactElement {
 		setPageTotal(Math.ceil(_countTotal / inputValue))
 		setPageNumber(1)
 		setInputPageNumber(1)
-		pageToggle && pageToggle(EPageUpdateAction.REFRESH_PAGE, 1)
 		pagePiecewise && pagePiecewise(inputValue)
+		pageToggle && pageToggle(EPageUpdateAction.REFRESH_PAGE, 1)
 	}
 	const prevJumpAction = (e: React.MouseEvent): void => {
 		e.stopPropagation()
@@ -89,7 +92,7 @@ function PaginationRoot(props: TPaginationProps): React.ReactElement {
 			pageToggle && pageToggle(EPageUpdateAction.NEXT_JUMP, pageNumber + 1)
 		}
 	}
-	const targetJumpPageAction = (e: React.MouseEvent, targetPage: number): void => {
+	const targetJumpPageAction = (e: React.MouseEvent | React.KeyboardEvent, targetPage: number): void => {
 		setPageNumber(targetPage)
 		setInputPageNumber(targetPage)
 		pageToggle && pageToggle(EPageUpdateAction.TARGET_JUMP, targetPage)
@@ -98,10 +101,6 @@ function PaginationRoot(props: TPaginationProps): React.ReactElement {
 		const inputValue: number = +(e.target as HTMLInputElement).value || 1
 		setInputPageNumber(inputValue)
 	}
-	const inputPageBlurAction = (e: React.FocusEvent): void => {
-		const inputValue: number = +(e.target as HTMLInputElement).value || 1
-		setInputPageNumber(correctionUserInput(inputValue, 1, pageTotal))
-	}
 
 	return (
 		<ul className={theContainerClassName}>
@@ -109,21 +108,20 @@ function PaginationRoot(props: TPaginationProps): React.ReactElement {
 				<span className={theContentClassName}>&lt;</span>
 			</li>
 			<PageRange
+				inputValue={inputPageNumber}
 				pageTotal={pageTotal}
 				pageNumber={pageNumber}
 				middleDisplaySize={_middleDisplaySize}
 				sideDislpaySize={_sideDislpaySize}
+				inputChangeAction={inputPageChangeAction}
 				confirmAction={targetJumpPageAction}
 			/>
 			<li onClick={nextJumpAction} className={theNextJumpWrapperClassName}>
 				<span className={theContentClassName}>&gt;</span>
 			</li>
-			<PageInput
-				inputValue={inputPageNumber}
-				inputChangeAction={inputPageChangeAction}
-				inputBlurAction={inputPageBlurAction}
-				confirmAction={targetJumpPageAction}
-			/>
+			<li className={theTotalcountWrapperClassName}>
+				<span className={theContentClassName}>总计: {countTotal} 条</span>
+			</li>
 			<PageSelect selectValue={cutSize} optionList={cutSizeOptions} selectChangeAction={piecewiseToggleAcion} />
 		</ul>
 	)

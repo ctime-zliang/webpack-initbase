@@ -1,7 +1,6 @@
 import React from 'react'
 
-export type TPageBreakItemProps = {}
-
+type TPageBreakItemProps = {}
 function PageBreakItem(props: TPageBreakItemProps): React.ReactElement {
 	const theBreakWrapperClassName: string = `page-break-wrapper`
 	const theContentClassName: string = 'page-content'

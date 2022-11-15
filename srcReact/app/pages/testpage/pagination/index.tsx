@@ -13,8 +13,8 @@ function PaginationTestRoot(props: any): React.ReactElement {
 	return (
 		<section style={{ padding: '10px 10px', backgroundColor: '#ffffff', margin: '10px 10px' }}>
 			<PaginationRoot
-				pageNumber={5}
-				countTotal={500}
+				pageNumber={1}
+				countTotal={500000}
 				cutSize={cutSizeOptions[0]}
 				cutSizeOptions={cutSizeOptions}
 				pageToggle={pageToggle}

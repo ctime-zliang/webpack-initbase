@@ -1,21 +1,22 @@
 import React from 'react'
 import PageBreakItem from './PageBreakItem'
-import PageNumberItem from './PageNumberItem'
+import PageShowItem from './PageShowItem'
 
-export type TPageRangeProps = {
+type TPageRangeProps = {
 	pageTotal: number
-	pageNumber: number
 	middleDisplaySize: number
 	sideDislpaySize: number
-	confirmAction: (e: React.MouseEvent, v: number) => void
+	pageNumber: number
+	inputValue: number
+	inputChangeAction: (e: React.FormEvent) => void
+	confirmAction: (e: React.MouseEvent | React.KeyboardEvent, v: number) => void
 }
-
 function PageRange(props: TPageRangeProps): React.ReactElement {
-	const { pageTotal, pageNumber, middleDisplaySize, sideDislpaySize, confirmAction } = props
+	const { pageTotal, middleDisplaySize, sideDislpaySize, pageNumber } = props
 	const viewItemComponents: Array<React.ReactElement> = []
 	if (pageTotal <= middleDisplaySize) {
 		for (let i: number = 1; i <= pageTotal; i++) {
-			viewItemComponents.push(<PageNumberItem key={i} isSelected={pageNumber === i} pageNumber={i} confirmAction={confirmAction} />)
+			viewItemComponents.push(<PageShowItem key={i} isSelected={pageNumber === i} {...props} pageNumber={i} />)
 		}
 	} else {
 		let leftSide: number = middleDisplaySize / 2
@@ -34,12 +35,12 @@ function PageRange(props: TPageRangeProps): React.ReactElement {
 			const thePageNumber: number = i
 			if (thePageNumber <= sideDislpaySize || thePageNumber > pageTotal - sideDislpaySize) {
 				isCouldAddBreakItem = true
-				viewItemComponents.push(<PageNumberItem key={i} isSelected={pageNumber === i} pageNumber={i} confirmAction={confirmAction} />)
+				viewItemComponents.push(<PageShowItem key={i} isSelected={pageNumber === i} {...props} pageNumber={i} />)
 				continue
 			}
 			if (i >= Math.ceil(pageNumber - leftSide) && i <= Math.floor(pageNumber + rightSide)) {
 				isCouldAddBreakItem = true
-				viewItemComponents.push(<PageNumberItem key={i} isSelected={pageNumber === i} pageNumber={i} confirmAction={confirmAction} />)
+				viewItemComponents.push(<PageShowItem key={i} isSelected={pageNumber === i} {...props} pageNumber={i} />)
 				continue
 			}
 			if (isCouldAddBreakItem) {

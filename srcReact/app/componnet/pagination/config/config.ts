@@ -4,7 +4,7 @@ import { TPaginationProfile } from '../types/types'
  * 默认配置
  */
 export const defaultProfile: TPaginationProfile = {
-	middleDisplaySize: 5,
+	middleDisplaySize: 3,
 	sideDislpaySize: 1,
 	pageNumber: 1,
 	countTotal: 1,
