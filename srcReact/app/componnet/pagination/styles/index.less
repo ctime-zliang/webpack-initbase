@@ -1,16 +1,118 @@
+.pagination-container * {
+	box-sizing: border-box;
+}
 .pagination-container {
-	.page-input-wraper {
-		margin-left: 20px;
-	}
-	.page-item {
+	user-select: none;
+	box-sizing: border-box;
+	font-size: 12px;
+	display: flex;
+	justify-content: flex-start;
+	align-items: center;
+	align-content: center;
+	flex-wrap: nowrap;
+	list-style: none;
+	height: 25px;
+	.page-jump-wrapper,
+	.page-item-wrapper {
+		line-height: 25px;
+		min-width: 30px;
+		height: 100%;
 		display: inline-block;
-		padding: 6px 12px;
-		border: 1px solid #e4e4e4;
-		background: #fff;
-		&.selected {
-			background: #ff302d;
-			color: #fff;
-			font-weight: bold;
+		padding: 0 5px;
+		text-align: center;
+		cursor: pointer;
+		color: #333333;
+		.page-content {
+			display: inline-block;
+		}
+	}
+	.page-item-wrapper:hover {
+		.page-content {
+			text-decoration: underline;
+		}
+	}
+	.page-item-wrapper-selected {
+		color: #000000;
+		font-weight: bolder;
+		.page-content {
+			text-decoration: underline;
+		}
+	}
+	.page-item-wrapper-disabled {
+		color: #999999 !important;
+		font-weight: 100 !important;
+		pointer-events: none;
+	}
+	.page-jump-wrapper {
+		&:hover {
+			font-weight: bolder;
+		}
+	}
+	.page-prevjump-wrapper {
+		color: #000000;
+	}
+	.page-nextjump-wrapper {
+		color: #000000;
+	}
+	.page-break-wrapper {
+		min-width: 30px;
+		height: 100%;
+		text-align: center;
+		pointer-events: none;
+		.page-content {
+			color: #666666;
+			transform: scale(0.85);
+		}
+	}
+	.page-input-wrapper {
+		margin-left: 5px;
+		display: flex;
+		justify-content: flex-start;
+		align-items: center;
+		align-content: center;
+		flex-wrap: nowrap;
+		height: 100%;
+		.page-number-input {
+			border: 1px solid #999999;
+			border-radius: 3px;
+			background-color: #ffffff;
+			width: 45px;
+			height: 20px;
+			padding: 0;
+			margin: 0;
+			text-align: center;
+			&:focus {
+				outline: 0;
+			}
+			&:active {
+				outline: 0;
+			}
+		}
+		.page-goto-btn {
+			border: 1px solid #999999;
+			border-radius: 3px;
+			min-width: 45px;
+			height: 20px;
+			outline: 0;
+			cursor: pointer;
+			margin-left: 5px;
+			text-align: center;
+			&:hover {
+				background-color: #efefef;
+			}
+		}
+	}
+	.page-select-wrapper {
+		padding-left: 5px;
+		select {
+			border: 1px solid #999999;
+			border-radius: 3px;
+			&:focus {
+				outline: 0;
+			}
+			&:active {
+				outline: 0;
+			}
 		}
 	}
 }
