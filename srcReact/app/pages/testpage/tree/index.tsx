@@ -9,7 +9,7 @@ const expandAction = (a: any, b: any) => {
 	console.log(a, b)
 }
 
-function TreeRoot(props: any): React.ReactElement {
+function TreeTestRoot(props: any): React.ReactElement {
 	const [data2, setData2] = useState<Array<TTreeDataItem>>([])
 	useEffect(() => {
 		const el: HTMLElement = document.querySelector('.app-page-content') as HTMLElement
@@ -63,4 +63,4 @@ function TreeRoot(props: any): React.ReactElement {
 	)
 }
 
-export default TreeRoot
+export default TreeTestRoot

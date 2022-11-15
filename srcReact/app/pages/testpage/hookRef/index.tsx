@@ -48,7 +48,7 @@ export function UseRef3(): React.ReactElement {
 	)
 }
 
-export default function HookRefRoot(props: any): React.ReactElement {
+export default function HookRefTestRoot(props: any): React.ReactElement {
 	return (
 		<>
 			<UseRef3 />

@@ -1,7 +1,7 @@
 import React from 'react'
 import ModulesCase from './modulesCase'
 
-function UseStoreRoot(props: any): React.ReactElement {
+function UseDervStoreTestRoot(props: any): React.ReactElement {
 	return (
 		<>
 			<ModulesCase />
@@ -9,4 +9,4 @@ function UseStoreRoot(props: any): React.ReactElement {
 	)
 }
 
-export default UseStoreRoot
+export default UseDervStoreTestRoot
