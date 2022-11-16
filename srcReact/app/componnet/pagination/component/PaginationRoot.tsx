@@ -109,7 +109,7 @@ function PaginationRoot(props: TPaginationProps): React.ReactElement {
 			<li onClick={prevJumpAction} className={thePrevJumpWrapperClassName}>
 				<svg className={theSvgClassName} viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" width="200" height="200">
 					<path
-						d="M507.733333 490.666667L768 230.4 704 170.666667 384 490.666667l320 320 59.733333-59.733334-256-260.266666zM341.333333 170.666667H256v640h85.333333V170.666667z"
+						d="M546.133333 533.333333L256 243.2l29.866667-29.866667 320 320L285.866667 853.333333l-29.866667-29.866666 290.133333-290.133334zM725.333333 213.333333h42.666667v640h-42.666667V213.333333z"
 						fill="#444444"
 					></path>
 				</svg>

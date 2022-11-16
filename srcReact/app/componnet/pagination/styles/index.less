@@ -12,7 +12,7 @@ input[type='number'] {
 }
 .pagination-g-disabled {
 	pointer-events: none;
-	opacity: 0.7;
+	opacity: 0.75;
 }
 .pagination-container {
 	user-select: none;
@@ -50,14 +50,12 @@ input[type='number'] {
 		align-content: center;
 		flex-wrap: nowrap;
 		.page-svg {
-			color: #000000;
 			opacity: 1;
 		}
 		&-disabled {
 			pointer-events: none;
 			cursor: default;
 			.page-svg {
-				color: #999999;
 				opacity: 0.55;
 			}
 		}
@@ -65,6 +63,11 @@ input[type='number'] {
 			.page-svg {
 				font-weight: bolder;
 			}
+		}
+	}
+	.page-prevjump-wrapper {
+		.page-svg {
+			transform: rotate(180deg);
 		}
 	}
 	.page-item-wrapper {
