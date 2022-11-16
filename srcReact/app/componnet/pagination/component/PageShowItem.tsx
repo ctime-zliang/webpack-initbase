@@ -6,12 +6,13 @@ type TPageShowItemProps = {
 	isSelected: boolean
 	inputValue: number
 	pageTotal: number
+	canInput: boolean
 	inputChangeAction: (e: React.FormEvent) => void
 	confirmAction: (e: React.MouseEvent | React.KeyboardEvent, v: number) => void
 }
 function PageShowItem(props: TPageShowItemProps): React.ReactElement {
-	const { pageNumber, isSelected, inputValue, pageTotal, inputChangeAction, confirmAction } = props
-	const theItemWrapperClassName: string = isSelected ? 'page-item-wrapper page-item-wrapper-selected' : 'page-item-wrapper'
+	const { pageNumber, isSelected, inputValue, pageTotal, canInput, inputChangeAction, confirmAction } = props
+	const theItemWrapperClassName: string = isSelected ? `page-item-wrapper page-item-wrapper-selected` : `page-item-wrapper`
 	const theContentClassName: string = 'page-content'
 	const theInputWrapperClassName: string = 'page-input-wrapper'
 	const theInputClassName: string = 'page-number-input'
@@ -27,7 +28,7 @@ function PageShowItem(props: TPageShowItemProps): React.ReactElement {
 			confirmAction(e, correctionUserInput(inputValue, 1, pageTotal))
 		}
 	}
-	if (isSelected) {
+	if (canInput && isSelected) {
 		return (
 			<li className={theInputWrapperClassName}>
 				<input

@@ -16,6 +16,7 @@ function PaginationRoot(props: TPaginationProps): React.ReactElement {
 		pageNumber: _pageNumber,
 		countTotal: _countTotal,
 		cutSize: _cutSize,
+		gDisabled,
 		cutSizeOptions,
 		pageToggle,
 		pagePiecewise,
@@ -26,7 +27,7 @@ function PaginationRoot(props: TPaginationProps): React.ReactElement {
 	})
 	const _calcCutSize: number = _isLegalCutSize ? _cutSize : cutSizeOptions[0]
 	const _calcPageTotal: number = Math.ceil(_countTotal / _calcCutSize)
-	const _calcPageNumber: number = correctionUserInput(_pageNumber, 1, _calcPageTotal)
+	const _calcPageNumber: number = correctionUserInput(_pageNumber, 1, _calcPageTotal || 1)
 
 	const [countTotal, setCountTotal] = useState<number>(_countTotal)
 	const [cutSize, setCutSize] = useState<number>(_calcCutSize)
@@ -34,12 +35,13 @@ function PaginationRoot(props: TPaginationProps): React.ReactElement {
 	const [pageNumber, setPageNumber] = useState<number>(_calcPageNumber)
 	const [inputPageNumber, setInputPageNumber] = useState<number>(_calcPageNumber)
 
-	const theContainerClassName: string = `pagination-container`
-	const thePrevJumpWrapperClassName: string = `page-jump-wrapper page-prevjump-wrapper ${pageNumber <= 1 ? 'page-item-wrapper-disabled' : ''}`
+	const theContainerClassName: string = `pagination-container ${gDisabled ? 'pagination-g-disabled' : ''}`
+	const thePrevJumpWrapperClassName: string = `page-jump-wrapper page-prevjump-wrapper ${pageNumber <= 1 ? 'page-jump-wrapper-disabled' : ''}`
 	const theNextJumpWrapperClassName: string = `page-jump-wrapper page-nextjump-wrapper ${
-		pageNumber >= pageTotal ? 'page-item-wrapper-disabled' : ''
+		pageNumber >= pageTotal ? 'page-jump-wrapper-disabled' : ''
 	}`
-	const theTotalcountWrapperClassName: string = `page-totalcount-wrapper`
+	const theTotalcountWrapperClassName: string = 'page-totalcount-wrapper'
+	const theSvgClassName: string = 'page-svg'
 	const theContentClassName: string = 'page-content'
 
 	// useEffect((): void => {
@@ -105,7 +107,12 @@ function PaginationRoot(props: TPaginationProps): React.ReactElement {
 	return (
 		<ul className={theContainerClassName}>
 			<li onClick={prevJumpAction} className={thePrevJumpWrapperClassName}>
-				<span className={theContentClassName}>&lt;</span>
+				<svg className={theSvgClassName} viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" width="200" height="200">
+					<path
+						d="M507.733333 490.666667L768 230.4 704 170.666667 384 490.666667l320 320 59.733333-59.733334-256-260.266666zM341.333333 170.666667H256v640h85.333333V170.666667z"
+						fill="#444444"
+					></path>
+				</svg>
 			</li>
 			<PageRange
 				inputValue={inputPageNumber}
@@ -117,7 +124,12 @@ function PaginationRoot(props: TPaginationProps): React.ReactElement {
 				confirmAction={targetJumpPageAction}
 			/>
 			<li onClick={nextJumpAction} className={theNextJumpWrapperClassName}>
-				<span className={theContentClassName}>&gt;</span>
+				<svg className={theSvgClassName} viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" width="200" height="200">
+					<path
+						d="M546.133333 533.333333L256 243.2l29.866667-29.866667 320 320L285.866667 853.333333l-29.866667-29.866666 290.133333-290.133334zM725.333333 213.333333h42.666667v640h-42.666667V213.333333z"
+						fill="#444444"
+					></path>
+				</svg>
 			</li>
 			<li className={theTotalcountWrapperClassName}>
 				<span className={theContentClassName}>总计: {countTotal} 条</span>

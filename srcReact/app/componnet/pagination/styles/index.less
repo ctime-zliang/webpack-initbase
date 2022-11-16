@@ -10,6 +10,10 @@ input[type='number'] {
 .pagination-container * {
 	box-sizing: border-box;
 }
+.pagination-g-disabled {
+	pointer-events: none;
+	opacity: 0.7;
+}
 .pagination-container {
 	user-select: none;
 	box-sizing: border-box;
@@ -34,34 +38,46 @@ input[type='number'] {
 		.page-content {
 			display: inline-block;
 		}
-	}
-	.page-item-wrapper:hover {
-		.page-content {
-			text-decoration: underline;
+		.page-svg {
+			width: 14px;
+			height: 14px;
 		}
-	}
-	.page-item-wrapper-selected {
-		color: #000000;
-		font-weight: bolder;
-		.page-content {
-			text-decoration: underline;
-		}
-	}
-	.page-item-wrapper-disabled {
-		color: #999999 !important;
-		font-weight: 100 !important;
-		pointer-events: none;
 	}
 	.page-jump-wrapper {
+		display: flex;
+		justify-content: flex-start;
+		align-items: center;
+		align-content: center;
+		flex-wrap: nowrap;
+		.page-svg {
+			color: #000000;
+			opacity: 1;
+		}
+		&-disabled {
+			pointer-events: none;
+			cursor: default;
+			.page-svg {
+				color: #999999;
+				opacity: 0.55;
+			}
+		}
 		&:hover {
-			font-weight: bolder;
+			.page-svg {
+				font-weight: bolder;
+			}
 		}
 	}
-	.page-prevjump-wrapper {
-		color: #000000;
-	}
-	.page-nextjump-wrapper {
-		color: #000000;
+	.page-item-wrapper {
+		&-selected {
+			.page-content {
+				font-weight: bolder;
+			}
+		}
+		&:hover {
+			.page-content {
+				text-decoration: underline;
+			}
+		}
 	}
 	.page-break-wrapper {
 		min-width: 30px;
@@ -123,6 +139,7 @@ input[type='number'] {
 		select {
 			border: 1px solid #999999;
 			border-radius: 2px;
+			height: 20px;
 			&:focus {
 				outline: 0;
 				border: 1px solid rgba(24, 144, 255, 1);

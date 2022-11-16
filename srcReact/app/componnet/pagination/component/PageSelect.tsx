@@ -7,7 +7,7 @@ type TPageSelectProps = {
 }
 function PageSelect(props: TPageSelectProps): React.ReactElement {
 	const { selectValue, optionList, selectChangeAction } = props
-	const theSelectWrapperClassName: string = `page-select-wrapper`
+	const theSelectWrapperClassName: string = 'page-select-wrapper'
 	const options: Array<React.ReactElement> = optionList.map((item: number, index: number): React.ReactElement => {
 		return (
 			<option key={index} value={item}>

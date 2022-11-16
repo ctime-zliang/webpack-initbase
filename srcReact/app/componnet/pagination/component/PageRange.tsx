@@ -14,36 +14,37 @@ type TPageRangeProps = {
 function PageRange(props: TPageRangeProps): React.ReactElement {
 	const { pageTotal, middleDisplaySize, sideDislpaySize, pageNumber } = props
 	const viewItemComponents: Array<React.ReactElement> = []
-	if (pageTotal <= middleDisplaySize) {
-		for (let i: number = 1; i <= pageTotal; i++) {
-			viewItemComponents.push(<PageShowItem key={i} isSelected={pageNumber === i} {...props} pageNumber={i} />)
+	const loopTotal: number = pageTotal || 1
+	if (loopTotal <= middleDisplaySize) {
+		for (let i: number = 1; i <= loopTotal; i++) {
+			viewItemComponents.push(<PageShowItem key={i} canInput={false} isSelected={pageNumber === i} {...props} pageNumber={i} />)
 		}
 	} else {
 		let middleStart: number = pageNumber - Math.floor(middleDisplaySize / 2)
 		let middleEnd: number = pageNumber + Math.floor(middleDisplaySize / 2)
 		let leftEnd: number = sideDislpaySize
-		let rightStart: number = pageTotal - sideDislpaySize + 1
+		let rightStart: number = loopTotal - sideDislpaySize + 1
 		if (leftEnd + 1 >= middleStart) {
 			middleEnd = sideDislpaySize + middleDisplaySize + 1
 		}
 		if (rightStart - 1 <= middleEnd) {
-			middleStart = pageTotal - (sideDislpaySize + middleDisplaySize)
+			middleStart = loopTotal - (sideDislpaySize + middleDisplaySize)
 		}
 		let isCouldAddBreakItem: boolean = true
-		for (let i: number = 1; i <= pageTotal; i++) {
+		for (let i: number = 1; i <= loopTotal; i++) {
 			if (i <= leftEnd) {
 				isCouldAddBreakItem = true
-				viewItemComponents.push(<PageShowItem key={i} isSelected={pageNumber === i} {...props} pageNumber={i} />)
+				viewItemComponents.push(<PageShowItem key={i} canInput={true} isSelected={pageNumber === i} {...props} pageNumber={i} />)
 				continue
 			}
 			if (i >= rightStart) {
 				isCouldAddBreakItem = true
-				viewItemComponents.push(<PageShowItem key={i} isSelected={pageNumber === i} {...props} pageNumber={i} />)
+				viewItemComponents.push(<PageShowItem key={i} canInput={true} isSelected={pageNumber === i} {...props} pageNumber={i} />)
 				continue
 			}
 			if (i >= middleStart && i <= middleEnd) {
 				isCouldAddBreakItem = true
-				viewItemComponents.push(<PageShowItem key={i} isSelected={pageNumber === i} {...props} pageNumber={i} />)
+				viewItemComponents.push(<PageShowItem key={i} canInput={true} isSelected={pageNumber === i} {...props} pageNumber={i} />)
 				continue
 			}
 			if (isCouldAddBreakItem) {

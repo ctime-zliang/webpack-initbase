@@ -6,6 +6,7 @@ import { TPaginationProfile } from '../types/types'
 export const defaultProfile: TPaginationProfile = {
 	middleDisplaySize: 3,
 	sideDislpaySize: 1,
+	gDisabled: false,
 	pageNumber: 1,
 	countTotal: 1,
 	cutSize: 10,
