@@ -42,7 +42,7 @@ function PaginationRoot(props: TPaginationProps): React.ReactElement {
 	}`
 	const theTotalcountWrapperClassName: string = 'page-totalcount-wrapper'
 	const theSvgClassName: string = 'page-svg'
-	const theContentClassName: string = 'page-content'
+	const theTotalContentClassName: string = 'page-content page-total-content'
 
 	// useEffect((): void => {
 	// 	if (_pageNumber === pageNumber) {
@@ -132,7 +132,7 @@ function PaginationRoot(props: TPaginationProps): React.ReactElement {
 				</svg>
 			</li>
 			<li className={theTotalcountWrapperClassName}>
-				<span className={theContentClassName}>总计: {countTotal} 条</span>
+				<span className={theTotalContentClassName}>总计: {countTotal} 条</span>
 			</li>
 			<PageSelect selectValue={cutSize} optionList={cutSizeOptions} selectChangeAction={piecewiseToggleAcion} />
 		</ul>
