@@ -19,26 +19,29 @@ function PageRange(props: TPageRangeProps): React.ReactElement {
 			viewItemComponents.push(<PageShowItem key={i} isSelected={pageNumber === i} {...props} pageNumber={i} />)
 		}
 	} else {
-		let leftSide: number = middleDisplaySize / 2
-		let rightSide: number = middleDisplaySize - leftSide
-
-		if (pageNumber > pageTotal - middleDisplaySize / 2) {
-			rightSide = pageTotal - pageNumber
-			leftSide = middleDisplaySize - rightSide
-		} else if (pageNumber < middleDisplaySize / 2) {
-			leftSide = pageNumber
-			rightSide = middleDisplaySize - leftSide
+		let middleStart: number = pageNumber - Math.floor(middleDisplaySize / 2)
+		let middleEnd: number = pageNumber + Math.floor(middleDisplaySize / 2)
+		let leftEnd: number = sideDislpaySize
+		let rightStart: number = pageTotal - sideDislpaySize + 1
+		if (leftEnd + 1 >= middleStart) {
+			middleEnd = sideDislpaySize + middleDisplaySize + 1
 		}
-
+		if (rightStart - 1 <= middleEnd) {
+			middleStart = pageTotal - (sideDislpaySize + middleDisplaySize)
+		}
 		let isCouldAddBreakItem: boolean = true
 		for (let i: number = 1; i <= pageTotal; i++) {
-			const thePageNumber: number = i
-			if (thePageNumber <= sideDislpaySize || thePageNumber > pageTotal - sideDislpaySize) {
+			if (i <= leftEnd) {
 				isCouldAddBreakItem = true
 				viewItemComponents.push(<PageShowItem key={i} isSelected={pageNumber === i} {...props} pageNumber={i} />)
 				continue
 			}
-			if (i >= Math.ceil(pageNumber - leftSide) && i <= Math.floor(pageNumber + rightSide)) {
+			if (i >= rightStart) {
+				isCouldAddBreakItem = true
+				viewItemComponents.push(<PageShowItem key={i} isSelected={pageNumber === i} {...props} pageNumber={i} />)
+				continue
+			}
+			if (i >= middleStart && i <= middleEnd) {
 				isCouldAddBreakItem = true
 				viewItemComponents.push(<PageShowItem key={i} isSelected={pageNumber === i} {...props} pageNumber={i} />)
 				continue

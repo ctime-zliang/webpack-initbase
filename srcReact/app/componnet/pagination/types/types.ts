@@ -18,10 +18,12 @@ export type TPagination = {
 	cutSizeOptions?: Array<number>
 	/**
 	 * 夹在两个 "..." 中间需要显示的页码按钮个数
+	 *      建议设置一个奇数
 	 */
 	middleDisplaySize?: number
 	/**
 	 * 页码列表首位需要显示的页码按钮个数
+	 *      不得小于 1
 	 */
 	sideDislpaySize?: number
 	/**
