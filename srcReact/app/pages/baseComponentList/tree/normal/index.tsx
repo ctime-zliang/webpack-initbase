@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import ReactTree, { TTreeDataItem } from '../../../componnet/tree'
+import ReactTree, { TTreeDataItem } from '../../../../componnet/tree'
 import { dataLine1, dataLine2, dataLine3 } from './data'
 
 const clickAction = (a: any, b: any, c: any) => {
@@ -9,7 +9,7 @@ const expandAction = (a: any, b: any) => {
 	console.log(a, b)
 }
 
-function TreeTestRoot(props: any): React.ReactElement {
+function TreeNormal(props: any): React.ReactElement {
 	const [data2, setData2] = useState<Array<TTreeDataItem>>([])
 	useEffect(() => {
 		const el: HTMLElement = document.querySelector('.app-page-content') as HTMLElement
@@ -63,4 +63,4 @@ function TreeTestRoot(props: any): React.ReactElement {
 	)
 }
 
-export default TreeTestRoot
+export default TreeNormal

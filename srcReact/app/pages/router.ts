@@ -2,16 +2,18 @@ import Layout from '../pages/layout'
 import { TRouteItem } from '../utils/hoc/renderRoutes/renderRoutes'
 import { TReduxStore } from '../store/public/types'
 /* ... */
-import { homeRoute } from '../pages/home/route'
-import { error404Route } from '../pages/errorPage/route'
-import { linkListRoute } from '../pages/linkList/route'
-import { articleListRoute } from '../pages/article/list/route'
-import { articleDetailRoute } from '../pages/article/detail/route'
-import { articleErrorRoute } from '../pages/article/error/route'
-import { reduxContainerRoute } from '../pages/redux/route'
-import { valtioContainerRoute } from '../pages/valtio/route'
-import { testpageRoute } from '../pages/testpage/route'
-import { scrollingRoute } from '../pages/infiniteScrolling/route'
+import { homeRoute } from './home/route'
+import { error404Route } from './errorPage/route'
+import { linkListRoute } from './linkList/route'
+import { articleListRoute } from './article/list/route'
+import { articleDetailRoute } from './article/detail/route'
+import { articleErrorRoute } from './article/error/route'
+import { reduxContainerRoute } from './redux/route'
+import { valtioContainerRoute } from './valtio/route'
+import { testpageRoute } from './testpage/route'
+import { scrollingRoute } from './infiniteScrolling/route'
+import { componentPaginationRoute } from './baseComponentList/pagination/route'
+import { componentTreeRoute } from './baseComponentList/tree/route'
 
 export const createRoutes = (reduxStore: TReduxStore): Array<TRouteItem> => {
 	return [
@@ -25,6 +27,10 @@ export const createRoutes = (reduxStore: TReduxStore): Array<TRouteItem> => {
 		valtioContainerRoute(reduxStore),
 		testpageRoute(reduxStore),
 		scrollingRoute(reduxStore),
+		{
+			path: '/componentLib/*',
+			routes: [componentPaginationRoute(reduxStore), componentTreeRoute(reduxStore)],
+		},
 		error404Route(reduxStore),
 	]
 }

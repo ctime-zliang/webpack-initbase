@@ -1,5 +1,6 @@
 import React from 'react'
 import { Helmet } from 'react-helmet-async'
+import './assets/style/prefix.less'
 import '../../node_modules/antd/dist/antd.css'
 import Root from './pages/root'
 import favicon from './assets/images/log.jpg'

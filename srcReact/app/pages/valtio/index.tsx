@@ -1,6 +1,6 @@
 import React from 'react'
 import { Helmet } from 'react-helmet-async'
-import ValtioRoot from '../../modules/valtioTest'
+import ValtioTestRoot from '../../modules/valtioTest'
 import { TCommonComponentBaseProps } from '../../types/comm.types'
 
 function ValtioContainerRoot(props: TCommonComponentBaseProps): React.ReactElement {
@@ -10,7 +10,7 @@ function ValtioContainerRoot(props: TCommonComponentBaseProps): React.ReactEleme
 			<Helmet>
 				<title>Valtio State Manager</title>
 			</Helmet>
-			<ValtioRoot {...props} />
+			<ValtioTestRoot {...props} />
 		</>
 	)
 }

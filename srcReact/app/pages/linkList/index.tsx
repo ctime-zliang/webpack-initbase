@@ -1,7 +1,7 @@
 import React from 'react'
 import { Helmet } from 'react-helmet-async'
 import { connect } from 'react-redux'
-import { Layout, List } from 'antd'
+import { Layout, Card, Col, Row } from 'antd'
 import { Link } from 'react-router-dom'
 import styles from './index.module.less'
 import { TLinkListItem } from '../../store/globalDefault/types'
@@ -12,35 +12,48 @@ const { Content } = Layout
 
 function ListRoot(props: TProps): React.ReactElement {
 	console.log(`ListRoot ☆☆☆`, props)
-	const { linkList } = props
+	const { linkData } = props
+	const listItems: () => React.ReactElement = (): React.ReactElement => {
+		const viewItems: Array<React.ReactElement> = []
+		linkData.forEach((item: { subject: string; list: Array<TLinkListItem> }, index: number): void => {
+			viewItems.push(
+				<div key={index} data-tagitem="list-group-wrapper" className={styles['list-group-wrapper']}>
+					<div data-tagitem="list-grouptitle-wrapper" className={styles['list-grouptitle-wrapper']}>
+						{item.subject}
+					</div>
+					<div data-tagitem="list-groupcontent-wrapper" className={styles['list-groupcontent-wrapper']}>
+						{item.list.map((sItem: TLinkListItem, sIndex: number): React.ReactElement => {
+							return (
+								<>
+									<div key={sIndex + '' + index} data-tagitem="list-groupcontent" className={styles['list-groupcontent']}>
+										<a data-id={sItem.id} href={sItem.path}>
+											<div data-tagitem="list-groupcontent-card" className={styles['list-groupcontent-card']}>
+												<div data-tagitem="entry-title" className={styles['entry-title']}>
+													{sItem.title}
+												</div>
+												<div data-tagitem="entry-description" className={styles['entry-description']}>
+													{sItem.desc}
+												</div>
+											</div>
+										</a>
+									</div>
+								</>
+							)
+						})}
+					</div>
+				</div>
+			)
+		})
+		return <>{viewItems}</>
+	}
 	return (
 		<>
 			<Helmet>
 				<title>Entry Link List</title>
 			</Helmet>
-			<section className={styles['list-container']}>
-				<section className={styles['list-wrapper']}>
-					<div className={styles['list-header']}>
-						<span>Entry Link List</span>
-					</div>
-					<Content>
-						<List
-							size="small"
-							bordered
-							dataSource={linkList}
-							renderItem={(item: any, index: number) => {
-								const number: string = (++index, index) <= 9 ? '0' + index : String(index)
-								return (
-									<List.Item className="entry-linklist" style={{ justifyContent: 'flex-start' }}>
-										<span style={{ paddingRight: '6px' }}>{number}.</span>
-										<Link className={styles['link-item']} to={{ pathname: `${item.path}` }}>
-											{item.title}
-										</Link>
-									</List.Item>
-								)
-							}}
-						/>
-					</Content>
+			<section data-tagitem="list-container" className={styles['list-container']}>
+				<section data-tagitem="list-wrapper" className={styles['list-wrapper']}>
+					{listItems()}
 				</section>
 			</section>
 		</>
@@ -48,7 +61,10 @@ function ListRoot(props: TProps): React.ReactElement {
 }
 
 type TReduxStoreState = {
-	linkList: Array<TLinkListItem>
+	linkData: Array<{
+		subject: string
+		list: Array<TLinkListItem>
+	}>
 }
 
 type TReduxStoreActions = {}
@@ -57,7 +73,7 @@ type TProps = TReduxStoreState & TReduxStoreActions & TCommonComponentBaseProps
 
 const mapStateToProps = (combineState: TCombineState): TReduxStoreState => {
 	return {
-		linkList: combineState.globalDefault.linkList,
+		linkData: combineState.globalDefault.linkData,
 	}
 }
 

@@ -1,6 +1,6 @@
 import React from 'react'
 import { Helmet } from 'react-helmet-async'
-import ReduxRoot from '../../modules/reduxTest'
+import ReduxTestRoot from '../../modules/reduxTest'
 import { TCommonComponentBaseProps } from '../../types/comm.types'
 
 function ReduxContainerRoot(props: TCommonComponentBaseProps): React.ReactElement {
@@ -10,7 +10,7 @@ function ReduxContainerRoot(props: TCommonComponentBaseProps): React.ReactElemen
 			<Helmet>
 				<title>Redux State Manager</title>
 			</Helmet>
-			<ReduxRoot {...props} />
+			<ReduxTestRoot {...props} />
 		</>
 	)
 }

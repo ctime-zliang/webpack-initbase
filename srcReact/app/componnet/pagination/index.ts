@@ -1,5 +1,5 @@
-import PaginationRoot from './component/PaginationRoot'
-import { TPagination } from './types/types'
+import Pagination from './component/PaginationRoot'
+import { TPagination as _TPagination } from './types/types'
 
-export type Pagination = TPagination
-export default PaginationRoot
+export type TPagination = _TPagination
+export default Pagination

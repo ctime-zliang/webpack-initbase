@@ -6,8 +6,6 @@ import ContexTesttRoot from './contextTest'
 import HookRefTestRoot from './hookRef'
 import { HookUseLayoutEffect } from './hookUseLayoutEffect'
 import UseDervStoreTestRoot from './useDervStore'
-import TreeTestRoot from './tree'
-import PaginationTestRoot from './pagination'
 
 function TestPageRoot(props: TCommonComponentBaseProps): React.ReactElement {
 	console.log(`TestPageRoot ☆☆☆`, props)
@@ -16,7 +14,12 @@ function TestPageRoot(props: TCommonComponentBaseProps): React.ReactElement {
 			<Helmet>
 				<title>Test Page</title>
 			</Helmet>
-			<PaginationTestRoot />
+			<section>
+				<ContexTesttRoot />
+			</section>
+			<section>
+				<UseDervStoreTestRoot />
+			</section>
 		</>
 	)
 }

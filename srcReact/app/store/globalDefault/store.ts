@@ -5,11 +5,29 @@ import { TStore } from './types'
 export const createInitialState = (): TStore => {
 	return {
 		g_languageSetting: globalConfig.lang,
-		linkList: [
-			{ id: uuidv4(), title: 'Article', path: '/article' },
-			{ id: uuidv4(), title: 'Valtio State Manager', path: '/valtio' },
-			{ id: uuidv4(), title: 'Redux State Manager', path: '/redux' },
-			{ id: uuidv4(), title: 'Test Page', path: '/testpage' },
+		linkData: [
+			{
+				subject: 'Modules List',
+				list: [{ id: uuidv4(), title: 'Article', desc: 'Article Module Case', path: '/article' }],
+			},
+			{
+				subject: 'Store Manager',
+				list: [
+					{ id: uuidv4(), title: 'Valtio State Manager', desc: 'Valtio Store Manager Case', path: '/valtio' },
+					{ id: uuidv4(), title: 'Redux State Manager', desc: 'Redux Store Manager Case', path: '/redux' },
+				],
+			},
+			{
+				subject: 'Base Component Lib',
+				list: [
+					{ id: uuidv4(), title: 'Paginataion', desc: 'Pagination Base Component', path: '/componentLib/pagination' },
+					{ id: uuidv4(), title: 'Tree', desc: 'Tree Base Component', path: '/componentLib/tree' },
+				],
+			},
+			{
+				subject: 'Test Page',
+				list: [{ id: uuidv4(), title: 'Test Page', desc: 'Test Case Page', path: '/testpage' }],
+			},
 		],
 	}
 }
