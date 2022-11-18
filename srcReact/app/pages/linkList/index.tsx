@@ -17,23 +17,17 @@ function ListRoot(props: TProps): React.ReactElement {
 		const viewItems: Array<React.ReactElement> = []
 		linkData.forEach((item: { subject: string; list: Array<TLinkListItem> }, index: number): void => {
 			viewItems.push(
-				<div key={index} data-tagitem="list-group-wrapper" className={styles['list-group-wrapper']}>
-					<div data-tagitem="list-grouptitle-wrapper" className={styles['list-grouptitle-wrapper']}>
-						{item.subject}
-					</div>
-					<div data-tagitem="list-groupcontent-wrapper" className={styles['list-groupcontent-wrapper']}>
+				<div key={index} className={styles['list-group-wrapper']}>
+					<div className={styles['list-grouptitle-wrapper']}>{item.subject}</div>
+					<div className={styles['list-groupcontent-wrapper']}>
 						{item.list.map((sItem: TLinkListItem, sIndex: number): React.ReactElement => {
 							return (
 								<>
-									<div key={sIndex + '' + index} data-tagitem="list-groupcontent" className={styles['list-groupcontent']}>
+									<div key={sIndex + '' + index} className={styles['list-groupcontent']}>
 										<a data-id={sItem.id} href={sItem.path}>
-											<div data-tagitem="list-groupcontent-card" className={styles['list-groupcontent-card']}>
-												<div data-tagitem="entry-title" className={styles['entry-title']}>
-													{sItem.title}
-												</div>
-												<div data-tagitem="entry-description" className={styles['entry-description']}>
-													{sItem.desc}
-												</div>
+											<div className={styles['list-groupcontent-card']}>
+												<div className={styles['entry-title']}>{sItem.title}</div>
+												<div className={styles['entry-description']}>{sItem.desc}</div>
 											</div>
 										</a>
 									</div>
@@ -51,10 +45,8 @@ function ListRoot(props: TProps): React.ReactElement {
 			<Helmet>
 				<title>Entry Link List</title>
 			</Helmet>
-			<section data-tagitem="list-container" className={styles['list-container']}>
-				<section data-tagitem="list-wrapper" className={styles['list-wrapper']}>
-					{listItems()}
-				</section>
+			<section className={styles['list-container']}>
+				<section className={styles['list-wrapper']}>{listItems()}</section>
 			</section>
 		</>
 	)
