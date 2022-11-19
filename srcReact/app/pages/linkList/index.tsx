@@ -13,7 +13,7 @@ const { Content } = Layout
 function ListRoot(props: TProps): React.ReactElement {
 	console.log(`ListRoot ☆☆☆`, props)
 	const { linkData } = props
-	const listItems: () => React.ReactElement = (): React.ReactElement => {
+	const listItems: () => Array<React.ReactElement> = (): Array<React.ReactElement> => {
 		const viewItems: Array<React.ReactElement> = []
 		linkData.forEach((item: { subject: string; list: Array<TLinkListItem> }, index: number): void => {
 			viewItems.push(
@@ -22,23 +22,21 @@ function ListRoot(props: TProps): React.ReactElement {
 					<div className={styles['list-groupcontent-wrapper']}>
 						{item.list.map((sItem: TLinkListItem, sIndex: number): React.ReactElement => {
 							return (
-								<>
-									<div key={sIndex + '' + index} className={styles['list-groupcontent']}>
-										<a data-id={sItem.id} href={sItem.path}>
-											<div className={styles['list-groupcontent-card']}>
-												<div className={styles['entry-title']}>{sItem.title}</div>
-												<div className={styles['entry-description']}>{sItem.desc}</div>
-											</div>
-										</a>
-									</div>
-								</>
+								<div key={sIndex + '' + index} className={styles['list-groupcontent']}>
+									<a data-id={sItem.id} href={sItem.path}>
+										<div className={styles['list-groupcontent-card']}>
+											<div className={styles['entry-title']}>{sItem.title}</div>
+											<div className={styles['entry-description']}>{sItem.desc}</div>
+										</div>
+									</a>
+								</div>
 							)
 						})}
 					</div>
 				</div>
 			)
 		})
-		return <>{viewItems}</>
+		return viewItems
 	}
 	return (
 		<>

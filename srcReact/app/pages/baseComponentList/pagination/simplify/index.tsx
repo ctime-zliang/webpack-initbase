@@ -9,7 +9,7 @@ const pagePiecewise = (value: number): void => {
 	console.log('pagePiecewise', value)
 }
 
-function PaginationNoraml(props: any): React.ReactElement {
+function PaginationSimplify(props: any): React.ReactElement {
 	const [cutSizeOptions] = useState<Array<number>>([15, 25, 35, 45, 55])
 	const [gDisabled, setGDisabled] = useState<boolean>(true)
 	useContentBgColor('rgba(255, 255, 255, 1)')
@@ -23,10 +23,9 @@ function PaginationNoraml(props: any): React.ReactElement {
 			<Pagination
 				pageNumber={1}
 				countTotal={1000}
-				middleDisplaySize={5}
-				sideDislpaySize={2}
 				cutSize={cutSizeOptions[0]}
 				cutSizeOptions={cutSizeOptions}
+				simplify={true}
 				pageToggle={pageToggle}
 				pagePiecewise={pagePiecewise}
 				gDisabled={gDisabled}
@@ -35,4 +34,4 @@ function PaginationNoraml(props: any): React.ReactElement {
 	)
 }
 
-export default React.memo(PaginationNoraml)
+export default React.memo(PaginationSimplify)

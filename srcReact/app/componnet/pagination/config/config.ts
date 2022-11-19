@@ -1,9 +1,9 @@
-import { TPaginationProfile } from '../types/types'
+import { TPagination } from '../types/types'
 
 /**
  * 默认配置
  */
-export const defaultProfile: TPaginationProfile = {
+export const defaultProfile: TPagination = {
 	middleDisplaySize: 3,
 	sideDislpaySize: 1,
 	gDisabled: false,

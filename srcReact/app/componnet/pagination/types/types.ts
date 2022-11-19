@@ -31,24 +31,15 @@ export type TPagination = {
 	 */
 	gDisabled?: boolean
 	/**
+	 * 可选属性 - 设置为精简模式
+	 */
+	simplify?: boolean
+	/**
 	 * 可选方法 - 切换切换时执行回调
 	 */
 	pageToggle?: (a: string, v: number) => void
 	/**
 	 * 可选方法 - 切换每页长度时执行回调
 	 */
-	pagePiecewise?: (v: number) => void
-}
-
-/**********************************************************************/
-/**********************************************************************/
-/**********************************************************************/
-
-export type TPaginationProfile = TPagination & {
-	cutSizeOptions: Array<number>
-	middleDisplaySize: number
-	sideDislpaySize: number
-	gDisabled: boolean
-	pageToggle?: (a: string, v: number) => void
 	pagePiecewise?: (v: number) => void
 }
