@@ -9,14 +9,13 @@ const expandAction = (a: any, b: any) => {
 	console.log(a, b)
 }
 
-function TreeNormal(props: any): React.ReactElement {
+function TreeAutoExpandAllLevel(props: any): React.ReactElement {
 	return (
 		<section style={{ padding: `5px 5px` }}>
 			<ReactTree
-				contentUnderline={false}
-				multiSelect={true}
-				showTagLine={true}
-				showExpandBtn={true}
+				selectedIds={[]}
+				contentUnderline={true}
+				expandAll={true}
 				onExpand={expandAction}
 				onClick={clickAction}
 				data={dataLine}
@@ -25,4 +24,4 @@ function TreeNormal(props: any): React.ReactElement {
 	)
 }
 
-export default TreeNormal
+export default TreeAutoExpandAllLevel

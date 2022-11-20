@@ -1,6 +1,6 @@
 import { TTreeDataItem } from 'srcReact/app/componnet/tree'
 
-export const dataLine1 = [
+export const dataLine = [
 	{
 		title: '001',
 		id: '001',
@@ -38,50 +38,6 @@ export const dataLine1 = [
 					{
 						title: '00131',
 						id: '00131',
-					},
-				],
-			},
-		],
-	},
-]
-
-export const dataLine2: Array<TTreeDataItem> = [
-	{
-		title: '001',
-		id: '001',
-	},
-	{
-		title: '002',
-		id: '002',
-	},
-	{
-		title: '003',
-		id: '003',
-	},
-]
-
-export const dataLine3 = [
-	{
-		title: '一级分类',
-		id: '001',
-		children: [
-			{
-				title: '二级分类',
-				id: '0011',
-				children: [
-					{
-						title: '三级分类',
-						id: '00111',
-					},
-				],
-			},
-			{
-				title: '二级分类',
-				id: '0012',
-				children: [
-					{
-						title: '三级分类',
-						id: '00121',
 					},
 				],
 			},

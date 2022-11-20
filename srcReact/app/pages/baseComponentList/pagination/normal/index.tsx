@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react'
-import { useContentBgColor } from '../../../../utils/hooks/useContentBgColor'
 import Pagination, { TPagination } from '../../../../componnet/pagination'
 
 const pageToggle = (action: string, value: number): void => {
@@ -12,7 +11,6 @@ const pagePiecewise = (value: number): void => {
 function PaginationNoraml(props: any): React.ReactElement {
 	const [cutSizeOptions] = useState<Array<number>>([15, 25, 35, 45, 55])
 	const [gDisabled, setGDisabled] = useState<boolean>(true)
-	useContentBgColor('rgba(255, 255, 255, 1)')
 	useEffect((): void => {
 		window.setTimeout((): void => {
 			setGDisabled(false)
