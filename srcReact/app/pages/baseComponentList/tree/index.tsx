@@ -4,6 +4,7 @@ import { useContentBgColor } from '../../../../app/utils/hooks/useContentBgColor
 import TreeNormal from './normal'
 import TreeAyncSetData from './asyncSetData'
 import TreeAutoExpandAllLevel from './autoExpandAllLevel'
+import LongData from './longData'
 
 function TreeRoot(props: any): React.ReactElement {
 	console.log(`TreeRoot ☆☆☆`, props)
@@ -13,18 +14,10 @@ function TreeRoot(props: any): React.ReactElement {
 			<Helmet>
 				<title>Tree Component</title>
 			</Helmet>
-			<section style={{ padding: '10px 10px' }}>
-				<h3>$. 常规模式</h3>
-				<TreeNormal />
-			</section>
-			<section style={{ padding: '10px 10px' }}>
-				<h3>$. 异步设置数据</h3>
-				<TreeAyncSetData />
-			</section>
-			<section style={{ padding: '10px 10px' }}>
-				<h3>$. 初始化时展开所有层级</h3>
-				<TreeAutoExpandAllLevel />
-			</section>
+			<TreeNormal />
+			<TreeAyncSetData />
+			<TreeAutoExpandAllLevel />
+			<LongData />
 		</>
 	)
 }

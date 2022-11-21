@@ -17,7 +17,8 @@ function PaginationNoraml(props: any): React.ReactElement {
 		}, 1500)
 	}, [])
 	return (
-		<section>
+		<section style={{ padding: `5px 5px 15px 5px` }}>
+			<h3>$. 完整模式</h3>
 			<Pagination
 				pageNumber={1}
 				countTotal={1000}

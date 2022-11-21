@@ -12,14 +12,8 @@ function PaginationRoot(props: any): React.ReactElement {
 			<Helmet>
 				<title>Pagination Component</title>
 			</Helmet>
-			<section style={{ padding: '10px 10px' }}>
-				<h3>$. 完整模式</h3>
-				<PaginationNoraml />
-			</section>
-			<section style={{ padding: '10px 10px' }}>
-				<h3>$. 精简模式</h3>
-				<PaginationSimplify />
-			</section>
+			<PaginationNoraml />
+			<PaginationSimplify />
 		</>
 	)
 }
