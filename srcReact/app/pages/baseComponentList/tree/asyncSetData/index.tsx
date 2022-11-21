@@ -17,7 +17,12 @@ function TreeAyncSetData(props: any): React.ReactElement {
 		}, 2000)
 	}, [])
 	if (data2.length <= 0) {
-		return <div>loading data...</div>
+		return (
+			<section style={{ padding: `5px 5px 15px 5px` }}>
+				<h3>$. 异步设置数据</h3>
+				<div>loading...</div>
+			</section>
+		)
 	}
 	return (
 		<section style={{ padding: `5px 5px 15px 5px` }}>
