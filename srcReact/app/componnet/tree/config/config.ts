@@ -8,6 +8,9 @@ export const ROW_ID_PREFIX: string = 'tree-rowdata-'
  */
 export const defaultProfile: TTreeRootPorps = {
 	containerStyleObject: {},
+	containerClientWidth: 'auto',
+	containerClientHeight: 'auto',
+	isVirtualList: false,
 	data: [],
 	treeWidgetItemWidth: '30px',
 	itemStyleObject: {},
@@ -16,7 +19,7 @@ export const defaultProfile: TTreeRootPorps = {
 	expandAll: undefined,
 	leftTranslationalAlignment: false,
 	multiSelect: false,
-	itemHeight: '24px',
+	itemHeight: '26px',
 	contentUnderline: false,
 	selectedIds: [],
 	onExpand: null,

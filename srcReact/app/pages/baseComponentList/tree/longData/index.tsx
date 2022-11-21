@@ -17,6 +17,8 @@ function TreeNormal(props: any): React.ReactElement {
 			<h3>$. 大数据展示</h3>
 			<div style={{ height: '150px', overflow: 'auto' }}>
 				<ReactTree
+					isVirtualList={true}
+					containerClientHeight={'150px'}
 					contentUnderline={false}
 					multiSelect={false}
 					showTagLine={true}

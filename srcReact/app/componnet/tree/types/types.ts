@@ -18,6 +18,15 @@ export type TTreeRootPorps = {
 	 */
 	containerStyleObject?: { [key: string]: any }
 	/**
+	 * 容器尺寸描述
+	 */
+	containerClientWidth?: string
+	containerClientHeight?: string
+	/**
+	 * 启用虚拟化显示列表
+	 */
+	isVirtualList?: boolean
+	/**
 	 * 组件控件宽度
 	 * 		单个控件的宽度, 例如 展开/收起按钮所占区域的宽度
 	 */

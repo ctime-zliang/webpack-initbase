@@ -1,4 +1,5 @@
 import React, { useEffect, useState, forwardRef, useImperativeHandle, useRef } from 'react'
+import { FixedSizeList } from 'react-window'
 import '../styles/index.less'
 import TreeLine from './TreeLine'
 import { TComponentTreeRowData, TTreeDataItemID, TTreeRootPorps } from '../types/types'
@@ -6,8 +7,24 @@ import { handleFormatData } from '../utils/filter'
 import { defaultProfile } from '../config/config'
 
 function TreeRoot(props: TTreeRootPorps, ref: any): React.ReactElement {
-	const globalProfile: TTreeRootPorps = { ...defaultProfile, ...props }
-	const { data, containerStyleObject, treeWidgetItemWidth, multiSelect, selectedIds = [], expandAll, onExpand, onClick } = globalProfile
+	const globalProfile: TTreeRootPorps = {
+		...defaultProfile,
+		...props,
+	}
+	const {
+		data,
+		containerStyleObject,
+		containerClientWidth,
+		containerClientHeight,
+		treeWidgetItemWidth,
+		multiSelect,
+		selectedIds = [],
+		isVirtualList,
+		expandAll,
+		itemHeight,
+		onExpand,
+		onClick,
+	} = globalProfile
 	const containerRef = useRef<HTMLDivElement>(null)
 	const expandedKeys = useRef<Array<string>>([])
 	const [selectedKeys, setSelectedKeys] = useState<Array<TTreeDataItemID>>(selectedIds)
@@ -109,6 +126,30 @@ function TreeRoot(props: TTreeRootPorps, ref: any): React.ReactElement {
 			.filter((item: React.ReactElement): boolean => {
 				return !!item
 			})
+		if (isVirtualList && parseInt(containerClientHeight || '') > 0) {
+			const containerHeight: number = parseInt(containerClientHeight || '') as number
+			const containerWidth: number = parseInt(containerClientWidth || '') as number
+			const containerWidthValue: number | string = containerWidth || 'auto'
+			const itemHeightValue: number = parseInt(itemHeight || '') as number
+			return (
+				<section className={treeContainerClassString} style={containerStyleObject} ref={containerRef}>
+					<FixedSizeList
+						height={containerHeight}
+						itemCount={getFlatedNodeList.length}
+						itemSize={itemHeightValue}
+						width={containerWidthValue}
+					>
+						{({ index, style }): React.ReactElement => {
+							return (
+								<div data-index={index} style={style}>
+									{getFlatedNodeList[index]}
+								</div>
+							)
+						}}
+					</FixedSizeList>
+				</section>
+			)
+		}
 		return (
 			<section className={treeContainerClassString} style={containerStyleObject} ref={containerRef}>
 				{getFlatedNodeList}
