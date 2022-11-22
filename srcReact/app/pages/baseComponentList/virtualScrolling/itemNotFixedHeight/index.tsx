@@ -13,12 +13,13 @@ function Row({ index, style }: { index: number; style: any }) {
 }
 
 function VSItemNotFixedScrolling(props: any): React.ReactElement {
+	const itemCount: number = 2000
 	return (
 		<section style={{ padding: `5px 5px 15px 5px` }}>
-			<h3>$. 列表各项任意高度</h3>
+			<h3>$. 列表各项任意高度({itemCount} 条)</h3>
 			<div>
 				<div style={{ width: '50%', border: '1px solid #dcdcdc' }}>
-					<NotFixedSizeList containerHeight={200} itemHeight={getItemSize} itemCount={1000}>
+					<NotFixedSizeList containerHeight={200} itemHeight={getItemSize} itemCount={itemCount}>
 						{Row}
 					</NotFixedSizeList>
 				</div>

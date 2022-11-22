@@ -1,10 +1,10 @@
 import React, { useEffect, useState, forwardRef, useImperativeHandle, useRef } from 'react'
-import { FixedSizeList } from 'react-window'
 import '../styles/index.less'
 import TreeLine from './TreeLine'
 import { TComponentTreeRowData, TTreeDataItemID, TTreeRootPorps } from '../types/types'
 import { handleFormatData } from '../utils/filter'
 import { defaultProfile } from '../config/config'
+import { FixedSizeList } from '../../virtualScrolling'
 
 function TreeRoot(props: TTreeRootPorps, ref: any): React.ReactElement {
 	const globalProfile: TTreeRootPorps = {
@@ -134,12 +134,12 @@ function TreeRoot(props: TTreeRootPorps, ref: any): React.ReactElement {
 			return (
 				<section className={treeContainerClassString} style={containerStyleObject} ref={containerRef}>
 					<FixedSizeList
-						height={containerHeight}
+						containerHeight={containerHeight}
+						containerWidth={containerWidthValue}
 						itemCount={getFlatedNodeList.length}
-						itemSize={itemHeightValue}
-						width={containerWidthValue}
+						itemHeight={itemHeightValue}
 					>
-						{({ index, style }): React.ReactElement => {
+						{({ index, style }: { index: number; style: React.CSSProperties }): React.ReactElement => {
 							return (
 								<div data-index={index} style={style}>
 									{getFlatedNodeList[index]}

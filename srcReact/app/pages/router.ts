@@ -11,7 +11,6 @@ import { articleErrorRoute } from './article/error/route'
 import { reduxContainerRoute } from './redux/route'
 import { valtioContainerRoute } from './valtio/route'
 import { testpageRoute } from './testpage/route'
-import { scrollingRoute } from './infiniteScrolling/route'
 import { componentPaginationRoute } from './baseComponentList/pagination/route'
 import { componentTreeRoute } from './baseComponentList/tree/route'
 import { componentvirtualScrollingRoute } from './baseComponentList/virtualScrolling/route'
@@ -27,7 +26,6 @@ export const createRoutes = (reduxStore: TReduxStore): Array<TRouteItem> => {
 		reduxContainerRoute(reduxStore),
 		valtioContainerRoute(reduxStore),
 		testpageRoute(reduxStore),
-		scrollingRoute(reduxStore),
 		{
 			path: '/componentLib/*',
 			routes: [componentPaginationRoute(reduxStore), componentTreeRoute(reduxStore), componentvirtualScrollingRoute(reduxStore)],

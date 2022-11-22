@@ -19,6 +19,7 @@ export type TListComponentCallProps = {
 	itemCount: number
 	itemHeight: (number | string) | ((a: number) => number)
 	containerHeight: number | string
+	containerWidth?: number | string
 	containerStyle?: React.CSSProperties
 	wrapperStyle?: React.CSSProperties
 	children?: React.ReactElement<any, string | React.JSXElementConstructor<any>> | React.FunctionComponent<any>

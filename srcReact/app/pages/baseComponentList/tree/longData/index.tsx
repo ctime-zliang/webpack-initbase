@@ -12,13 +12,16 @@ const expandAction = (a: any, b: any) => {
 const dataLine = createLongData()
 
 function TreeNormal(props: any): React.ReactElement {
+	const isVirtualList: boolean = true
+	const tips: string = isVirtualList ? `(已启用虚拟滚动)` : ''
+	const containerHeight: number = 200
 	return (
 		<section style={{ padding: `5px 5px 15px 5px` }}>
-			<h3>$. 大数据展示</h3>
-			<div style={{ height: '150px', overflow: 'auto' }}>
+			<h3>$. 大数据展示{tips}</h3>
+			<div style={{ height: `${containerHeight}px`, overflow: 'auto' }}>
 				<ReactTree
-					isVirtualList={true}
-					containerClientHeight={'150px'}
+					isVirtualList={isVirtualList}
+					containerClientHeight={`${containerHeight}px`}
 					contentUnderline={false}
 					multiSelect={false}
 					showTagLine={true}

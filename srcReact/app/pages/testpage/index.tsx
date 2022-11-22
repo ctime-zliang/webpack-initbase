@@ -6,6 +6,7 @@ import ContexTesttRoot from './contextTest'
 import HookRefTestRoot from './hookRef'
 import { HookUseLayoutEffect } from './hookUseLayoutEffect'
 import UseDervStoreTestRoot from './useDervStore'
+import InfiniteScrollRoot from './infiniteScrolling'
 
 function TestPageRoot(props: TCommonComponentBaseProps): React.ReactElement {
 	console.log(`TestPageRoot ☆☆☆`, props)
