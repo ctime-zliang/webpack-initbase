@@ -21,3 +21,5 @@ export enum EPageUpdateAction {
 	NEXT_JUMP = 'NEXT_JUMP',
 	TARGET_JUMP = 'TARGET_JUMP',
 }
+
+export const ENTER_KEYCODE: number = 13

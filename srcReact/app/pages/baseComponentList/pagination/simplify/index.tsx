@@ -18,7 +18,7 @@ function PaginationSimplify(props: any): React.ReactElement {
 	}, [])
 	return (
 		<section style={{ padding: `5px 5px 15px 5px` }}>
-			<h3>$. 完整模式</h3>
+			<h3>$. 精简模式</h3>
 			<Pagination
 				pageNumber={1}
 				countTotal={1000}

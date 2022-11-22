@@ -1,4 +1,5 @@
 import React from 'react'
+import { ENTER_KEYCODE } from '../config/config'
 import { correctionUserInput } from '../utils/correctionUserInput'
 
 type TPageShowItemProps = {
@@ -7,15 +8,16 @@ type TPageShowItemProps = {
 	inputValue: number
 	pageTotal: number
 	canInput: boolean
+	simplify: boolean
 	inputChangeAction: (e: React.FormEvent) => void
 	confirmAction: (e: React.MouseEvent | React.KeyboardEvent, v: number) => void
 }
 function PageShowItem(props: TPageShowItemProps): React.ReactElement {
-	const { pageNumber, isSelected, inputValue, pageTotal, canInput, inputChangeAction, confirmAction } = props
+	const { pageNumber, isSelected, inputValue, pageTotal, canInput, simplify, inputChangeAction, confirmAction } = props
 	const theItemWrapperClassName: string = isSelected ? `page-item-wrapper page-item-wrapper-selected` : `page-item-wrapper`
 	const theContentClassName: string = 'page-content'
 	const theInputWrapperClassName: string = 'page-input-wrapper'
-	const theInputClassName: string = 'page-number-input'
+	const theInputClassName: string = `page-number-input ${simplify ? 'page-number-input-simp' : ''}`
 	const btnClickAction = (e: React.MouseEvent): void => {
 		confirmAction(e, pageNumber)
 	}
@@ -24,7 +26,7 @@ function PageShowItem(props: TPageShowItemProps): React.ReactElement {
 		inputElement.select && inputElement.select()
 	}
 	const inputKeyupAction = (e: React.KeyboardEvent): void => {
-		if (e.keyCode === 13) {
+		if (e.keyCode === ENTER_KEYCODE) {
 			confirmAction(e, correctionUserInput(inputValue, 1, pageTotal))
 		}
 	}
