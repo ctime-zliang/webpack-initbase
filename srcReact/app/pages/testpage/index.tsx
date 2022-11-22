@@ -15,9 +15,6 @@ function TestPageRoot(props: TCommonComponentBaseProps): React.ReactElement {
 				<title>Test Page</title>
 			</Helmet>
 			<section>
-				<ContexTesttRoot />
-			</section>
-			<section>
 				<UseDervStoreTestRoot />
 			</section>
 		</>

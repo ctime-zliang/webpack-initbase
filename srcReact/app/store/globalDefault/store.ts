@@ -22,6 +22,7 @@ export const createInitialState = (): TStore => {
 				list: [
 					{ id: uuidv4(), title: 'Paginataion', desc: 'Pagination Base Component', path: '/componentLib/pagination' },
 					{ id: uuidv4(), title: 'Tree', desc: 'Tree Base Component', path: '/componentLib/tree' },
+					{ id: uuidv4(), title: 'Virtual Scrolling', desc: 'VirtualScrolling Base Component', path: '/componentLib/virtualscrolling' },
 				],
 			},
 			{
