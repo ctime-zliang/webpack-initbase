@@ -3,7 +3,7 @@ import '../styles/index.less'
 import TreeLine from './TreeLine'
 import { TComponentTreeRowData, TTreeDataItemID, TTreeRootPorps } from '../types/types'
 import { handleFormatData } from '../utils/filter'
-import { defaultProfile } from '../config/config'
+import { defaultProfile, DEFAULT_ITEMHIEGHT } from '../config/config'
 import { FixedSizeList } from '../../virtualScrolling'
 
 function TreeRoot(props: TTreeRootPorps, ref: any): React.ReactElement {
@@ -14,14 +14,14 @@ function TreeRoot(props: TTreeRootPorps, ref: any): React.ReactElement {
 	const {
 		data,
 		containerStyleObject,
-		containerClientWidth,
-		containerClientHeight,
+		containerWidth,
+		containerHeight,
 		treeWidgetItemWidth,
 		multiSelect,
 		selectedIds = [],
 		isVirtualList,
 		expandAll,
-		itemHeight,
+		itemHeight = DEFAULT_ITEMHIEGHT,
 		onExpand,
 		onClick,
 	} = globalProfile
@@ -126,18 +126,15 @@ function TreeRoot(props: TTreeRootPorps, ref: any): React.ReactElement {
 			.filter((item: React.ReactElement): boolean => {
 				return !!item
 			})
-		if (isVirtualList && parseInt(containerClientHeight || '') > 0) {
-			const containerHeight: number = parseInt(containerClientHeight || '') as number
-			const containerWidth: number = parseInt(containerClientWidth || '') as number
-			const containerWidthValue: number | string = containerWidth || 'auto'
-			const itemHeightValue: number = parseInt(itemHeight || '') as number
+		if (isVirtualList && containerHeight && /\d+px$/i.test(String(containerHeight))) {
+			const _itemHeight: number = parseInt(itemHeight || '') as number
 			return (
 				<section className={treeContainerClassString} style={containerStyleObject} ref={containerRef}>
 					<FixedSizeList
 						containerHeight={containerHeight}
-						containerWidth={containerWidthValue}
+						containerWidth={containerWidth}
 						itemCount={getFlatedNodeList.length}
-						itemHeight={itemHeightValue}
+						itemHeight={itemHeight}
 					>
 						{({ index, style }: { index: number; style: React.CSSProperties }): React.ReactElement => {
 							return (

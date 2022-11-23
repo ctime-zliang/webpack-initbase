@@ -19,7 +19,7 @@ function VSItemNotFixedScrolling(props: any): React.ReactElement {
 			<h3>$. 列表各项任意高度({itemCount} 条)</h3>
 			<div>
 				<div style={{ width: '50%', border: '1px solid #dcdcdc' }}>
-					<NotFixedSizeList containerHeight={200} itemHeight={getItemSize} itemCount={itemCount}>
+					<NotFixedSizeList containerHeight={'200px'} itemHeight={getItemSize} itemCount={itemCount}>
 						{Row}
 					</NotFixedSizeList>
 				</div>

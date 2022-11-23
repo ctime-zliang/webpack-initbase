@@ -21,7 +21,7 @@ function TreeNormal(props: any): React.ReactElement {
 			<div style={{ height: `${containerHeight}px`, overflow: 'auto' }}>
 				<ReactTree
 					isVirtualList={isVirtualList}
-					containerClientHeight={`${containerHeight}px`}
+					containerHeight={`${containerHeight}px`}
 					contentUnderline={false}
 					multiSelect={false}
 					showTagLine={true}

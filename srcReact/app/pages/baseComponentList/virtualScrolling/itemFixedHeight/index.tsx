@@ -16,7 +16,7 @@ function VSItemFixedScrolling(props: any): React.ReactElement {
 			<h3>$. 列表各项固定高度({itemCount} 条)</h3>
 			<div>
 				<div style={{ width: '50%', border: '1px solid #dcdcdc' }}>
-					<FixedSizeList containerHeight={200} itemHeight={25} itemCount={itemCount}>
+					<FixedSizeList containerHeight={'200px'} itemHeight={'25px'} itemCount={itemCount}>
 						{Row}
 					</FixedSizeList>
 				</div>

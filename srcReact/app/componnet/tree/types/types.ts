@@ -20,8 +20,8 @@ export type TTreeRootPorps = {
 	/**
 	 * 容器尺寸描述
 	 */
-	containerClientWidth?: string
-	containerClientHeight?: string
+	containerWidth?: string
+	containerHeight?: string
 	/**
 	 * 启用虚拟化显示列表
 	 */

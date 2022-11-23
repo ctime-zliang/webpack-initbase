@@ -6,10 +6,11 @@ export const ROW_ID_PREFIX: string = 'tree-rowdata-'
 /**
  * 默认配置
  */
+export const DEFAULT_ITEMHIEGHT: string = '26px'
 export const defaultProfile: TTreeRootPorps = {
 	containerStyleObject: {},
-	containerClientWidth: 'auto',
-	containerClientHeight: 'auto',
+	containerWidth: '100%',
+	containerHeight: '100%',
 	isVirtualList: false,
 	data: [],
 	treeWidgetItemWidth: '30px',
@@ -19,7 +20,7 @@ export const defaultProfile: TTreeRootPorps = {
 	expandAll: undefined,
 	leftTranslationalAlignment: false,
 	multiSelect: false,
-	itemHeight: '26px',
+	itemHeight: DEFAULT_ITEMHIEGHT,
 	contentUnderline: false,
 	selectedIds: [],
 	onExpand: null,
