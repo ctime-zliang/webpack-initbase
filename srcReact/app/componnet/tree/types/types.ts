@@ -22,6 +22,7 @@ export type TTreeRootPorps = {
 	 */
 	containerWidth?: string
 	containerHeight?: string
+	initContainerScrollTop?: number
 	/**
 	 * 启用虚拟化显示列表
 	 */
@@ -82,6 +83,10 @@ export type TTreeRootPorps = {
 	 * 自定义渲染 ${data[index].title}
 	 */
 	itemRender?: ((a: TTreeDataItem, b: TComponentTreeRowData) => React.ReactElement) | null
+	/**
+	 * 虚拟滚动 时执行函数
+	 */
+	onVirtualScroll?: ((y: number, x: number) => void) | null
 }
 
 /**********************************************************************/

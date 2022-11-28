@@ -16,6 +16,7 @@ function TreeRoot(props: TTreeRootPorps, ref: any): React.ReactElement {
 		containerStyleObject,
 		containerWidth,
 		containerHeight,
+		initContainerScrollTop,
 		treeWidgetItemWidth,
 		multiSelect,
 		selectedIds = [],
@@ -24,6 +25,7 @@ function TreeRoot(props: TTreeRootPorps, ref: any): React.ReactElement {
 		itemHeight = DEFAULT_ITEMHIEGHT,
 		onExpand,
 		onClick,
+		onVirtualScroll,
 	} = globalProfile
 	const containerRef = useRef<HTMLDivElement>(null)
 	const expandedKeys = useRef<Array<string>>([])
@@ -135,6 +137,8 @@ function TreeRoot(props: TTreeRootPorps, ref: any): React.ReactElement {
 						containerWidth={containerWidth}
 						itemCount={getFlatedNodeList.length}
 						itemHeight={itemHeight}
+						initContainerScrollTop={initContainerScrollTop}
+						onScroll={onVirtualScroll}
 					>
 						{({ index, style }: { index: number; style: React.CSSProperties }): React.ReactElement => {
 							return (

@@ -31,7 +31,7 @@ const getEstimatedTotalSize = (props: TListComponentProps, instanceProps: TInsta
 /**
  * 返回单个元素的固定高度
  **/
-const getItemSize = (props: TListComponentProps, index: number, instanceProps: TInstanceProps): number => {
+const getItemHeight = (props: TListComponentProps, index: number, instanceProps: TInstanceProps): number => {
 	const { itemHeight } = props
 	return parseInt(itemHeight as string)
 }
@@ -58,7 +58,7 @@ const createInstanceProps = (estimatedItemSize: number = DEFAULT_ESTIMATED_SIZE)
 
 const FixedSizeList2 = createListComponet2({
 	getEstimatedTotalSize,
-	getItemSize,
+	getItemHeight,
 	getItemOffset,
 	getStartIndexByOffset,
 	getEndIndexByOffset,

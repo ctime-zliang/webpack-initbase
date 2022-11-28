@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import { createListComponetFCDefaultProps } from '../config/config'
 import {
 	TCreateContainerStyleObject,
@@ -11,12 +11,13 @@ import {
 } from '../types/types'
 
 export function createListComponet2(params: TCreateListComponetParams): (a: TListComponentCallProps) => React.ReactElement {
-	const { getEstimatedTotalSize, getItemSize, getItemOffset, getStartIndexByOffset, getEndIndexByOffset, createInstanceProps } = params
+	const { getEstimatedTotalSize, getItemHeight, getItemOffset, getStartIndexByOffset, getEndIndexByOffset, createInstanceProps } = params
 	return (props: TListComponentCallProps): React.ReactElement => {
 		const globalProfile: TListComponentProps = { ...createListComponetFCDefaultProps, ...props } as TListComponentProps
-		const { containerWidth, containerHeight, itemCount, containerStyle = {}, wrapperStyle = {} } = globalProfile
+		const { initContainerScrollTop, containerWidth, containerHeight, itemCount, containerStyle = {}, wrapperStyle = {}, onScroll } = globalProfile
 		const Component = (props as any).children as any
-		const [containerScrollTop, setContainerScrollTop] = useState<number>(0)
+		const [containerScrollTop, setContainerScrollTop] = useState<number>(initContainerScrollTop)
+		const scrollContainerRef = useRef<HTMLDivElement>(null)
 		const instancePropsRef = useRef<TInstanceProps>(createInstanceProps())
 		const instanceProps: TInstanceProps = instancePropsRef.current
 
@@ -38,7 +39,7 @@ export function createListComponet2(params: TCreateListComponetParams): (a: TLis
 			return {
 				position: 'absolute',
 				width: '100%',
-				height: getItemSize(globalProfile, index, instanceProps),
+				height: getItemHeight(globalProfile, index, instanceProps),
 				top: getItemOffset(globalProfile, index, instanceProps),
 				left: 0,
 			}
@@ -52,8 +53,20 @@ export function createListComponet2(params: TCreateListComponetParams): (a: TLis
 			return [eachStartIndex, eachEndIndex]
 		}
 		const onContainerScrollAction = (e: React.BaseSyntheticEvent): void => {
+			const scrollTop: number = (e.target as HTMLElement).scrollTop
+			const scrollLeft: number = (e.target as HTMLElement).scrollLeft
 			setContainerScrollTop((e.target as HTMLElement).scrollTop)
+			onScroll && onScroll(scrollTop, scrollLeft)
 		}
+
+		useEffect((): void => {
+			if (initContainerScrollTop !== containerScrollTop) {
+				setContainerScrollTop(initContainerScrollTop)
+				if (scrollContainerRef.current) {
+					scrollContainerRef.current.scrollTop = initContainerScrollTop
+				}
+			}
+		}, [initContainerScrollTop])
 
 		const renderItems = (): Array<React.ReactElement> => {
 			const items: Array<React.ReactElement> = []
@@ -68,7 +81,7 @@ export function createListComponet2(params: TCreateListComponetParams): (a: TLis
 		}
 
 		return (
-			<div style={containerStyleObject as React.CSSProperties} onScroll={onContainerScrollAction}>
+			<div ref={scrollContainerRef} style={containerStyleObject as React.CSSProperties} onScroll={onContainerScrollAction}>
 				<div style={wrapperStyleObject}>{renderItems()}</div>
 			</div>
 		)

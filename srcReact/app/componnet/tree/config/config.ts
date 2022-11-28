@@ -11,6 +11,7 @@ export const defaultProfile: TTreeRootPorps = {
 	containerStyleObject: {},
 	containerWidth: '100%',
 	containerHeight: '100%',
+	initContainerScrollTop: 0,
 	isVirtualList: false,
 	data: [],
 	treeWidgetItemWidth: '30px',
@@ -26,6 +27,7 @@ export const defaultProfile: TTreeRootPorps = {
 	onExpand: null,
 	onClick: null,
 	itemRender: null,
+	onVirtualScroll: null,
 }
 
 /**
