@@ -81,8 +81,15 @@ export function createListComponet2(params: TCreateListComponetParams): (a: TLis
 		}
 
 		return (
-			<div ref={scrollContainerRef} style={containerStyleObject as React.CSSProperties} onScroll={onContainerScrollAction}>
-				<div style={wrapperStyleObject}>{renderItems()}</div>
+			<div
+				data-vs-tag={'virtual-scroll-container'}
+				ref={scrollContainerRef}
+				style={containerStyleObject as React.CSSProperties}
+				onScroll={onContainerScrollAction}
+			>
+				<div data-vs-tag={'virtual-scroll-wrapper'} style={wrapperStyleObject}>
+					{renderItems()}
+				</div>
 			</div>
 		)
 	}
