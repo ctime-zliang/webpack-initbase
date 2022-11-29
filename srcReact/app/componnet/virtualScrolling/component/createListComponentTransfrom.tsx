@@ -10,7 +10,7 @@ import {
 	TInstanceProps,
 } from '../types/types'
 
-export function createListComponet2(params: TCreateListComponetParams): (a: TListComponentCallProps) => React.ReactElement {
+export function createListComponentTransfrom(params: TCreateListComponetParams): (a: TListComponentCallProps) => React.ReactElement {
 	const { getEstimatedTotalSize, getItemHeight, getItemOffsetY, getStartIndexByOffset, getEndIndexByOffset, createInstanceProps } = params
 	return (props: TListComponentCallProps): React.ReactElement => {
 		const globalProfile: TListComponentProps = { ...createListComponetFCDefaultProps, ...props } as TListComponentProps
@@ -30,17 +30,24 @@ export function createListComponet2(params: TCreateListComponetParams): (a: TLis
 			...containerStyle,
 		}
 		const wrapperStyleObject: TCreateWrapperStyleObject = {
+			position: 'absolute',
+			left: 0,
+			top: 0,
 			width: '100%',
-			height: getEstimatedTotalSize(globalProfile, instanceProps),
+			height: '100%',
 			...wrapperStyle,
+		}
+		const scrollColludeStyleObject: any = {
+			width: '100%',
+			height: `${getEstimatedTotalSize(globalProfile, instanceProps)}px`,
 		}
 
 		const getItemStyle = (index: number = 0): TCreateItemStyle => {
 			return {
-				position: 'absolute',
+				position: 'static',
 				width: '100%',
 				height: getItemHeight(globalProfile, index, instanceProps),
-				top: getItemOffsetY(globalProfile, index, instanceProps),
+				top: 0,
 				left: 0,
 			}
 		}
@@ -81,6 +88,9 @@ export function createListComponet2(params: TCreateListComponetParams): (a: TLis
 
 		const [extendStartIndex, extendEndIndex] = getIndexRangeToRender()
 		const rowItems: Array<React.ReactElement> = renderItems(extendStartIndex, extendEndIndex)
+		const translateY: number = getItemOffsetY(globalProfile, extendStartIndex, instanceProps)
+
+		wrapperStyleObject.transform = `translate3d(0, ${translateY}px, 0)`
 
 		return (
 			<div
@@ -89,6 +99,7 @@ export function createListComponet2(params: TCreateListComponetParams): (a: TLis
 				style={containerStyleObject as React.CSSProperties}
 				onScroll={onContainerScrollAction}
 			>
+				<div style={scrollColludeStyleObject}></div>
 				<div data-vs-tag={'virtual-scroll-wrapper'} style={wrapperStyleObject}>
 					{rowItems}
 				</div>

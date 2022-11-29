@@ -1,6 +1,7 @@
 import { DEFAULT_ESTIMATED_SIZE } from '../config/config'
 import { TInstanceProps, TListComponentProps } from '../types/types'
 import { createListComponet2 } from './createListComponent2'
+import { createListComponentTransfrom } from './createListComponentTransfrom'
 
 /**
  * 返回当前滚动范围内的起始索引

@@ -1,8 +1,8 @@
 import { TListComponentDefaultProps } from '../types/types'
 
 export const createListComponetFCDefaultProps: TListComponentDefaultProps = {
-	topBufferSize: 10,
-	bottomBufferSize: 10,
+	topBufferSize: 30,
+	bottomBufferSize: 30,
 	initContainerScrollTop: 0,
 	containerHeight: '100%',
 	containerWidth: '100%',
