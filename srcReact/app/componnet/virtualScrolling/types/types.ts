@@ -21,12 +21,13 @@ export type TCreateListComponetParams = {
 	getEndIndexByOffset: (props: TListComponentProps, startIndex: number, instanceProps: TInstanceProps) => number
 	getEstimatedTotalSize: (props: TListComponentProps, instanceProps: TInstanceProps) => number
 	getItemHeight: (props: TListComponentProps, index: number, instanceProps: TInstanceProps) => number
-	getItemOffset: (props: TListComponentProps, index: number, instanceProps: TInstanceProps) => number
+	getItemOffsetY: (props: TListComponentProps, index: number, instanceProps: TInstanceProps) => number
 	createInstanceProps: (estimatedItemSize?: number) => TInstanceProps
 }
 
 export type TListComponentDefaultProps = {
-	overscanCount: number
+	topBufferSize: number
+	bottomBufferSize: number
 	initContainerScrollTop: number
 	containerHeight: number | string
 	containerWidth: number | string

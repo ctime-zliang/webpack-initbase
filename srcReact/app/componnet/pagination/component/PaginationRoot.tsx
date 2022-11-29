@@ -6,8 +6,7 @@ import PageRange from './PageRange'
 import PageSelect from './PageSelect'
 import '../styles/index.less'
 
-type TPaginationProps = TPagination
-function PaginationRoot(props: TPaginationProps): React.ReactElement {
+function PaginationRoot(props: TPagination): React.ReactElement {
 	// console.log(`Component: PaginationRoot`, props)
 	const globalProfile: TPagination = { ...defaultProfile, ...props }
 	const {

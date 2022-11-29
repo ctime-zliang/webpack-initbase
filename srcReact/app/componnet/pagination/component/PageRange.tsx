@@ -1,17 +1,8 @@
 import React from 'react'
+import { TPageRangeProps } from '../types/types'
 import PageBreakItem from './PageBreakItem'
 import PageShowItem from './PageShowItem'
 
-type TPageRangeProps = {
-	pageTotal: number
-	middleDisplaySize: number
-	sideDislpaySize: number
-	pageNumber: number
-	inputValue: number
-	simplify: boolean
-	inputChangeAction: (e: React.FormEvent) => void
-	confirmAction: (e: React.MouseEvent | React.KeyboardEvent, v: number) => void
-}
 function PageRange(props: TPageRangeProps): React.ReactElement {
 	const { pageTotal, middleDisplaySize, sideDislpaySize, pageNumber, simplify } = props
 	const viewItemComponents: Array<React.ReactElement> = []

@@ -1,7 +1,8 @@
 import { TListComponentDefaultProps } from '../types/types'
 
 export const createListComponetFCDefaultProps: TListComponentDefaultProps = {
-	overscanCount: 10,
+	topBufferSize: 10,
+	bottomBufferSize: 10,
 	initContainerScrollTop: 0,
 	containerHeight: '100%',
 	containerWidth: '100%',

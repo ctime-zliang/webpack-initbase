@@ -1,10 +1,6 @@
 import React from 'react'
+import { TPageSelectProps } from '../types/types'
 
-type TPageSelectProps = {
-	selectValue: number
-	optionList: Array<number>
-	selectChangeAction: (e: React.FormEvent) => void
-}
 function PageSelect(props: TPageSelectProps): React.ReactElement {
 	const { selectValue, optionList, selectChangeAction } = props
 	const theSelectWrapperClassName: string = 'page-select-wrapper'

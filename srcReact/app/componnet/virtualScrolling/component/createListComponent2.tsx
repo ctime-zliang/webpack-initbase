@@ -11,7 +11,7 @@ import {
 } from '../types/types'
 
 export function createListComponet2(params: TCreateListComponetParams): (a: TListComponentCallProps) => React.ReactElement {
-	const { getEstimatedTotalSize, getItemHeight, getItemOffset, getStartIndexByOffset, getEndIndexByOffset, createInstanceProps } = params
+	const { getEstimatedTotalSize, getItemHeight, getItemOffsetY, getStartIndexByOffset, getEndIndexByOffset, createInstanceProps } = params
 	return (props: TListComponentCallProps): React.ReactElement => {
 		const globalProfile: TListComponentProps = { ...createListComponetFCDefaultProps, ...props } as TListComponentProps
 		const { initContainerScrollTop, containerWidth, containerHeight, itemCount, containerStyle = {}, wrapperStyle = {}, onScroll } = globalProfile
@@ -40,17 +40,18 @@ export function createListComponet2(params: TCreateListComponetParams): (a: TLis
 				position: 'absolute',
 				width: '100%',
 				height: getItemHeight(globalProfile, index, instanceProps),
-				top: getItemOffset(globalProfile, index, instanceProps),
+				top: getItemOffsetY(globalProfile, index, instanceProps),
 				left: 0,
 			}
 		}
-		const getRangeToRender = (): [number, number] => {
-			const { overscanCount, itemCount } = globalProfile
+		const getIndexRangeToRender = (): [number, number] => {
+			const { topBufferSize, bottomBufferSize, itemCount } = globalProfile
 			const startIndex: number = getStartIndexByOffset(globalProfile, containerScrollTop, instanceProps)
 			const endIndex: number = getEndIndexByOffset(globalProfile, startIndex, instanceProps)
-			const eachStartIndex: number = Math.max(0, startIndex - overscanCount)
-			const eachEndIndex: number = Math.min(itemCount - 1, endIndex + overscanCount)
-			return [eachStartIndex, eachEndIndex]
+			const extendStartIndex: number = Math.max(0, startIndex - topBufferSize)
+			const extendEndIndex: number = Math.min(itemCount - 1, endIndex + bottomBufferSize)
+			console.log(startIndex, endIndex, extendStartIndex, extendEndIndex)
+			return [extendStartIndex, extendEndIndex]
 		}
 		const onContainerScrollAction = (e: React.BaseSyntheticEvent): void => {
 			const scrollTop: number = (e.target as HTMLElement).scrollTop
@@ -71,7 +72,7 @@ export function createListComponet2(params: TCreateListComponetParams): (a: TLis
 		const renderItems = (): Array<React.ReactElement> => {
 			const items: Array<React.ReactElement> = []
 			if (itemCount > 0) {
-				const [startIndex, endIndex] = getRangeToRender()
+				const [startIndex, endIndex] = getIndexRangeToRender()
 				for (let i: number = startIndex; i <= endIndex; i++) {
 					const itemStyle: TCreateItemStyle = getItemStyle(i)
 					items.push(<Component index={i} style={itemStyle} key={i} />)

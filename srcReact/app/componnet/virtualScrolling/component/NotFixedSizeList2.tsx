@@ -58,7 +58,7 @@ const getItemHeight = (props: TListComponentProps, index: number, instanceProps:
 /**
  * 返回指定索引位置的元素的垂直偏置值
  **/
-const getItemOffset = (props: TListComponentProps, index: number, instanceProps: TInstanceProps): number => {
+const getItemOffsetY = (props: TListComponentProps, index: number, instanceProps: TInstanceProps): number => {
 	const { itemHeight } = props
 	const itemMetadata: TItemMetaDataItem = getItemMetadata(itemHeight as (a: number) => number, index, instanceProps)
 	return itemMetadata.offset
@@ -78,7 +78,7 @@ const createInstanceProps = (estimatedItemSize: number = DEFAULT_ESTIMATED_SIZE)
 const NotFixedSizeList2 = createListComponet2({
 	getEstimatedTotalSize,
 	getItemHeight,
-	getItemOffset,
+	getItemOffsetY,
 	getStartIndexByOffset,
 	getEndIndexByOffset,
 	createInstanceProps,

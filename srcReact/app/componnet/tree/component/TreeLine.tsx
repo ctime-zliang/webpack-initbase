@@ -1,16 +1,7 @@
 import React from 'react'
 import { classNames } from '../../utils/classNames'
 import { ELEVEL_STAG } from '../config/config'
-import { TComponentTreeRowData, TLevels, TTreeRootPorps } from '../types/types'
-
-export type TLineComponentProps = {
-	lineKey: number
-	lineData: TComponentTreeRowData
-	profile: TTreeRootPorps
-	selectedKeys: Array<string | number>
-	contentClickAction: (a: TComponentTreeRowData) => void
-	expandAction?: ((a: TComponentTreeRowData) => void) | null
-}
+import { TLevels, TLineComponentProps } from '../types/types'
 
 function TreeLine(props: TLineComponentProps): React.ReactElement {
 	const { lineKey, lineData, selectedKeys, profile, expandAction, contentClickAction } = props
