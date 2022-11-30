@@ -35,6 +35,7 @@ export function createListComponentTransfrom(params: TCreateListComponetParams):
 			top: 0,
 			width: '100%',
 			height: '100%',
+			willChange: 'transform',
 			...wrapperStyle,
 		}
 		const scrollColludeStyleObject: any = {
@@ -89,8 +90,7 @@ export function createListComponentTransfrom(params: TCreateListComponetParams):
 		const [extendStartIndex, extendEndIndex] = getIndexRangeToRender()
 		const rowItems: Array<React.ReactElement> = renderItems(extendStartIndex, extendEndIndex)
 		const translateY: number = getItemOffsetY(globalProfile, extendStartIndex, instanceProps)
-
-		wrapperStyleObject.transform = `translate3d(0, ${translateY}px, 0)`
+		wrapperStyleObject.transform = `translate3d(0, ${translateY}px, 5px)`
 
 		return (
 			<div

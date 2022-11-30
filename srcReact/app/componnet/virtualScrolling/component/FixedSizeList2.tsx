@@ -49,7 +49,7 @@ const getItemOffsetY = (props: TListComponentProps, index: number, instanceProps
 /**
  * 创建缓存对象
  **/
-const createInstanceProps = (estimatedItemSize: number = DEFAULT_ESTIMATED_SIZE) => {
+const createInstanceProps = (estimatedItemSize: number = DEFAULT_ESTIMATED_SIZE): TInstanceProps => {
 	return {
 		estimatedItemSize,
 		itemMetadataMap: {},

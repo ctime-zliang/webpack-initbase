@@ -13,7 +13,7 @@ function VirtualScrollingRoot(props: any): React.ReactElement {
 				<title>Virtual Scrolling Component</title>
 			</Helmet>
 			<VSItemFixedScrolling />
-			<VSItemNotFixedScrolling />
+			{/* <VSItemNotFixedScrolling /> */}
 		</>
 	)
 }

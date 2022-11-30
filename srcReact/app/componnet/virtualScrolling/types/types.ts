@@ -1,5 +1,6 @@
 import React from 'react'
 
+export type TListComponentProps = TListComponentDefaultProps & TListComponentCallProps
 export type TListComponentCallProps = {
 	itemCount: number
 	itemHeight: (number | string) | ((a: number) => number)
@@ -9,6 +10,14 @@ export type TListComponentCallProps = {
 	wrapperStyle?: React.CSSProperties
 	initContainerScrollTop?: number
 	onScroll?: ((y: number, x: number) => void) | null
+	children?: React.ReactElement<any, string | React.JSXElementConstructor<any>> | React.FunctionComponent<any>
+}
+export type TListComponentDefaultProps = {
+	topBufferSize: number
+	bottomBufferSize: number
+	initContainerScrollTop: number
+	containerHeight: number | string
+	containerWidth: number | string
 	children?: React.ReactElement<any, string | React.JSXElementConstructor<any>> | React.FunctionComponent<any>
 }
 
@@ -24,16 +33,6 @@ export type TCreateListComponetParams = {
 	getItemOffsetY: (props: TListComponentProps, index: number, instanceProps: TInstanceProps) => number
 	createInstanceProps: (estimatedItemSize?: number) => TInstanceProps
 }
-
-export type TListComponentDefaultProps = {
-	topBufferSize: number
-	bottomBufferSize: number
-	initContainerScrollTop: number
-	containerHeight: number | string
-	containerWidth: number | string
-	children?: React.ReactElement<any, string | React.JSXElementConstructor<any>> | React.FunctionComponent<any>
-}
-export type TListComponentProps = TListComponentDefaultProps & TListComponentCallProps
 
 export type TCreateContainerStyleObject = {
 	position: string
