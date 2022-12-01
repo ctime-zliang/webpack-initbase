@@ -12,6 +12,11 @@ export type TListComponentCallProps = {
 	onScroll?: ((y: number, x: number) => void) | null
 	children?: React.ReactElement<any, string | React.JSXElementConstructor<any>> | React.FunctionComponent<any>
 }
+
+/**********************************************************************/
+/**********************************************************************/
+/**********************************************************************/
+
 export type TListComponentDefaultProps = {
 	topBufferSize: number
 	bottomBufferSize: number
@@ -20,10 +25,6 @@ export type TListComponentDefaultProps = {
 	containerWidth: number | string
 	children?: React.ReactElement<any, string | React.JSXElementConstructor<any>> | React.FunctionComponent<any>
 }
-
-/**********************************************************************/
-/**********************************************************************/
-/**********************************************************************/
 
 export type TCreateListComponetParams = {
 	getStartIndexByOffset: (props: TListComponentProps, containerScrollTop: number, instanceProps: TInstanceProps) => number
