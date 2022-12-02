@@ -1,4 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react'
+import { flushSync } from 'react-dom'
 import { createListComponetFCDefaultProps } from '../config/config'
 import {
 	TCreateContainerStyleObject,
@@ -97,7 +98,11 @@ export function createListComponentTransfrom(params: TCreateListComponetParams):
 				data-vs-tag={'virtual-scroll-container'}
 				ref={scrollContainerRef}
 				style={containerStyleObject as React.CSSProperties}
-				onScroll={onContainerScrollAction}
+				onScroll={(e): void => {
+					flushSync(() => {
+						onContainerScrollAction(e)
+					})
+				}}
 			>
 				<div style={scrollColludeStyleObject}></div>
 				<div data-vs-tag={'virtual-scroll-wrapper'} style={wrapperStyleObject}>

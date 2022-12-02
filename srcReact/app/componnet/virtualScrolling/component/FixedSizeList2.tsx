@@ -57,7 +57,7 @@ const createInstanceProps = (estimatedItemSize: number = DEFAULT_ESTIMATED_SIZE)
 	}
 }
 
-const FixedSizeList2 = createListComponet2({
+const FixedSizeList2 = createListComponentTransfrom({
 	getEstimatedTotalSize,
 	getItemHeight,
 	getItemOffsetY,
