@@ -1,11 +1,25 @@
-import { TListComponentDefaultProps } from '../types/types'
+import { TFixedHeightListScrollingFunctionProps, TVariableHeightListScrollingFunctionProps } from '../types/types'
 
-export const createListComponetFCDefaultProps: TListComponentDefaultProps = {
-	topBufferSize: 30,
-	bottomBufferSize: 30,
+export const variableListItemWrapperIdPrefix: string = '__vsitemid'
+
+export const defaultProfileVariable: TVariableHeightListScrollingFunctionProps = {
+	containerHeight: 0,
+	countTotal: 0,
+	estimatedRowHeight: 20,
+	topBufferSize: 10,
+	bottomBufferSize: 10,
 	initContainerScrollTop: 0,
-	containerHeight: '100%',
-	containerWidth: '100%',
+	rowCache: [],
+	children: null,
 }
 
-export const DEFAULT_ESTIMATED_SIZE: number = 25
+export const defaultProfileFixed: TFixedHeightListScrollingFunctionProps = {
+	containerHeight: 0,
+	countTotal: 0,
+	estimatedRowHeight: 20,
+	topBufferSize: 10,
+	bottomBufferSize: 10,
+	initContainerScrollTop: 0,
+	rowCache: [],
+	children: null,
+}

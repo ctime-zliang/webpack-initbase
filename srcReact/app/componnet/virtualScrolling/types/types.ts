@@ -1,71 +1,67 @@
 import React from 'react'
 
-export type TListComponentProps = TListComponentDefaultProps & TListComponentCallProps
-export type TListComponentCallProps = {
-	itemCount: number
-	itemHeight: (number | string) | ((a: number) => number)
-	containerHeight: string
-	containerWidth?: string
-	containerStyle?: React.CSSProperties
-	wrapperStyle?: React.CSSProperties
+export type TVariableHeightListScrollingProps = TVariableHeightListScrollingCallProps
+export type TVariableHeightListScrollingCallProps = {
+	containerHeight: number
+	countTotal: number
+	estimatedRowHeight: number
+	topBufferSize?: number
+	bottomBufferSize?: number
 	initContainerScrollTop?: number
 	onScroll?: ((y: number, x: number) => void) | null
-	children?: React.ReactElement<any, string | React.JSXElementConstructor<any>> | React.FunctionComponent<any>
+	children?: React.ReactElement<any, string | React.JSXElementConstructor<any>> | React.FunctionComponent<any> | null
 }
-
-/**********************************************************************/
-/**********************************************************************/
-/**********************************************************************/
-
-export type TListComponentDefaultProps = {
+export type TVariableHeightListScrollingFunctionProps = TVariableHeightListScrollingCallProps & {
+	rowCache: Array<TRowCache>
 	topBufferSize: number
 	bottomBufferSize: number
 	initContainerScrollTop: number
-	containerHeight: number | string
-	containerWidth: number | string
-	children?: React.ReactElement<any, string | React.JSXElementConstructor<any>> | React.FunctionComponent<any>
+	children: React.ReactElement<any, string | React.JSXElementConstructor<any>> | React.FunctionComponent<any> | null
+}
+export type TVariableHeightListRowItemCallStyle = {
+	width: number | string
 }
 
-export type TCreateListComponetParams = {
-	getStartIndexByOffset: (props: TListComponentProps, containerScrollTop: number, instanceProps: TInstanceProps) => number
-	getEndIndexByOffset: (props: TListComponentProps, startIndex: number, instanceProps: TInstanceProps) => number
-	getEstimatedTotalSize: (props: TListComponentProps, instanceProps: TInstanceProps) => number
-	getItemHeight: (props: TListComponentProps, index: number, instanceProps: TInstanceProps) => number
-	getItemOffsetY: (props: TListComponentProps, index: number, instanceProps: TInstanceProps) => number
-	createInstanceProps: (estimatedItemSize?: number) => TInstanceProps
+export type TFixedHeightListScrollingProps = TFixedHeightListScrollingCallProps
+export type TFixedHeightListScrollingCallProps = {
+	containerHeight: number
+	countTotal: number
+	estimatedRowHeight: number
+	topBufferSize?: number
+	bottomBufferSize?: number
+	initContainerScrollTop?: number
+	onScroll?: ((y: number, x: number) => void) | null
+	children?: React.ReactElement<any, string | React.JSXElementConstructor<any>> | React.FunctionComponent<any> | null
+}
+export type TFixedHeightListScrollingFunctionProps = TFixedHeightListScrollingCallProps & {
+	rowCache: Array<TRowCache>
+	topBufferSize: number
+	bottomBufferSize: number
+	initContainerScrollTop: number
+	children: React.ReactElement<any, string | React.JSXElementConstructor<any>> | React.FunctionComponent<any> | null
+}
+export type TFixedHeightListRowItemCallStyle = {
+	width: number | string
 }
 
-export type TCreateContainerStyleObject = {
-	position: string
-	width: string | number
-	height: string | number
-	overflow: string
-	willChange: string
-	[key: string]: any
+export type TRowCache = {
+	index: number
+	top: number
+	bottom: number
+	height: number
+	diffHeight: number
 }
 
-export type TCreateWrapperStyleObject = {
-	width: string | number
-	height: string | number
-	[key: string]: any
+export type TBoundingClientRectResultToJSONResult = {
+	left: number
+	top: number
+	right: number
+	bottom: number
+	width: number
+	height: number
+	x: number
+	y: number
 }
-
-export type TCreateItemStyle = {
-	position: string
-	width: string | number
-	height: string | number
-	top: string | number
-	left: string | number
-}
-
-export type TItemMetaDataItem = {
-	size: number
-	offset: number
-}
-export type TInstanceProps = {
-	estimatedItemSize: number
-	itemMetadataMap: {
-		[index: number]: TItemMetaDataItem
-	}
-	lastMeasuredIndex: number
+export type TBoundingClientRectResult = TBoundingClientRectResultToJSONResult & {
+	toJSON: () => TBoundingClientRectResultToJSONResult
 }

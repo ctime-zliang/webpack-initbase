@@ -4,7 +4,7 @@ import TreeLine from './TreeLine'
 import { TComponentTreeRowData, TTreeDataItemID, TTreeRootPorps } from '../types/types'
 import { handleFormatData } from '../utils/filter'
 import { defaultProfile, DEFAULT_ITEMHIEGHT } from '../config/config'
-import { FixedSizeList } from '../../virtualScrolling'
+import { FixedHeightListScrolling } from '../../virtualScrolling'
 
 function TreeRoot(props: TTreeRootPorps, ref: any): React.ReactElement {
 	const globalProfile: TTreeRootPorps = {
@@ -130,13 +130,13 @@ function TreeRoot(props: TTreeRootPorps, ref: any): React.ReactElement {
 			})
 		if (isVirtualList && containerHeight && /\d+px$/i.test(String(containerHeight))) {
 			const _itemHeight: number = parseInt(itemHeight || '') as number
+			const _containerHeight: number = parseInt(containerHeight || '') as number
 			return (
 				<section className={treeContainerClassString} style={containerStyleObject} ref={containerRef}>
-					<FixedSizeList
-						containerHeight={containerHeight}
-						containerWidth={containerWidth}
-						itemCount={getFlatedNodeList.length}
-						itemHeight={itemHeight}
+					<FixedHeightListScrolling
+						containerHeight={_containerHeight}
+						countTotal={getFlatedNodeList.length}
+						estimatedRowHeight={_itemHeight}
 						initContainerScrollTop={initContainerScrollTop}
 						onScroll={onVirtualScroll}
 					>
@@ -147,7 +147,7 @@ function TreeRoot(props: TTreeRootPorps, ref: any): React.ReactElement {
 								</div>
 							)
 						}}
-					</FixedSizeList>
+					</FixedHeightListScrolling>
 				</section>
 			)
 		}
