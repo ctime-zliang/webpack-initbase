@@ -4,7 +4,7 @@ export type TVariableHeightListScrollingProps = TVariableHeightListScrollingCall
 export type TVariableHeightListScrollingCallProps = {
 	containerHeight: number
 	countTotal: number
-	estimatedRowHeight: number
+	estimatedRowHeight?: number
 	topBufferSize?: number
 	bottomBufferSize?: number
 	initContainerScrollTop?: number
@@ -16,6 +16,7 @@ export type TVariableHeightListScrollingFunctionProps = TVariableHeightListScrol
 	topBufferSize: number
 	bottomBufferSize: number
 	initContainerScrollTop: number
+	estimatedRowHeight: number
 	children: React.ReactElement<any, string | React.JSXElementConstructor<any>> | React.FunctionComponent<any> | null
 }
 export type TVariableHeightListRowItemCallStyle = {
@@ -26,7 +27,7 @@ export type TFixedHeightListScrollingProps = TFixedHeightListScrollingCallProps
 export type TFixedHeightListScrollingCallProps = {
 	containerHeight: number
 	countTotal: number
-	estimatedRowHeight: number
+	estimatedRowHeight?: number
 	topBufferSize?: number
 	bottomBufferSize?: number
 	initContainerScrollTop?: number
@@ -38,6 +39,7 @@ export type TFixedHeightListScrollingFunctionProps = TFixedHeightListScrollingCa
 	topBufferSize: number
 	bottomBufferSize: number
 	initContainerScrollTop: number
+	estimatedRowHeight: number
 	children: React.ReactElement<any, string | React.JSXElementConstructor<any>> | React.FunctionComponent<any> | null
 }
 export type TFixedHeightListRowItemCallStyle = {

@@ -24,13 +24,15 @@ export function FixedHeightListScrolling(props: TFixedHeightListScrollingCallPro
 	)
 
 	const containerStyle: React.CSSProperties = {
-		overflowX: 'hidden',
-		overflowY: 'auto',
+		overflow: 'auto',
 		height: containerHeight,
+		willChange: 'transform',
 	}
 	const contentWrapperStyle: React.CSSProperties = {
 		height: countTotal * estimatedRowHeight,
 		position: 'relative',
+		top: 0,
+		left: 0,
 	}
 
 	const onScrollAction = (e: React.SyntheticEvent): void => {
@@ -64,7 +66,7 @@ export function FixedHeightListScrolling(props: TFixedHeightListScrollingCallPro
 						width: '100%',
 					}}
 				>
-					<Component index={i} style={rowItemWrapperStyle} />
+					<Component index={i} style={rowItemWrapperStyle} rowHeight={estimatedRowHeight} />
 				</div>
 			)
 		}

@@ -36,18 +36,23 @@ export function VariableHeightListScrolling(props: TVariableHeightListScrollingC
 	}
 
 	const containerStyle: React.CSSProperties = {
-		overflowX: 'hidden',
-		overflowY: 'auto',
+		overflow: 'auto',
 		height: containerHeight,
 		position: 'relative',
+		top: 0,
+		left: 0,
+		willChange: 'transform',
 	}
 	const scrollPhantomStyle: React.CSSProperties = {
 		position: 'relative',
+		top: 0,
+		left: 0,
 	}
 	const contentWrapperStyle: React.CSSProperties = {
 		width: '100%',
 		position: 'absolute',
 		top: 0,
+		left: 0,
 		transform: getTransform(),
 	}
 

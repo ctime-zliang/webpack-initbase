@@ -5,7 +5,7 @@ export const variableListItemWrapperIdPrefix: string = '__vsitemid'
 export const defaultProfileVariable: TVariableHeightListScrollingFunctionProps = {
 	containerHeight: 0,
 	countTotal: 0,
-	estimatedRowHeight: 20,
+	estimatedRowHeight: 25,
 	topBufferSize: 10,
 	bottomBufferSize: 10,
 	initContainerScrollTop: 0,
@@ -16,7 +16,7 @@ export const defaultProfileVariable: TVariableHeightListScrollingFunctionProps =
 export const defaultProfileFixed: TFixedHeightListScrollingFunctionProps = {
 	containerHeight: 0,
 	countTotal: 0,
-	estimatedRowHeight: 20,
+	estimatedRowHeight: 25,
 	topBufferSize: 10,
 	bottomBufferSize: 10,
 	initContainerScrollTop: 0,

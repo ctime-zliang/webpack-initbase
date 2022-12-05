@@ -17,9 +17,6 @@ for (let id: number = 0; id < dataLength; ++id) {
 	})
 }
 
-const userVisibleHeight: number = 400
-const estimatedRowHeight: number = 20
-
 function RowItem(props: any): React.ReactElement {
 	const { index, styleObject } = props as { index: number; styleObject: VariableHeightListRowItemStyle }
 	const rowItemStyle: React.CSSProperties = { ...styleObject, padding: '5px 0' }
@@ -31,9 +28,7 @@ function RowItem(props: any): React.ReactElement {
 				console.log('item-', index)
 			}}
 		>
-			<div>
-				Item: {data[index].id} | Data: {data[index].value}
-			</div>
+			Item: {data[index].id} | Data: {data[index].value}
 		</div>
 	)
 }
@@ -44,7 +39,7 @@ function VariableHeightListScrollingRoot(): React.ReactElement {
 			<h3>$. 列表各项随机固定高度({dataLength} 条)</h3>
 			<div>
 				<div style={{ width: '50%', border: '1px solid #dcdcdc' }}>
-					<VariableHeightListScrolling containerHeight={userVisibleHeight} countTotal={dataLength} estimatedRowHeight={estimatedRowHeight}>
+					<VariableHeightListScrolling containerHeight={300} countTotal={dataLength}>
 						{RowItem}
 					</VariableHeightListScrolling>
 				</div>

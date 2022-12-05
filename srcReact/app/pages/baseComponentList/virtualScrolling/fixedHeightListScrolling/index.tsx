@@ -17,23 +17,24 @@ for (let id: number = 0; id < dataLength; ++id) {
 	})
 }
 
-const userVisibleHeight: number = 400
-const estimatedRowHeight: number = 20
-
 function RowItem(props: any): React.ReactElement {
-	const { index, styleObject } = props as { index: number; styleObject: FixedHeightListRowItemStyle }
-	const rowItemStyle: React.CSSProperties = { ...styleObject, padding: '5px 0' }
+	const { index, styleObject, rowHeight } = props as { index: number; styleObject: FixedHeightListRowItemStyle; rowHeight: number }
+	const rowItemStyle: React.CSSProperties = {
+		...styleObject,
+		lineHeight: rowHeight + 'px',
+		whiteSpace: 'nowrap',
+		height: rowHeight,
+	}
 	return (
 		<div
 			key={index}
 			style={rowItemStyle}
+			data-row-height={rowHeight}
 			onClick={() => {
 				console.log('item-', index)
 			}}
 		>
-			<div>
-				Item: {data[index].id} | Data: {data[index].value}
-			</div>
+			Item: {data[index].id} | Data: {data[index].value}
 		</div>
 	)
 }
@@ -44,7 +45,7 @@ function FixedHeightListScrollingRoot(): React.ReactElement {
 			<h3>$. 列表各项恒定固定高度({dataLength} 条)</h3>
 			<div>
 				<div style={{ width: '50%', border: '1px solid #dcdcdc' }}>
-					<FixedHeightListScrolling containerHeight={userVisibleHeight} countTotal={dataLength} estimatedRowHeight={estimatedRowHeight}>
+					<FixedHeightListScrolling containerHeight={300} countTotal={dataLength}>
 						{RowItem}
 					</FixedHeightListScrolling>
 				</div>
