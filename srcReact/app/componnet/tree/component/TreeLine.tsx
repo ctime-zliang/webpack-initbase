@@ -7,14 +7,14 @@ function TreeLine(props: TLineComponentProps): React.ReactElement {
 	const { lineKey, lineData, selectedKeys, profile, expandAction, contentClickAction } = props
 	const { levels = [], expand, sourceData } = lineData
 	const { leftTranslationalAlignment = false, itemStyleObject, showTagLine = true, showExpandBtn = true, contentUnderline, itemRender } = profile
-	const treeContentClassString = classNames({
+	const treeContentClassString: string = classNames({
 		'tree-content': true,
 		'tree-content-selected': selectedKeys.indexOf(sourceData.id) >= 0,
 		'tree-content-underline': !!contentUnderline,
 	})
 	const blankWrapperClassName: string = 'tree-blank'
 	const extenBtnWrapperClassName: string = 'tree-extends'
-	const expandRenderClass = classNames({
+	const expandRenderClass: string = classNames({
 		'tree-extends-box': true,
 		'tree-extends-box-active': !!expand,
 	})
@@ -23,7 +23,7 @@ function TreeLine(props: TLineComponentProps): React.ReactElement {
 	const extendLineTurnClassName: string = 'tree-usertips-line-turn'
 	const extendLineForkClassName: string = 'tree-usertips-line-fork'
 	const viewComponent: Array<React.ReactElement> = []
-	const expandContainer = <div className={expandRenderClass} onClick={() => expandAction && expandAction(lineData)}></div>
+	const expandContainer: React.ReactElement = <div className={expandRenderClass} onClick={() => expandAction && expandAction(lineData)}></div>
 	levels.forEach((levelItem: TLevels, index: number): void => {
 		switch (levelItem.stag) {
 			case ELEVEL_STAG.TYPE_BLANK: {

@@ -12,7 +12,7 @@
 // Tree 单行样式
 .tree-rowline {
 	display: flex;
-	// min-height: 26px;
+	min-height: 26px;
 	height: 26px;
 	.tree-content {
 		display: flex;
@@ -24,10 +24,6 @@
 		flex: 1;
 		font-size: 12px;
 		cursor: pointer;
-		// padding: 3px 0 3px 3px;
-		&:hover {
-			background-color: rgba(230, 247, 255, 0.75);
-		}
 	}
 	.tree-content-selected {
 		color: #1890ff;
@@ -35,6 +31,13 @@
 	}
 	.tree-content-underline {
 		border-bottom: 1px solid rgba(220, 220, 220, 1);
+	}
+	&-selected {
+		color: #1890ff;
+		background-color: rgba(230, 247, 255, 1);
+	}
+	&:hover {
+		background-color: rgba(230, 247, 255, 0.75);
 	}
 }
 // 层级指示线样式
