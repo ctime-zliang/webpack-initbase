@@ -13,7 +13,8 @@ import { valtioContainerRoute } from './valtio/route'
 import { testpageRoute } from './testpage/route'
 import { componentPaginationRoute } from './baseComponentList/pagination/route'
 import { componentTreeRoute } from './baseComponentList/tree/route'
-import { componentvirtualScrollingRoute } from './baseComponentList/virtualScrolling/route'
+import { componentVirtualScrollingRoute } from './baseComponentList/virtualScrolling/route'
+import { componentContextmenuRoute } from './baseComponentList/contextmenu/route'
 
 export const createRoutes = (reduxStore: TReduxStore): Array<TRouteItem> => {
 	return [
@@ -28,7 +29,12 @@ export const createRoutes = (reduxStore: TReduxStore): Array<TRouteItem> => {
 		testpageRoute(reduxStore),
 		{
 			path: '/componentLib/*',
-			routes: [componentPaginationRoute(reduxStore), componentTreeRoute(reduxStore), componentvirtualScrollingRoute(reduxStore)],
+			routes: [
+				componentPaginationRoute(reduxStore),
+				componentTreeRoute(reduxStore),
+				componentVirtualScrollingRoute(reduxStore),
+				componentContextmenuRoute(reduxStore),
+			],
 		},
 		error404Route(reduxStore),
 	]
