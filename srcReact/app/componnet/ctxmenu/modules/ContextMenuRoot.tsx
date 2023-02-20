@@ -1,23 +1,58 @@
-import React from 'react'
-import { TContextMenuRootProps } from '../types/type'
+import React, { useEffect, useLayoutEffect, useRef } from 'react'
+import { TBoundingClientRectResultToJSONResult, TContextMenuRootProps, TMenuItem } from '../types/type'
 import MenuWrapper from './MenuWrapper'
 import '../styles/index.less'
 
 function ContextMenuRoot(props: TContextMenuRootProps): React.ReactElement {
-	const { visible, data, position, hideMenu, onClick } = props
-	const onClickAction = (e: React.MouseEvent): void => {
-		const parentLiElem = (e.target as HTMLElement).closest('li.menu-item:not(.submenu)')
-		if (parentLiElem) {
-			onClick && onClick(e)
-			hideMenu && hideMenu()
+	const { data, position, unmount, onClick } = props
+	const containerRef: { current: any } = useRef<HTMLElement>(null)
+
+	const onClickAction = (menuItem: TMenuItem, e: React.MouseEvent): void => {
+		let outClickActionRes: boolean | void = true
+		if (onClick instanceof Function) {
+			outClickActionRes = onClick(menuItem, e)
+		}
+		if ((outClickActionRes as boolean) === false) {
+			return
+		}
+		window.setTimeout((): void => {
+			unmount()
+		})
+	}
+	const onMouseenterAction = (e: React.MouseEvent): void => {
+		if (containerRef.current) {
+			containerRef.current.removeAttribute('mouselave')
 		}
 	}
-	return visible ? (
-		<div className="ctxmenu-container" style={{ left: position.x + 'px', top: position.y + 'px' }}>
-			<MenuWrapper subMenuItems={data} isSubMenu={false} onClick={onClickAction} />
+	const onMouseleaveAction = (e: React.MouseEvent): void => {
+		if (containerRef.current) {
+			containerRef.current.setAttribute('mouselave', 'true')
+		}
+	}
+
+	useLayoutEffect((): void => {
+		if (containerRef.current) {
+			const menuWrapper: HTMLElement = containerRef.current.firstElementChild
+			const menuWrapperRect: TBoundingClientRectResultToJSONResult = menuWrapper.getBoundingClientRect().toJSON()
+			if (menuWrapperRect.left + menuWrapperRect.width > document.documentElement.clientWidth) {
+				containerRef.current.style.left = document.documentElement.clientWidth - menuWrapperRect.width + 'px'
+			}
+			if (menuWrapperRect.top + menuWrapperRect.height > document.documentElement.clientHeight) {
+				containerRef.current.style.top = document.documentElement.clientHeight - menuWrapperRect.height + 'px'
+			}
+		}
+	}, [])
+
+	return (
+		<div
+			ref={containerRef}
+			className="ctxmenu-container"
+			style={{ left: position.x + 'px', top: position.y + 'px' }}
+			onMouseLeave={onMouseleaveAction}
+			onMouseEnter={onMouseenterAction}
+		>
+			<MenuWrapper subMenuItems={data} isSubMenu={false} onClickAction={onClickAction} />
 		</div>
-	) : (
-		(null as unknown as React.ReactElement)
 	)
 }
 

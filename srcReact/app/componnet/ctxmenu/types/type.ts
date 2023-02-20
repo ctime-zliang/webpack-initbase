@@ -6,13 +6,13 @@ export type TMenuItem = {
 	subMenu?: Array<TMenuItem>
 }
 
-export type TMenu = {
-	visible: boolean
-	position: TPosition
+export type TContextMenu = {
 	data: Array<TMenuItem>
-	hideMenu?: () => void
-	onClick?: (menuItem: any) => void
+	position: TPosition
+	onClick?: (menuItem: TMenuItem, e: React.MouseEvent) => void
 }
+
+export type TOpenContextMenuParams = TContextMenu
 
 /**********************************************************************/
 /**********************************************************************/
@@ -34,7 +34,9 @@ export type TPosition = {
 	y: number
 }
 
-export type TContextMenuRootProps = TMenu
+export type TContextMenuRootProps = TContextMenu & {
+	unmount: () => void
+}
 
 export type TSeparatorProps = {
 	menuItem: TMenuItem
@@ -44,11 +46,11 @@ export type TMenuItemProps = {
 	nowMenuItem: TMenuItem
 	isCreateSubMenu: boolean
 	createSubMenu?: (a: TMenuWrapperProps) => React.ReactElement
-	onClick?: (e: React.MouseEvent) => void
+	onClickAction?: (a: TMenuItem, e: React.MouseEvent) => void
 }
 
 export type TMenuWrapperProps = {
 	subMenuItems?: Array<TMenuItem>
-	onClick?: (e: React.MouseEvent) => void
+	onClickAction?: (a: TMenuItem, e: React.MouseEvent) => void
 	isSubMenu?: boolean
 }

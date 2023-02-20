@@ -11,8 +11,11 @@ function ContextmenuNoraml(props: any): React.ReactElement {
 		OpenContextMenu({
 			data: ContextmenuData,
 			position: { x: e.clientX, y: e.clientY },
-			onClick: (a: any): void => {
-				console.log(a)
+			onClick: (menuItem: any, e: any): boolean | void => {
+				console.log(menuItem, e)
+				if (menuItem.cmd === '1-2-2-2') {
+					return false
+				}
 			},
 		})
 	}, [])
