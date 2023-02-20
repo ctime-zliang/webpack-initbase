@@ -8,7 +8,6 @@ import ContextMenuRoot from './ContextMenuRoot'
 let id: number = 0
 
 export function OpenContextMenu(params: TOpenContextMenuParams): void {
-	const { data } = params
 	const rootElement: HTMLElement = document.createElement('div')
 	const domId: string = ROOT_PREFIEX_TAG + id++
 	rootElement.id = domId
