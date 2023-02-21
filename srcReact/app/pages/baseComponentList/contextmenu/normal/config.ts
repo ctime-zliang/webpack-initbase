@@ -12,31 +12,27 @@ export default [
 		disabled: false,
 		subMenu: [
 			{
-				type: 'ITEM',
 				title: '1-2-1',
 				cmd: '1-2-1',
 				disabled: true,
 			},
 			{
-				type: 'SUB_MENU',
 				title: '1-2-2',
 				cmd: '1-2-2',
 				disabled: false,
 				subMenu: [
 					{
-						type: 'ITEM',
 						title: '1-2-2-1',
 						cmd: '1-2-2-1',
 						disabled: false,
 					},
+					{ type: 'SEPARATOR' },
 					{
-						type: 'ITEM',
 						title: '1-2-2-2',
 						cmd: '1-2-2-2',
 						disabled: false,
 					},
 					{
-						type: 'ITEM',
 						title: '1-2-2-3',
 						cmd: '1-2-2-3',
 						disabled: false,
