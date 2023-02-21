@@ -2,6 +2,7 @@ import React, { useCallback } from 'react'
 import CheckTags from '../component/CheckTags'
 import { TMenuItemProps } from '../types/type'
 import { menuItemElementMouseenterEventHandler, menuItemElementMouseleaveEventHandler } from '../utils/menuItemEventHandler'
+import MenuItemContent from './MenuItemContent'
 
 function MenuItem(props: TMenuItemProps): React.ReactElement {
 	const { nowMenuItem, isCreateSubMenu, createSubMenu, onClickAction } = props
@@ -37,11 +38,7 @@ function MenuItem(props: TMenuItemProps): React.ReactElement {
 					{nowMenuItem.checked ? <CheckTags /> : null}
 				</div>
 				<div className="content-text">
-					{!nowMenuItem.isSetContentHtml ? (
-						nowMenuItem.title
-					) : (
-						<div dangerouslySetInnerHTML={{ __html: (nowMenuItem.title || '') as string }}></div>
-					)}
+					<MenuItemContent {...nowMenuItem} />
 				</div>
 				<div className="content-tips" style={{ display: nowMenuItem.isHideTips ? 'none' : 'block' }}>
 					{nowMenuItem.tips}

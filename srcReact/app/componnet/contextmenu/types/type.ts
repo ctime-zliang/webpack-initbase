@@ -11,6 +11,7 @@ export type TMenuItem = {
 	tips?: string
 	isHideTips?: boolean
 	isSetContentHtml?: boolean
+	isSetContentJSX?: boolean
 	data?: any
 }
 
@@ -62,3 +63,5 @@ export type TMenuWrapperProps = {
 	onClickAction?: (a: TMenuItem, e: React.MouseEvent) => void
 	isSubMenu?: boolean
 }
+
+export type TMenuItemContentProps = TMenuItem
