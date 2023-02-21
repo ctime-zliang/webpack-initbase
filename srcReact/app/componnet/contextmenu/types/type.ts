@@ -19,7 +19,7 @@ export type TContextMenu = {
 	onClick?: (menuItem: TMenuItem, e: React.MouseEvent) => void
 }
 
-export type TOpenContextMenuParams = TContextMenu
+export type TOpenContextMenu = TContextMenu
 
 /**********************************************************************/
 /**********************************************************************/

@@ -1,14 +1,14 @@
 import React, { useEffect, useState, useRef, useCallback } from 'react'
-import { OpenContextMenu } from '../../../../componnet/ctxmenu/modules/Container'
+import ContextMenu from '../../../../componnet/contextmenu'
 import ContextmenuData from './config'
 
 function ContextmenuNoraml(props: any): React.ReactElement {
 	const elementRef: { current: any } = useRef<HTMLElement>(null)
 
-	const onContextmenuAction = useCallback((e: MouseEvent): void => {
+	const onContextmenuAction = useCallback((e: React.MouseEvent): void => {
 		e.preventDefault()
 		e.stopPropagation()
-		OpenContextMenu({
+		ContextMenu.open({
 			//@ts-ignore
 			data: ContextmenuData,
 			position: { x: e.clientX, y: e.clientY },
@@ -21,18 +21,10 @@ function ContextmenuNoraml(props: any): React.ReactElement {
 		})
 	}, [])
 
-	useEffect((): (() => void) => {
-		elementRef.current.addEventListener('contextmenu', onContextmenuAction, false)
-		return (): void => {
-			elementRef.current.removeEventListener('contextmenu', onContextmenuAction)
-			elementRef.current = undefined
-		}
-	}, [])
-
 	return (
 		<section style={{ padding: `5px 5px 15px 5px` }}>
 			<h3>$. 标准模式</h3>
-			<div ref={elementRef} style={{ width: '100%', height: '500px', backgroundColor: '#efefef' }}></div>
+			<div ref={elementRef} style={{ width: '100%', height: '500px', backgroundColor: '#efefef' }} onContextMenu={onContextmenuAction}></div>
 		</section>
 	)
 }
