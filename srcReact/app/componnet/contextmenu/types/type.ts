@@ -1,8 +1,8 @@
-import { EMenuType } from '../config/enum'
+import { EContextMenuType } from '../config/enum'
 
 export type TMenuItem = {
 	title?: string
-	type?: EMenuType
+	type?: EContextMenuType
 	cmd?: string
 	disabled?: boolean
 	subMenu?: Array<TMenuItem>
@@ -11,6 +11,7 @@ export type TMenuItem = {
 	tips?: string
 	isHideTips?: boolean
 	isSetContentHtml?: boolean
+	data?: any
 }
 
 export type TContextMenu = {

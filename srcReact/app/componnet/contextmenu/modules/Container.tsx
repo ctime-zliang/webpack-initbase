@@ -12,9 +12,10 @@ export class ContextMenu {
 		const rootElement: HTMLElement = document.createElement('div')
 		const domId: string = ROOT_PREFIEX_TAG + id++
 		rootElement.id = domId
-		rootElement.style.position = 'static'
+		rootElement.style.position = 'absolute'
 		rootElement.style.left = '0'
 		rootElement.style.top = '0'
+		rootElement.style.outline = '0'
 		rootElement.setAttribute('tabIndex', '0')
 		const root = ReactDOMClient.createRoot(rootElement)
 		root.render(

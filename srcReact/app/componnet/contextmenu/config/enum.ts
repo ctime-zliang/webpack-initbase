@@ -1,5 +1,4 @@
-export enum EMenuType {
+export enum EContextMenuType {
 	ITEM = 'ITEM',
-	SUB_MENU = 'SUB_MENU',
 	SEPARATOR = 'SEPARATOR',
 }

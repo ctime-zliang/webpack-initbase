@@ -17,6 +17,12 @@ li {
 		box-sizing: border-box;
 		user-select: none;
 	}
+	&:focus {
+		outline: 0;
+	}
+	&:focus-visible {
+		outline: 0;
+	}
 }
 .ctxmenu-wrapper {
 	opacity: 0;
@@ -30,8 +36,8 @@ li {
 	max-width: 300px;
 	padding: 4px 0 4px 0;
 	margin: 0;
-	background-color: #ffffff;
 	border-radius: 2px;
+	border: 1px solid #dcdcdc;
 	box-shadow: 1px 1px 4px rgba(0, 0, 0, 0.2);
 	transition-property: opacity, visibility;
 	transition-duration: 0.3s;
@@ -62,7 +68,6 @@ li {
 		line-height: 25px;
 		width: 100%;
 		color: #444444;
-		font-family: 'Roboto', sans-serif;
 		font-size: 13px;
 		text-align: left;
 		white-space: nowrap;
@@ -87,6 +92,7 @@ li {
 			margin-left: 5px;
 			height: 100%;
 			flex-shrink: 0;
+			text-align: right;
 		}
 		.content-exts {
 			width: 15px;

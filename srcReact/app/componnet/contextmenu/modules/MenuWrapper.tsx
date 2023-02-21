@@ -1,5 +1,5 @@
 import React from 'react'
-import { EMenuType } from '../config/enum'
+import { EContextMenuType } from '../config/enum'
 import { TMenuItem, TMenuWrapperProps } from '../types/type'
 import MenuItem from './MenuItem'
 import Separator from './Separator'
@@ -20,7 +20,7 @@ function MenuWrapper(props: TMenuWrapperProps): React.ReactElement {
 						/>
 					)
 				}
-				if (menuItem['type'] === EMenuType.SEPARATOR) {
+				if (menuItem['type'] === EContextMenuType.SEPARATOR) {
 					return <Separator key={index} menuItem={menuItem} />
 				}
 				return <MenuItem key={index} nowMenuItem={menuItem} isCreateSubMenu={false} onClickAction={onClickAction} />
