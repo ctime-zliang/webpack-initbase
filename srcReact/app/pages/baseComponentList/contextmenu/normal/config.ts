@@ -1,43 +1,42 @@
 export default [
 	{
-		type: 'item',
 		title: '1-1',
 		cmd: '1-1',
 		disabled: true,
+		checked: true,
 	},
-	{ type: 'separator' },
+	{ type: 'SEPARATOR' },
 	{
-		type: 'submenu',
-		title: '1-2',
+		title: '1-2: 解压缩操作',
 		cmd: '1-2',
 		disabled: false,
 		subMenu: [
 			{
-				type: 'item',
+				type: 'ITEM',
 				title: '1-2-1',
 				cmd: '1-2-1',
 				disabled: true,
 			},
 			{
-				type: 'submenu',
+				type: 'SUB_MENU',
 				title: '1-2-2',
 				cmd: '1-2-2',
 				disabled: false,
 				subMenu: [
 					{
-						type: 'item',
+						type: 'ITEM',
 						title: '1-2-2-1',
 						cmd: '1-2-2-1',
 						disabled: false,
 					},
 					{
-						type: 'item',
+						type: 'ITEM',
 						title: '1-2-2-2',
 						cmd: '1-2-2-2',
 						disabled: false,
 					},
 					{
-						type: 'item',
+						type: 'ITEM',
 						title: '1-2-2-3',
 						cmd: '1-2-2-3',
 						disabled: false,
@@ -46,17 +45,17 @@ export default [
 			},
 		],
 	},
-	{ type: 'separator' },
+	{ type: 'SEPARATOR' },
 	{
-		type: 'item',
-		title: '1-3',
+		title: '1-3: 在当前目录创建新的文件夹',
 		cmd: '1-3',
 		disabled: false,
+		tips: 'Ctrl + L',
 	},
 	{
-		type: 'item',
 		title: '1-4',
 		cmd: '1-4',
 		disabled: false,
+		tips: 'Ctrl + M',
 	},
 ]

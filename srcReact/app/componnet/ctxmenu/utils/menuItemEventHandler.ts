@@ -5,6 +5,20 @@ export function menuItemElementMouseenterEventHandler(currentElement: HTMLElemen
 	if (!currentElement) {
 		return
 	}
+	const allSiblings: Array<HTMLElement> = Array.from((currentElement.parentElement as HTMLElement).children) as Array<HTMLElement>
+	for (let i = 0; i < allSiblings.length; i++) {
+		if (allSiblings[i] === currentElement) {
+			allSiblings[i].classList.add('ctxmenu-item-hover')
+			continue
+		}
+		allSiblings[i].classList.remove('ctxmenu-item-hover')
+		const ulElement: HTMLElement = allSiblings[i].querySelector('ul') as HTMLElement
+		if (ulElement) {
+			ulElement.classList.remove('ctxmenu-show-menu')
+			ulElement.style.display = 'none'
+			continue
+		}
+	}
 	const currentRect: TBoundingClientRectResultToJSONResult = currentElement.getBoundingClientRect().toJSON()
 	const ulElement: HTMLElement = currentElement.querySelector('ul') as HTMLElement
 	if (!ulElement || ulElement.classList.contains('ctxmenu-show-menu')) {
@@ -34,6 +48,7 @@ export function menuItemElementMouseleaveEventHandler(currentElement: HTMLElemen
 	if (!currentElement) {
 		return
 	}
+	currentElement.classList.remove('ctxmenu-item-hover')
 	const ulElement: HTMLElement = currentElement.querySelector('ul') as HTMLElement
 	if (!ulElement) {
 		return

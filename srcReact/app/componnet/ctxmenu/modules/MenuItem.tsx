@@ -1,4 +1,5 @@
 import React, { useCallback } from 'react'
+import CheckTags from '../component/CheckTags'
 import { TMenuItemProps } from '../types/type'
 import { menuItemElementMouseenterEventHandler, menuItemElementMouseleaveEventHandler } from '../utils/menuItemEventHandler'
 
@@ -18,7 +19,8 @@ function MenuItem(props: TMenuItemProps): React.ReactElement {
 		menuItemElementMouseenterEventHandler(e.currentTarget as HTMLElement)
 	}, [])
 	const onWrapperMouseLeaveAction = useCallback((e: React.MouseEvent): void => {
-		let currenttarget: HTMLElement = e.currentTarget as HTMLElement
+		const currenttarget: HTMLElement = e.currentTarget as HTMLElement
+		// e.stopPropagation()
 		window.setTimeout((): void => {
 			menuItemElementMouseleaveEventHandler(currenttarget)
 		})
@@ -26,15 +28,25 @@ function MenuItem(props: TMenuItemProps): React.ReactElement {
 
 	return (
 		<li
-			className={'ctxmenu-item' + (isCreateSubMenu ? ' ctxmenu-submenu' : '')}
+			className={'ctxmenu-item' + (isCreateSubMenu ? ' ctxmenu-submenu' : '') + (nowMenuItem.disabled ? ' ctxmenu-item-disabled' : '')}
 			onMouseEnter={onWrapperMouseEnterAction}
 			onMouseLeave={onWrapperMouseLeaveAction}
 		>
-			<div className={'ctxmenu-content' + (nowMenuItem.disabled ? ' ctxmenu-content-disabled' : '')} onClick={onMenuItemClickAction}>
-				<div className="content-tags"></div>
-				<div className="content-text">{nowMenuItem.title}</div>
-				<div className="content-keys"></div>
-				<div className="content-exts"></div>
+			<div className={'ctxmenu-content'} onClick={onMenuItemClickAction}>
+				<div className="content-checktags" style={{ display: nowMenuItem.isHideChecked ? 'none' : 'block' }}>
+					{nowMenuItem.checked ? <CheckTags /> : null}
+				</div>
+				<div className="content-text">
+					{!nowMenuItem.isSetContentHtml ? (
+						nowMenuItem.title
+					) : (
+						<div dangerouslySetInnerHTML={{ __html: (nowMenuItem.title || '') as string }}></div>
+					)}
+				</div>
+				<div className="content-tips" style={{ display: nowMenuItem.isHideTips ? 'none' : 'block' }}>
+					{nowMenuItem.tips}
+				</div>
+				<div className="content-exts">{isCreateSubMenu ? <i className="ctxmenu-exts-icon" /> : null}</div>
 			</div>
 			{createSubMenu
 				? createSubMenu({

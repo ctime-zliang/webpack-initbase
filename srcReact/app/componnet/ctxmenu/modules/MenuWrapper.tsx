@@ -1,4 +1,5 @@
 import React from 'react'
+import { EMenuType } from '../config/enum'
 import { TMenuItem, TMenuWrapperProps } from '../types/type'
 import MenuItem from './MenuItem'
 import Separator from './Separator'
@@ -8,10 +9,7 @@ function MenuWrapper(props: TMenuWrapperProps): React.ReactElement {
 	return (
 		<ul className={isSubMenu ? 'ctxmenu-wrapper' : 'ctxmenu-wrapper ctxmenu-show-menu'}>
 			{subMenuItems.map((menuItem: TMenuItem, index: number): React.ReactElement => {
-				if (menuItem['type'] === 'item') {
-					return <MenuItem key={index} nowMenuItem={menuItem} isCreateSubMenu={false} onClickAction={onClickAction} />
-				}
-				if (menuItem['type'] === 'submenu') {
+				if (Array.isArray(menuItem.subMenu)) {
 					return (
 						<MenuItem
 							key={index}
@@ -22,10 +20,10 @@ function MenuWrapper(props: TMenuWrapperProps): React.ReactElement {
 						/>
 					)
 				}
-				if (menuItem['type'] === 'separator') {
+				if (menuItem['type'] === EMenuType.SEPARATOR) {
 					return <Separator key={index} menuItem={menuItem} />
 				}
-				return <div key={index}>{menuItem['type']}</div>
+				return <MenuItem key={index} nowMenuItem={menuItem} isCreateSubMenu={false} onClickAction={onClickAction} />
 			})}
 		</ul>
 	)

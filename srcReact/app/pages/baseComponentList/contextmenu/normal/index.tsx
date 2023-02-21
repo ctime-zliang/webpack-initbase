@@ -9,6 +9,7 @@ function ContextmenuNoraml(props: any): React.ReactElement {
 		e.preventDefault()
 		e.stopPropagation()
 		OpenContextMenu({
+			//@ts-ignore
 			data: ContextmenuData,
 			position: { x: e.clientX, y: e.clientY },
 			onClick: (menuItem: any, e: any): boolean | void => {

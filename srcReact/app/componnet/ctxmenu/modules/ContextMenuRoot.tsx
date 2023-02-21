@@ -9,6 +9,9 @@ function ContextMenuRoot(props: TContextMenuRootProps): React.ReactElement {
 
 	const onClickAction = (menuItem: TMenuItem, e: React.MouseEvent): void => {
 		let outClickActionRes: boolean | void = true
+		if (menuItem.disabled) {
+			return
+		}
 		if (onClick instanceof Function) {
 			outClickActionRes = onClick(menuItem, e)
 		}
