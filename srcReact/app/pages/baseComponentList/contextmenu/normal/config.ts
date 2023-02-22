@@ -32,6 +32,7 @@ export default [
 	{
 		title: `刷新`,
 		cmd: 'refresh',
+		tips: 'F5',
 	},
 	{
 		type: `SEPARATOR`,
@@ -261,6 +262,7 @@ export default [
 			{
 				title: `文件夹`,
 				cmd: `folder`,
+				tips: 'Ctrl + N',
 			},
 			{
 				title: `快捷方式`,

@@ -29,16 +29,18 @@ function MenuItem(props: TContextMenuItemProps): React.ReactElement {
 			data-cmdlink={cmdlink}
 		>
 			<div className={'ctxmenu-content'} onClick={onMenuItemClickAction} data-cmdlink={cmdlink}>
-				<div className="content-checktags" style={{ display: nowMenuItem.isHideChecked ? 'none' : 'block' }}>
+				<div className="content-checktags" style={{ display: nowMenuItem.isHideChecked ? 'none' : 'flex' }}>
 					{nowMenuItem.checked ? <CheckTags /> : null}
 				</div>
 				<div className="content-text">
 					<MenuItemContent {...nowMenuItem} />
 				</div>
-				<div className="content-tips" style={{ display: nowMenuItem.isHideTips ? 'none' : 'block' }}>
+				<div className="content-tips" style={{ display: nowMenuItem.isHideTips ? 'none' : 'flex' }}>
 					{nowMenuItem.tips}
 				</div>
-				<div className="content-exts">{isCreateSubMenu ? <i className="ctxmenu-exts-icon" /> : null}</div>
+				<div className="content-exts" style={{ display: nowMenuItem.isHideExt ? 'none' : 'flex' }}>
+					{isCreateSubMenu ? <i className="ctxmenu-exts-icon" /> : null}
+				</div>
 			</div>
 			{createSubMenu
 				? createSubMenu({

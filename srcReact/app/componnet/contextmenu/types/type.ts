@@ -1,7 +1,7 @@
 import { EContextMenuType } from '../config/enum'
 
 export type TContextMenuItem = {
-	title?: string
+	title?: string | React.ReactElement
 	type?: EContextMenuType
 	cmd?: string
 	disabled?: boolean
@@ -10,6 +10,7 @@ export type TContextMenuItem = {
 	isHideChecked?: boolean
 	tips?: string
 	isHideTips?: boolean
+	isHideExt?: boolean
 	isSetContentHtml?: boolean
 	isSetContentJSX?: boolean
 	data?: any

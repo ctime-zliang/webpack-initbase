@@ -8,7 +8,7 @@ function MenuItemContent(props: TContextMenuItemContentProps): React.ReactElemen
 	if (props.isSetContentHtml) {
 		return <div dangerouslySetInnerHTML={{ __html: (props.title || '') as string }}></div>
 	}
-	return <>{props.title}</>
+	return <>{props.title as string}</>
 }
 
 export default React.memo(MenuItemContent)
