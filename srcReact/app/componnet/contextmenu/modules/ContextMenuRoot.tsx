@@ -38,19 +38,28 @@ function ContextMenuRoot(props: TContextMenuRootProps): React.ReactElement {
 		if (containerRef.current) {
 			const menuWrapper: HTMLElement = containerRef.current.firstElementChild
 			const ctxmenuRect: TBoundingClientRectResultToJSONResult = menuWrapper.getBoundingClientRect().toJSON()
+			/**
+			 * 修正垂直定位
+			 **/
 			if (ctxmenuRect.height >= document.documentElement.clientHeight) {
 				ctxmenuRect.top = PADDING_VIEWPORT_TOP
 				ctxmenuRect.height = document.documentElement.clientHeight - PADDING_VIEWPORT_TOP - PADDING_VIEWPORT_BOTTOM
+				ctxmenuRect.bottom = ctxmenuRect.top + ctxmenuRect.height
 				menuWrapper.style.height = ctxmenuRect.height + 'px'
 				containerRef.current.style.top = ctxmenuRect.top + 'px'
 			}
-			if (ctxmenuRect.left + ctxmenuRect.width > document.documentElement.clientWidth) {
-				ctxmenuRect.left = document.documentElement.clientWidth - ctxmenuRect.width
-				containerRef.current.style.left = ctxmenuRect.left + 'px'
-			}
 			if (ctxmenuRect.top + ctxmenuRect.height > document.documentElement.clientHeight) {
 				ctxmenuRect.top = document.documentElement.clientHeight - ctxmenuRect.height
+				ctxmenuRect.bottom = ctxmenuRect.top + ctxmenuRect.height
 				containerRef.current.style.top = ctxmenuRect.top + 'px'
+			}
+			/**
+			 * 修正横向定位
+			 **/
+			if (ctxmenuRect.left + ctxmenuRect.width > document.documentElement.clientWidth) {
+				ctxmenuRect.left = document.documentElement.clientWidth - ctxmenuRect.width
+				ctxmenuRect.right = ctxmenuRect.left + ctxmenuRect.width
+				containerRef.current.style.left = ctxmenuRect.left + 'px'
 			}
 		}
 	}, [])
