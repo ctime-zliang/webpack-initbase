@@ -15,10 +15,14 @@ export type TMenuItem = {
 	data?: any
 }
 
+export type TMenuItemExtend = TMenuItem & {
+	cmdlink?: string
+}
+
 export type TContextMenu = {
 	data: Array<TMenuItem>
 	position: TPosition
-	onClick?: (menuItem: TMenuItem, e: React.MouseEvent) => void
+	onClick?: (menuItem: TMenuItemExtend, e: React.MouseEvent) => void
 }
 
 export type TOpenContextMenu = TContextMenu
@@ -54,13 +58,15 @@ export type TSeparatorProps = {
 export type TMenuItemProps = {
 	nowMenuItem: TMenuItem
 	isCreateSubMenu: boolean
+	commanLink?: string
 	createSubMenu?: (a: TMenuWrapperProps) => React.ReactElement
-	onClickAction?: (a: TMenuItem, e: React.MouseEvent) => void
+	onClickAction?: (a: TMenuItemExtend, e: React.MouseEvent) => void
 }
 
 export type TMenuWrapperProps = {
+	commanLink?: string
 	subMenuItems?: Array<TMenuItem>
-	onClickAction?: (a: TMenuItem, e: React.MouseEvent) => void
+	onClickAction?: (a: TMenuItemExtend, e: React.MouseEvent) => void
 	isSubMenu?: boolean
 }
 

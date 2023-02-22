@@ -1,11 +1,12 @@
 import React, { useCallback } from 'react'
 import CheckTags from '../component/CheckTags'
 import { TMenuItemProps } from '../types/type'
-import { menuItemElementMouseenterEventHandler, menuItemElementMouseleaveEventHandler } from '../utils/menuItemEventHandler'
+import { menuItemElementMouseOverEventHandler } from '../utils/menuItemEventHandler'
 import MenuItemContent from './MenuItemContent'
 
 function MenuItem(props: TMenuItemProps): React.ReactElement {
-	const { nowMenuItem, isCreateSubMenu, createSubMenu, onClickAction } = props
+	const { commanLink = undefined, nowMenuItem, isCreateSubMenu, createSubMenu, onClickAction } = props
+	const cmdlink: string = commanLink ? commanLink : (nowMenuItem.cmd as string)
 
 	const onMenuItemClickAction = (e: React.MouseEvent): void => {
 		const currentTarget: HTMLElement = e.currentTarget as HTMLElement
@@ -13,27 +14,21 @@ function MenuItem(props: TMenuItemProps): React.ReactElement {
 			if (currentTarget.nextElementSibling && currentTarget.nextElementSibling.tagName.toLocaleLowerCase() === 'ul') {
 				return
 			}
-			onClickAction && onClickAction(nowMenuItem, e)
+			const cmdlink: string = currentTarget.getAttribute('data-cmdlink') as string
+			onClickAction && onClickAction({ ...nowMenuItem, cmdlink }, e)
 		}
 	}
-	const onWrapperMouseEnterAction = useCallback((e: React.MouseEvent): void => {
-		menuItemElementMouseenterEventHandler(e.currentTarget as HTMLElement)
-	}, [])
-	const onWrapperMouseLeaveAction = useCallback((e: React.MouseEvent): void => {
-		const currenttarget: HTMLElement = e.currentTarget as HTMLElement
-		// e.stopPropagation()
-		window.setTimeout((): void => {
-			menuItemElementMouseleaveEventHandler(currenttarget)
-		})
+	const onWrapperMouseOverAction = useCallback((e: React.MouseEvent): void => {
+		menuItemElementMouseOverEventHandler(e.currentTarget as HTMLElement)
 	}, [])
 
 	return (
 		<li
 			className={'ctxmenu-item' + (isCreateSubMenu ? ' ctxmenu-submenu' : '') + (nowMenuItem.disabled ? ' ctxmenu-item-disabled' : '')}
-			onMouseEnter={onWrapperMouseEnterAction}
-			onMouseLeave={onWrapperMouseLeaveAction}
+			onMouseOver={onWrapperMouseOverAction}
+			data-cmdlink={cmdlink}
 		>
-			<div className={'ctxmenu-content'} onClick={onMenuItemClickAction}>
+			<div className={'ctxmenu-content'} onClick={onMenuItemClickAction} data-cmdlink={cmdlink}>
 				<div className="content-checktags" style={{ display: nowMenuItem.isHideChecked ? 'none' : 'block' }}>
 					{nowMenuItem.checked ? <CheckTags /> : null}
 				</div>
@@ -47,6 +42,7 @@ function MenuItem(props: TMenuItemProps): React.ReactElement {
 			</div>
 			{createSubMenu
 				? createSubMenu({
+						commanLink: cmdlink,
 						subMenuItems: nowMenuItem.subMenu || [],
 						isSubMenu: true,
 						onClickAction: onClickAction,

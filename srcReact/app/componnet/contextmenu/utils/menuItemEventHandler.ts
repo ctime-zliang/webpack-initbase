@@ -1,26 +1,28 @@
 import { TBoundingClientRectResultToJSONResult } from '../types/type'
 import { isMouseLeaveContainer } from './isMouseLeaveContainer'
 
-export function menuItemElementMouseenterEventHandler(currentElement: HTMLElement): void {
+export function menuItemElementMouseOverEventHandler(currentElement: HTMLElement): void {
 	if (!currentElement) {
 		return
 	}
-	const allSiblings: Array<HTMLElement> = Array.from((currentElement.parentElement as HTMLElement).children) as Array<HTMLElement>
-	for (let i = 0; i < allSiblings.length; i++) {
-		if (allSiblings[i] === currentElement) {
-			allSiblings[i].classList.add('ctxmenu-item-hover')
-			continue
-		}
-		allSiblings[i].classList.remove('ctxmenu-item-hover')
-		const ulElement: HTMLElement = allSiblings[i].querySelector('ul') as HTMLElement
-		if (ulElement) {
-			ulElement.classList.remove('ctxmenu-show-menu')
-			ulElement.style.display = 'none'
-			continue
-		}
+	const currentFirstChildElement: HTMLElement = currentElement.firstElementChild as HTMLElement
+	if (!currentFirstChildElement || currentFirstChildElement.classList.contains('ctxmenu-item-hover')) {
+		return
 	}
-	const currentRect: TBoundingClientRectResultToJSONResult = currentElement.getBoundingClientRect().toJSON()
-	const ulElement: HTMLElement = currentElement.querySelector('ul') as HTMLElement
+	const ctxmenuItems: Array<HTMLElement> = Array.from(
+		(currentElement.parentElement as HTMLElement).querySelectorAll('.ctxmenu-item')
+	) as Array<HTMLElement>
+	ctxmenuItems.forEach((item: HTMLElement): void => {
+		item.firstElementChild?.classList.remove('ctxmenu-item-hover')
+		setSubMenuListHide(item)
+	})
+	currentElement.firstElementChild?.classList.add('ctxmenu-item-hover')
+	setSubMenuListShow(currentElement)
+}
+
+function setSubMenuListShow(panelWrapperElement: HTMLElement): void {
+	const currentRect: TBoundingClientRectResultToJSONResult = panelWrapperElement.getBoundingClientRect().toJSON()
+	const ulElement: HTMLElement = panelWrapperElement.querySelector('ul') as HTMLElement
 	if (!ulElement || ulElement.classList.contains('ctxmenu-show-menu')) {
 		return
 	}
@@ -44,12 +46,8 @@ export function menuItemElementMouseenterEventHandler(currentElement: HTMLElemen
 	ulElement.style.opacity = null as unknown as string
 }
 
-export function menuItemElementMouseleaveEventHandler(currentElement: HTMLElement): void {
-	if (!currentElement) {
-		return
-	}
-	currentElement.classList.remove('ctxmenu-item-hover')
-	const ulElement: HTMLElement = currentElement.querySelector('ul') as HTMLElement
+function setSubMenuListHide(panelWrapperElement: HTMLElement): void {
+	const ulElement: HTMLElement = panelWrapperElement.querySelector('ul') as HTMLElement
 	if (!ulElement) {
 		return
 	}

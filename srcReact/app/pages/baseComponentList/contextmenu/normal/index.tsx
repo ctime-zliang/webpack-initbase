@@ -14,7 +14,8 @@ function ContextmenuNoraml(props: any): React.ReactElement {
 			position: { x: e.clientX, y: e.clientY },
 			onClick: (menuItem: any, e: any): boolean | void => {
 				console.log(menuItem, e)
-				if (menuItem.cmd === '1-2-2-2') {
+				if (menuItem.cmd === 'refresh') {
+					console.log(`此项操作将设置右键菜单持续显示.`)
 					return false
 				}
 			},
