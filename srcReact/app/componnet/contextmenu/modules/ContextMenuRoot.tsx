@@ -1,5 +1,5 @@
 import React, { useEffect, useLayoutEffect, useRef } from 'react'
-import { TBoundingClientRectResultToJSONResult, TContextMenuRootProps, TMenuItem } from '../types/type'
+import { TBoundingClientRectResultToJSONResult, TContextMenuRootProps, TContextMenuItem } from '../types/type'
 import MenuWrapper from './MenuWrapper'
 import '../styles/index.less'
 
@@ -7,7 +7,7 @@ function ContextMenuRoot(props: TContextMenuRootProps): React.ReactElement {
 	const { data, position, unmount, onClick } = props
 	const containerRef: { current: any } = useRef<HTMLElement>(null)
 
-	const onClickAction = (menuItem: TMenuItem, e: React.MouseEvent): void => {
+	const onClickAction = (menuItem: TContextMenuItem, e: React.MouseEvent): void => {
 		let outClickActionRes: boolean | void = true
 		if (menuItem.disabled) {
 			return

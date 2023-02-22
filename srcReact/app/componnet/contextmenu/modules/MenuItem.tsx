@@ -1,10 +1,10 @@
 import React, { useCallback } from 'react'
 import CheckTags from '../component/CheckTags'
-import { TMenuItemProps } from '../types/type'
+import { TContextMenuItemProps } from '../types/type'
 import { menuItemElementMouseOverEventHandler } from '../utils/menuItemEventHandler'
 import MenuItemContent from './MenuItemContent'
 
-function MenuItem(props: TMenuItemProps): React.ReactElement {
+function MenuItem(props: TContextMenuItemProps): React.ReactElement {
 	const { commanLink = undefined, nowMenuItem, isCreateSubMenu, createSubMenu, onClickAction } = props
 	const cmdlink: string = commanLink ? commanLink : (nowMenuItem.cmd as string)
 

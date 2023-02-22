@@ -1,11 +1,11 @@
 import { EContextMenuType } from '../config/enum'
 
-export type TMenuItem = {
+export type TContextMenuItem = {
 	title?: string
 	type?: EContextMenuType
 	cmd?: string
 	disabled?: boolean
-	subMenu?: Array<TMenuItem>
+	subMenu?: Array<TContextMenuItem>
 	checked?: boolean
 	isHideChecked?: boolean
 	tips?: string
@@ -15,14 +15,14 @@ export type TMenuItem = {
 	data?: any
 }
 
-export type TMenuItemExtend = TMenuItem & {
+export type TContextMenuItemExtend = TContextMenuItem & {
 	cmdlink?: string
 }
 
 export type TContextMenu = {
-	data: Array<TMenuItem>
+	data: Array<TContextMenuItem>
 	position: TPosition
-	onClick?: (menuItem: TMenuItemExtend, e: React.MouseEvent) => void
+	onClick?: (menuItem: TContextMenuItemExtend, e: React.MouseEvent) => void
 }
 
 export type TOpenContextMenu = TContextMenu
@@ -52,22 +52,22 @@ export type TContextMenuRootProps = TContextMenu & {
 }
 
 export type TSeparatorProps = {
-	menuItem: TMenuItem
+	menuItem: TContextMenuItem
 }
 
-export type TMenuItemProps = {
-	nowMenuItem: TMenuItem
+export type TContextMenuItemProps = {
+	nowMenuItem: TContextMenuItem
 	isCreateSubMenu: boolean
 	commanLink?: string
 	createSubMenu?: (a: TMenuWrapperProps) => React.ReactElement
-	onClickAction?: (a: TMenuItemExtend, e: React.MouseEvent) => void
+	onClickAction?: (a: TContextMenuItemExtend, e: React.MouseEvent) => void
 }
 
 export type TMenuWrapperProps = {
 	commanLink?: string
-	subMenuItems?: Array<TMenuItem>
-	onClickAction?: (a: TMenuItemExtend, e: React.MouseEvent) => void
+	subMenuItems?: Array<TContextMenuItem>
+	onClickAction?: (a: TContextMenuItemExtend, e: React.MouseEvent) => void
 	isSubMenu?: boolean
 }
 
-export type TMenuItemContentProps = TMenuItem
+export type TContextMenuItemContentProps = TContextMenuItem

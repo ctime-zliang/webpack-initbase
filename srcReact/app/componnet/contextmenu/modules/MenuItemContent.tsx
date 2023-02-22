@@ -1,7 +1,7 @@
 import React from 'react'
-import { TMenuItemContentProps } from '../types/type'
+import { TContextMenuItemContentProps } from '../types/type'
 
-function MenuItemContent(props: TMenuItemContentProps): React.ReactElement {
+function MenuItemContent(props: TContextMenuItemContentProps): React.ReactElement {
 	if (props.isSetContentJSX) {
 		return <>{props.title}</>
 	}
