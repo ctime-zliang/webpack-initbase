@@ -1,3 +1,4 @@
+import { PADDING_VIEWPORT_BOTTOM, PADDING_VIEWPORT_TOP } from '../config/config'
 import { TBoundingClientRectResultToJSONResult } from '../types/type'
 import { isMouseLeaveContainer } from './isMouseLeaveContainer'
 
@@ -21,39 +22,77 @@ export function menuItemElementMouseOverEventHandler(currentElement: HTMLElement
 }
 
 function setSubMenuListShow(panelWrapperElement: HTMLElement): void {
-	const currentRect: TBoundingClientRectResultToJSONResult = panelWrapperElement.getBoundingClientRect().toJSON()
-	const ulElement: HTMLElement = panelWrapperElement.querySelector('ul') as HTMLElement
-	if (!ulElement || ulElement.classList.contains('ctxmenu-show-menu')) {
+	const surveyLeft: number = -1
+	const surveyTop: number = -1
+	const mainElement: HTMLElement = panelWrapperElement.querySelector('main') as HTMLElement
+	if (!mainElement || mainElement.classList.contains('ctxmenu-show-menu')) {
 		return
 	}
-	ulElement.classList.remove('ctxmenu-show-menu')
-	ulElement.style.display = 'block'
-	ulElement.style.visibility = `hidden`
-	ulElement.style.opacity = `0`
-	const ulRect: TBoundingClientRectResultToJSONResult = ulElement.getBoundingClientRect().toJSON()
-	if (currentRect.right + ulRect.width >= document.documentElement.clientWidth) {
-		ulElement.style.left = `${0 - ulRect.width}px`
+	mainElement.classList.remove('ctxmenu-show-menu')
+	mainElement.style.display = 'block'
+	mainElement.style.visibility = `hidden`
+	mainElement.style.opacity = `0`
+	mainElement.style.left = `${surveyLeft}px`
+	mainElement.style.top = `${surveyTop}px`
+	const currentRect: TBoundingClientRectResultToJSONResult = panelWrapperElement.getBoundingClientRect().toJSON()
+	const mainRect: TBoundingClientRectResultToJSONResult = mainElement.getBoundingClientRect().toJSON()
+	const anchorPointOffsetLeft: number = mainRect.left - surveyLeft
+	const anchorPointOffsetTop: number = mainRect.top - surveyTop
+	mainRect.x = -1
+	mainRect.y = -1
+	/* ... */
+	/**
+	 * 修正垂直定位
+	 **/
+	if (mainRect.height >= document.documentElement.clientHeight) {
+		mainRect.top = PADDING_VIEWPORT_TOP - anchorPointOffsetTop
+		mainRect.height = document.documentElement.clientHeight - PADDING_VIEWPORT_TOP - PADDING_VIEWPORT_BOTTOM
+		mainRect.bottom = mainRect.top + mainRect.height
 	} else {
-		ulElement.style.left = `${currentRect.width}px`
+		if (mainRect.top <= 0) {
+			mainRect.top = 0
+			mainRect.bottom = mainRect.top + mainRect.height
+		}
+		if (currentRect.top + mainRect.height >= document.documentElement.clientHeight) {
+			mainRect.top = document.documentElement.clientHeight - mainRect.height - anchorPointOffsetTop - PADDING_VIEWPORT_BOTTOM
+			mainRect.bottom = mainRect.top + mainRect.height
+		} else {
+			if (mainRect.bottom >= document.documentElement.clientHeight) {
+				mainRect.top = document.documentElement.clientHeight - mainRect.height - anchorPointOffsetTop - PADDING_VIEWPORT_BOTTOM
+				mainRect.bottom = mainRect.top + mainRect.height
+			} else {
+				mainRect.top = currentRect.top - anchorPointOffsetTop
+				mainRect.bottom = mainRect.top + mainRect.height
+			}
+		}
 	}
-	if (ulRect.bottom >= document.documentElement.clientHeight) {
-		ulElement.style.top = `${0 - ulRect.height}px`
+	/**
+	 * 修正横向定位
+	 **/
+	if (currentRect.right + mainRect.width >= document.documentElement.clientWidth) {
+		mainRect.left = currentRect.left - mainRect.width - anchorPointOffsetLeft
+		mainRect.right = mainRect.left + mainRect.width
 	} else {
-		ulElement.style.top = `0px`
+		mainRect.left = currentRect.right - anchorPointOffsetLeft
+		mainRect.right = mainRect.left + mainRect.width
 	}
-	ulElement.classList.add('ctxmenu-show-menu')
-	ulElement.style.visibility = null as unknown as string
-	ulElement.style.opacity = null as unknown as string
+
+	mainElement.style.left = `${mainRect.left}px`
+	mainElement.style.top = `${mainRect.top}px`
+	mainElement.style.height = `${mainRect.height}px`
+	mainElement.classList.add('ctxmenu-show-menu')
+	mainElement.style.visibility = null as unknown as string
+	mainElement.style.opacity = null as unknown as string
 }
 
 function setSubMenuListHide(panelWrapperElement: HTMLElement): void {
-	const ulElement: HTMLElement = panelWrapperElement.querySelector('ul') as HTMLElement
-	if (!ulElement) {
+	const mainElement: HTMLElement = panelWrapperElement.querySelector('main') as HTMLElement
+	if (!mainElement) {
 		return
 	}
-	if (isMouseLeaveContainer(ulElement)) {
+	if (isMouseLeaveContainer(mainElement)) {
 		return
 	}
-	ulElement.classList.remove('ctxmenu-show-menu')
-	ulElement.style.display = 'none'
+	mainElement.classList.remove('ctxmenu-show-menu')
+	mainElement.style.display = 'none'
 }

@@ -1,6 +1,8 @@
 import React, { useEffect, useState, useRef, useCallback } from 'react'
+import { EContextMenuType } from '../../../../componnet/contextmenu/config/enum'
+import { TContextMenuItem } from '../../../../componnet/contextmenu/types/type'
 import ContextMenu from '../../../../componnet/contextmenu'
-import ContextmenuData from './config'
+import contextmenuData from './config'
 
 function ContextmenuNoraml(props: any): React.ReactElement {
 	const elementRef: { current: any } = useRef<HTMLElement>(null)
@@ -8,9 +10,20 @@ function ContextmenuNoraml(props: any): React.ReactElement {
 	const onContextmenuAction = useCallback((e: React.MouseEvent): void => {
 		e.preventDefault()
 		e.stopPropagation()
+		const menuData: Array<TContextMenuItem> = JSON.parse(JSON.stringify(contextmenuData))
+		/* ... */
+		menuData.push({ type: EContextMenuType.SEPARATOR })
+		for (let i: number = 0; i < 50; i++) {
+			menuData.push({ title: `ContextmenuItem ${i}`, cmd: `contextmenu${i}` })
+		}
+		menuData[9].subMenu?.push({ type: EContextMenuType.SEPARATOR })
+		for (let i: number = 0; i < 50; i++) {
+			menuData[9].subMenu?.push({ title: `ContextmenuItem ${i}`, cmd: `contextmenu${i}` })
+		}
+		/* ... */
 		ContextMenu.open({
 			//@ts-ignore
-			data: ContextmenuData,
+			data: menuData,
 			position: { x: e.clientX, y: e.clientY },
 			onClick: (menuItem: any, e: any): boolean | void => {
 				console.log(menuItem, e)
