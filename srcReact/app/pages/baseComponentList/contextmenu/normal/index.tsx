@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useRef, useCallback } from 'react'
-import { EContextInitShowPosition, EContextMenuType } from '../../../../componnet/contextmenu/config/enum'
+import { EContextPanelAlignment, EContextMenuType } from '../../../../componnet/contextmenu/config/enum'
 import { TContextMenuItem } from '../../../../componnet/contextmenu/types/type'
 import ContextMenu from '../../../../componnet/contextmenu'
 import contextmenuData from './config'
@@ -23,7 +23,7 @@ function ContextmenuNoraml(props: any): React.ReactElement {
 		/* ... */
 		ContextMenu.open({
 			data: menuData,
-			firstPanelAlignment: EContextInitShowPosition.RIGHT_TOP,
+			panelAlignment: EContextPanelAlignment.RIGHT_TOP,
 			// panelMaxHeight: 300,
 			position: { x: e.clientX, y: e.clientY },
 			onClick: (menuItem: TContextMenuItem, e: React.MouseEvent): boolean | void => {

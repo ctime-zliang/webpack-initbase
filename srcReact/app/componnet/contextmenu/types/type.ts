@@ -1,4 +1,4 @@
-import { EContextMenuType, EContextInitShowPosition } from '../config/enum'
+import { EContextMenuType, EContextPanelAlignment } from '../config/enum'
 
 export type TContextMenuItem = {
 	title?: string | React.ReactElement
@@ -19,7 +19,7 @@ export type TContextMenuItem = {
 export type TContextMenu = {
 	data: Array<TContextMenuItem>
 	position: TPosition
-	firstPanelAlignment?: EContextInitShowPosition
+	panelAlignment?: EContextPanelAlignment
 	panelMaxHeight?: number
 	onClick?: (menuItem: TContextMenuItemExtend, e: React.MouseEvent) => void
 }

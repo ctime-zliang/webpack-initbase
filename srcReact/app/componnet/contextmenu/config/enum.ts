@@ -3,7 +3,7 @@ export enum EContextMenuType {
 	SEPARATOR = 'SEPARATOR',
 }
 
-export enum EContextInitShowPosition {
+export enum EContextPanelAlignment {
 	INITIAL = 'INITIAL',
 	RIGHT_TOP = 'RIGHT_TOP',
 }

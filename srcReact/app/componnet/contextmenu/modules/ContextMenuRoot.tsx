@@ -3,10 +3,10 @@ import { TBoundingClientRectResultToJSONResult, TContextMenuRootProps, TContextM
 import MenuWrapper from './MenuWrapper'
 import '../styles/index.less'
 import { PADDING_VIEWPORT_BOTTOM, PADDING_VIEWPORT_TOP } from '../config/config'
-import { EContextInitShowPosition } from '../config/enum'
+import { EContextPanelAlignment } from '../config/enum'
 
 function ContextMenuRoot(props: TContextMenuRootProps): React.ReactElement {
-	const { domId, data, position, firstPanelAlignment = EContextInitShowPosition.INITIAL, panelMaxHeight, unmount, onClick } = props
+	const { domId, data, position, panelAlignment = EContextPanelAlignment.INITIAL, panelMaxHeight, unmount, onClick } = props
 	const containerRef: { current: any } = useRef<HTMLElement>(null)
 
 	const onClickAction = (menuItem: TContextMenuItem, e: React.MouseEvent): void => {
@@ -40,7 +40,7 @@ function ContextMenuRoot(props: TContextMenuRootProps): React.ReactElement {
 			const menuWrapper: HTMLElement = containerRef.current.firstElementChild
 			const ctxmenuRect: TBoundingClientRectResultToJSONResult = menuWrapper.getBoundingClientRect().toJSON()
 
-			if (firstPanelAlignment === EContextInitShowPosition.RIGHT_TOP) {
+			if (panelAlignment === EContextPanelAlignment.RIGHT_TOP) {
 				ctxmenuRect.top = ctxmenuRect.top - ctxmenuRect.height
 				ctxmenuRect.bottom = ctxmenuRect.top + ctxmenuRect.height
 			}
