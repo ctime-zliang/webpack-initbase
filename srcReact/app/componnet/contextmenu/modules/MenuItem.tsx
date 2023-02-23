@@ -5,7 +5,7 @@ import { menuItemElementMouseOverEventHandler } from '../utils/menuItemEventHand
 import MenuItemContent from './MenuItemContent'
 
 function MenuItem(props: TContextMenuItemProps): React.ReactElement {
-	const { commanLink = undefined, nowMenuItem, isCreateSubMenu, createSubMenu, onClickAction } = props
+	const { domId, panelMaxHeight, commanLink = undefined, nowMenuItem, isCreateSubMenu, createSubMenu, onClickAction } = props
 	const cmdlink: string = commanLink ? commanLink : (nowMenuItem.cmd as string)
 
 	const onMenuItemClickAction = (e: React.MouseEvent): void => {
@@ -27,6 +27,7 @@ function MenuItem(props: TContextMenuItemProps): React.ReactElement {
 			className={'ctxmenu-item' + (isCreateSubMenu ? ' ctxmenu-submenu' : '') + (nowMenuItem.disabled ? ' ctxmenu-item-disabled' : '')}
 			onMouseOver={onWrapperMouseOverAction}
 			data-cmdlink={cmdlink}
+			data-domid={domId}
 		>
 			<div className={'ctxmenu-content'} onClick={onMenuItemClickAction} data-cmdlink={cmdlink}>
 				<div className="content-checktags" style={{ display: nowMenuItem.isHideChecked ? 'none' : 'flex' }}>
@@ -44,6 +45,8 @@ function MenuItem(props: TContextMenuItemProps): React.ReactElement {
 			</div>
 			{createSubMenu
 				? createSubMenu({
+						domId,
+						panelMaxHeight,
 						commanLink: cmdlink,
 						subMenuItems: nowMenuItem.subMenu || [],
 						isSubMenu: true,

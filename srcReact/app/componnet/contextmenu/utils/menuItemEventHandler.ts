@@ -44,7 +44,7 @@ function setSubMenuListShow(panelWrapperElement: HTMLElement): void {
 	/**
 	 * 修正垂直定位
 	 **/
-	if (mainRect.height >= document.documentElement.clientHeight) {
+	if (mainRect.height >= document.documentElement.clientHeight - PADDING_VIEWPORT_TOP - PADDING_VIEWPORT_BOTTOM) {
 		mainRect.top = PADDING_VIEWPORT_TOP - anchorPointOffsetTop
 		mainRect.height = document.documentElement.clientHeight - PADDING_VIEWPORT_TOP - PADDING_VIEWPORT_BOTTOM
 		mainRect.bottom = mainRect.top + mainRect.height

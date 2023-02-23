@@ -3,9 +3,10 @@ import { TBoundingClientRectResultToJSONResult, TContextMenuRootProps, TContextM
 import MenuWrapper from './MenuWrapper'
 import '../styles/index.less'
 import { PADDING_VIEWPORT_BOTTOM, PADDING_VIEWPORT_TOP } from '../config/config'
+import { EContextInitShowPosition } from '../config/enum'
 
 function ContextMenuRoot(props: TContextMenuRootProps): React.ReactElement {
-	const { data, position, unmount, onClick } = props
+	const { domId, data, position, firstPanelAlignment = EContextInitShowPosition.INITIAL, panelMaxHeight, unmount, onClick } = props
 	const containerRef: { current: any } = useRef<HTMLElement>(null)
 
 	const onClickAction = (menuItem: TContextMenuItem, e: React.MouseEvent): void => {
@@ -38,6 +39,11 @@ function ContextMenuRoot(props: TContextMenuRootProps): React.ReactElement {
 		if (containerRef.current) {
 			const menuWrapper: HTMLElement = containerRef.current.firstElementChild
 			const ctxmenuRect: TBoundingClientRectResultToJSONResult = menuWrapper.getBoundingClientRect().toJSON()
+
+			if (firstPanelAlignment === EContextInitShowPosition.RIGHT_TOP) {
+				ctxmenuRect.top = ctxmenuRect.top - ctxmenuRect.height
+				ctxmenuRect.bottom = ctxmenuRect.top + ctxmenuRect.height
+			}
 			/**
 			 * 修正垂直定位
 			 **/
@@ -45,13 +51,14 @@ function ContextMenuRoot(props: TContextMenuRootProps): React.ReactElement {
 				ctxmenuRect.top = PADDING_VIEWPORT_TOP
 				ctxmenuRect.height = document.documentElement.clientHeight - PADDING_VIEWPORT_TOP - PADDING_VIEWPORT_BOTTOM
 				ctxmenuRect.bottom = ctxmenuRect.top + ctxmenuRect.height
-				menuWrapper.style.height = ctxmenuRect.height + 'px'
-				containerRef.current.style.top = ctxmenuRect.top + 'px'
 			}
 			if (ctxmenuRect.top + ctxmenuRect.height > document.documentElement.clientHeight) {
 				ctxmenuRect.top = document.documentElement.clientHeight - ctxmenuRect.height
 				ctxmenuRect.bottom = ctxmenuRect.top + ctxmenuRect.height
-				containerRef.current.style.top = ctxmenuRect.top + 'px'
+			}
+			if (ctxmenuRect.top <= PADDING_VIEWPORT_TOP) {
+				ctxmenuRect.top = PADDING_VIEWPORT_TOP
+				ctxmenuRect.bottom = ctxmenuRect.top + ctxmenuRect.height
 			}
 			/**
 			 * 修正横向定位
@@ -59,8 +66,11 @@ function ContextMenuRoot(props: TContextMenuRootProps): React.ReactElement {
 			if (ctxmenuRect.left + ctxmenuRect.width > document.documentElement.clientWidth) {
 				ctxmenuRect.left = document.documentElement.clientWidth - ctxmenuRect.width
 				ctxmenuRect.right = ctxmenuRect.left + ctxmenuRect.width
-				containerRef.current.style.left = ctxmenuRect.left + 'px'
 			}
+
+			menuWrapper.style.height = ctxmenuRect.height + 'px'
+			containerRef.current.style.left = ctxmenuRect.left + 'px'
+			containerRef.current.style.top = ctxmenuRect.top + 'px'
 		}
 	}, [])
 
@@ -72,7 +82,13 @@ function ContextMenuRoot(props: TContextMenuRootProps): React.ReactElement {
 			onMouseLeave={onMouseleaveAction}
 			onMouseEnter={onMouseenterAction}
 		>
-			<MenuWrapper subMenuItems={data} isSubMenu={false} onClickAction={onClickAction} />
+			<MenuWrapper
+				panelMaxHeight={panelMaxHeight as number}
+				domId={domId}
+				subMenuItems={data}
+				isSubMenu={false}
+				onClickAction={onClickAction}
+			/>
 		</div>
 	)
 }

@@ -1,6 +1,6 @@
 import React from 'react'
 import ReactDOMClient from 'react-dom/client'
-import { ROOT_PREFIEX_TAG } from '../config/config'
+import { ROOT_PREFIEX_TAG, PADDING_VIEWPORT_TOP, PADDING_VIEWPORT_BOTTOM } from '../config/config'
 import { TOpenContextMenu } from '../types/type'
 import { rootElementBlurEventHandler, unmountContextmenu } from '../utils/rootElementEventHandler'
 import ContextMenuRoot from './ContextMenuRoot'
@@ -9,6 +9,7 @@ let id: number = 0
 
 export class ContextMenu {
 	static open(params: TOpenContextMenu): void {
+		const { panelMaxHeight = document.documentElement.clientHeight - PADDING_VIEWPORT_TOP - PADDING_VIEWPORT_BOTTOM } = params
 		const rootElement: HTMLElement = document.createElement('div')
 		const domId: string = ROOT_PREFIEX_TAG + id++
 		rootElement.id = domId
@@ -21,6 +22,8 @@ export class ContextMenu {
 		root.render(
 			<ContextMenuRoot
 				{...params}
+				domId={domId}
+				panelMaxHeight={panelMaxHeight}
 				unmount={(): void => {
 					unmountContextmenu(rootElement)
 				}}

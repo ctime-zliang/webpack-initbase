@@ -5,15 +5,17 @@ import MenuItem from './MenuItem'
 import Separator from './Separator'
 
 function MenuWrapper(props: TMenuWrapperProps): React.ReactElement {
-	const { commanLink = undefined, subMenuItems = [], isSubMenu = false, onClickAction } = props
+	const { domId, panelMaxHeight, commanLink = undefined, subMenuItems = [], isSubMenu = false, onClickAction } = props
 	return (
-		<main className={isSubMenu ? 'ctxmenu-wrapper' : 'ctxmenu-wrapper ctxmenu-show-menu'}>
+		<main className={isSubMenu ? 'ctxmenu-wrapper' : 'ctxmenu-wrapper ctxmenu-show-menu'} style={{ maxHeight: panelMaxHeight + 'px' }}>
 			<ul className="ctxmenu-ulist">
 				{subMenuItems.map((menuItem: TContextMenuItem, index: number): React.ReactElement => {
 					const cmdlink: string = commanLink ? commanLink + ':' + menuItem.cmd : (menuItem.cmd as string)
 					if (Array.isArray(menuItem.subMenu)) {
 						return (
 							<MenuItem
+								panelMaxHeight={panelMaxHeight}
+								domId={domId}
 								key={index}
 								commanLink={cmdlink}
 								nowMenuItem={menuItem}
@@ -26,7 +28,17 @@ function MenuWrapper(props: TMenuWrapperProps): React.ReactElement {
 					if (menuItem['type'] === EContextMenuType.SEPARATOR) {
 						return <Separator key={index} menuItem={menuItem} />
 					}
-					return <MenuItem commanLink={cmdlink} key={index} nowMenuItem={menuItem} isCreateSubMenu={false} onClickAction={onClickAction} />
+					return (
+						<MenuItem
+							panelMaxHeight={panelMaxHeight}
+							domId={domId}
+							commanLink={cmdlink}
+							key={index}
+							nowMenuItem={menuItem}
+							isCreateSubMenu={false}
+							onClickAction={onClickAction}
+						/>
+					)
 				})}
 			</ul>
 		</main>

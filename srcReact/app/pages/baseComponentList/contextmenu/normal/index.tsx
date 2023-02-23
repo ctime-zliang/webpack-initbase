@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useRef, useCallback } from 'react'
-import { EContextMenuType } from '../../../../componnet/contextmenu/config/enum'
+import { EContextInitShowPosition, EContextMenuType } from '../../../../componnet/contextmenu/config/enum'
 import { TContextMenuItem } from '../../../../componnet/contextmenu/types/type'
 import ContextMenu from '../../../../componnet/contextmenu'
 import contextmenuData from './config'
@@ -12,20 +12,21 @@ function ContextmenuNoraml(props: any): React.ReactElement {
 		e.stopPropagation()
 		const menuData: Array<TContextMenuItem> = JSON.parse(JSON.stringify(contextmenuData))
 		/* ... */
-		menuData.push({ type: EContextMenuType.SEPARATOR })
-		for (let i: number = 0; i < 50; i++) {
-			menuData.push({ title: `ContextmenuItem ${i}`, cmd: `contextmenu${i}` })
-		}
+		// menuData.push({ type: EContextMenuType.SEPARATOR })
+		// for (let i: number = 0; i < 50; i++) {
+		// 	menuData.push({ title: `ContextmenuItem ${i}`, cmd: `contextmenu${i}` })
+		// }
 		menuData[9].subMenu?.push({ type: EContextMenuType.SEPARATOR })
 		for (let i: number = 0; i < 50; i++) {
 			menuData[9].subMenu?.push({ title: `ContextmenuItem ${i}`, cmd: `contextmenu${i}` })
 		}
 		/* ... */
 		ContextMenu.open({
-			//@ts-ignore
 			data: menuData,
+			firstPanelAlignment: EContextInitShowPosition.RIGHT_TOP,
+			// panelMaxHeight: 300,
 			position: { x: e.clientX, y: e.clientY },
-			onClick: (menuItem: any, e: any): boolean | void => {
+			onClick: (menuItem: TContextMenuItem, e: React.MouseEvent): boolean | void => {
 				console.log(menuItem, e)
 				if (menuItem.cmd === 'refresh') {
 					console.log(`此项操作将设置右键菜单持续显示.`)
