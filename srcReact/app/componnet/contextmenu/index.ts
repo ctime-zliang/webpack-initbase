@@ -1,4 +1,4 @@
-import { ContextMenu as _ContextMenu } from './modules/Container'
+import { ContextMenu as _ContextMenu } from './modules/ContextMenu'
 import { TOpenContextMenu as _TOpenContextMenu } from './types/type'
 
 export const ContextMenu = _ContextMenu

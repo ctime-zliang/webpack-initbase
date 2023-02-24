@@ -11,12 +11,16 @@ let id: number = 0
 export class ContextMenu {
 	static open(params: TOpenContextMenu): void {
 		const { panelMaxHeight = document.documentElement.clientHeight - PADDING_VIEWPORT_TOP - PADDING_VIEWPORT_BOTTOM } = params
+		const documentRoot: HTMLElement = document.documentElement
+		const documentBody: HTMLElement = document.body
+		const docScrollTop: number = documentRoot.scrollTop
+		const docScrollLeft: number = documentRoot.scrollLeft
 		const rootElement: HTMLElement = document.createElement('div')
 		const domId: string = ROOT_PREFIEX_TAG + id++
 		rootElement.id = domId
 		rootElement.style.position = 'absolute'
-		rootElement.style.left = '0'
-		rootElement.style.top = '0'
+		rootElement.style.left = docScrollLeft + 'px'
+		rootElement.style.top = docScrollTop + 'px'
 		rootElement.style.outline = '0'
 		rootElement.setAttribute('tabIndex', '0')
 		if (!RuntimeCache.has(domId)) {
@@ -33,7 +37,7 @@ export class ContextMenu {
 				}}
 			/>
 		)
-		document.body.appendChild(rootElement)
+		documentBody.appendChild(rootElement)
 		const htmlRoot: HTMLElement = document.getElementById(domId) as HTMLElement
 		;(htmlRoot as any).root = root
 		if (htmlRoot) {
