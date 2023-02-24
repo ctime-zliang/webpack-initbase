@@ -23,7 +23,7 @@ function ContextmenuNoraml(props: any): React.ReactElement {
 		/* ... */
 		ContextMenu.open({
 			data: menuData,
-			panelAlignment: EContextPanelAlignment.RIGHT_TOP,
+			// panelAlignment: EContextPanelAlignment.RIGHT_TOP,
 			// panelMaxHeight: 300,
 			position: { x: e.clientX, y: e.clientY },
 			onClick: (menuItem: TContextMenuItem, e: React.MouseEvent): boolean | void => {

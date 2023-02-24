@@ -63,7 +63,7 @@ function setSubMenuListShow(panelWrapperElement: HTMLElement): void {
 				mainRect.top = anchorPointOffsetTop - PADDING_VIEWPORT_TOP
 				mainRect.bottom = mainRect.top + mainRect.height
 			} else {
-				mainRect.top = currentRect.bottom - mainRect.height - anchorPointOffsetTop + PADDING_VIEWPORT_TOP
+				mainRect.top = currentRect.bottom - mainRect.height - anchorPointOffsetTop
 				mainRect.bottom = mainRect.top + mainRect.height
 			}
 		} else {
