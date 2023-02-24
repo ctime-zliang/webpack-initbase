@@ -34,6 +34,8 @@ export type TContextMenuItemExtend = TContextMenuItem & {
 	cmdlink?: string
 }
 
+export type TCacheValue = TContextMenu & { id: string }
+
 export type TBoundingClientRectResultToJSONResult = {
 	left: number
 	top: number

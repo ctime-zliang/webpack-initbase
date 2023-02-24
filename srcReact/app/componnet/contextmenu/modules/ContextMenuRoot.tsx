@@ -40,13 +40,13 @@ function ContextMenuRoot(props: TContextMenuRootProps): React.ReactElement {
 			const menuWrapper: HTMLElement = containerRef.current.firstElementChild
 			const ctxmenuRect: TBoundingClientRectResultToJSONResult = menuWrapper.getBoundingClientRect().toJSON()
 
+			/**
+			 * 修正垂直定位
+			 **/
 			if (panelAlignment === EContextPanelAlignment.RIGHT_TOP) {
 				ctxmenuRect.top = ctxmenuRect.top - ctxmenuRect.height
 				ctxmenuRect.bottom = ctxmenuRect.top + ctxmenuRect.height
 			}
-			/**
-			 * 修正垂直定位
-			 **/
 			if (ctxmenuRect.height >= document.documentElement.clientHeight) {
 				ctxmenuRect.top = PADDING_VIEWPORT_TOP
 				ctxmenuRect.height = document.documentElement.clientHeight - PADDING_VIEWPORT_TOP - PADDING_VIEWPORT_BOTTOM

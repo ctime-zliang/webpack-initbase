@@ -1,5 +1,7 @@
+import { RuntimeCache } from '../cache/cache'
 import { PADDING_VIEWPORT_BOTTOM, PADDING_VIEWPORT_TOP } from '../config/config'
-import { TBoundingClientRectResultToJSONResult } from '../types/type'
+import { EContextPanelAlignment } from '../config/enum'
+import { TBoundingClientRectResultToJSONResult, TCacheValue } from '../types/type'
 import { isMouseLeaveContainer } from './isMouseLeaveContainer'
 
 export function menuItemElementMouseOverEventHandler(currentElement: HTMLElement): void {
@@ -24,6 +26,7 @@ export function menuItemElementMouseOverEventHandler(currentElement: HTMLElement
 function setSubMenuListShow(panelWrapperElement: HTMLElement): void {
 	const surveyLeft: number = -1
 	const surveyTop: number = -1
+	const cacheItem: TCacheValue = RuntimeCache.get(panelWrapperElement.getAttribute('data-domid') as string) as TCacheValue
 	const mainElement: HTMLElement = panelWrapperElement.querySelector('main') as HTMLElement
 	if (!mainElement || mainElement.classList.contains('ctxmenu-show-menu')) {
 		return
@@ -38,27 +41,38 @@ function setSubMenuListShow(panelWrapperElement: HTMLElement): void {
 	const mainRect: TBoundingClientRectResultToJSONResult = mainElement.getBoundingClientRect().toJSON()
 	const anchorPointOffsetLeft: number = mainRect.left - surveyLeft
 	const anchorPointOffsetTop: number = mainRect.top - surveyTop
+	const viewClientHeight: number = document.documentElement.clientHeight
+	const viewClientWidth: number = document.documentElement.clientWidth
 	mainRect.x = -1
 	mainRect.y = -1
 	/* ... */
 	/**
 	 * 修正垂直定位
 	 **/
-	if (mainRect.height >= document.documentElement.clientHeight - PADDING_VIEWPORT_TOP - PADDING_VIEWPORT_BOTTOM) {
+	if (mainRect.height >= viewClientHeight - PADDING_VIEWPORT_TOP - PADDING_VIEWPORT_BOTTOM) {
 		mainRect.top = PADDING_VIEWPORT_TOP - anchorPointOffsetTop
-		mainRect.height = document.documentElement.clientHeight - PADDING_VIEWPORT_TOP - PADDING_VIEWPORT_BOTTOM
+		mainRect.height = viewClientHeight - PADDING_VIEWPORT_TOP - PADDING_VIEWPORT_BOTTOM
 		mainRect.bottom = mainRect.top + mainRect.height
 	} else {
-		if (mainRect.top <= 0) {
-			mainRect.top = 0
-			mainRect.bottom = mainRect.top + mainRect.height
-		}
-		if (currentRect.top + mainRect.height >= document.documentElement.clientHeight) {
-			mainRect.top = document.documentElement.clientHeight - mainRect.height - anchorPointOffsetTop - PADDING_VIEWPORT_BOTTOM
-			mainRect.bottom = mainRect.top + mainRect.height
+		if (cacheItem && cacheItem.panelAlignment === EContextPanelAlignment.RIGHT_TOP) {
+			if (currentRect.top <= PADDING_VIEWPORT_TOP) {
+				mainRect.top = PADDING_VIEWPORT_TOP
+				mainRect.bottom = mainRect.top + mainRect.height
+			}
+			if (currentRect.bottom - mainRect.height <= PADDING_VIEWPORT_TOP) {
+				mainRect.top = anchorPointOffsetTop - PADDING_VIEWPORT_TOP
+				mainRect.bottom = mainRect.top + mainRect.height
+			} else {
+				mainRect.top = currentRect.bottom - mainRect.height - anchorPointOffsetTop + PADDING_VIEWPORT_TOP
+				mainRect.bottom = mainRect.top + mainRect.height
+			}
 		} else {
-			if (mainRect.bottom >= document.documentElement.clientHeight) {
-				mainRect.top = document.documentElement.clientHeight - mainRect.height - anchorPointOffsetTop - PADDING_VIEWPORT_BOTTOM
+			if (currentRect.top <= PADDING_VIEWPORT_TOP) {
+				mainRect.top = PADDING_VIEWPORT_TOP
+				mainRect.bottom = mainRect.top + mainRect.height
+			}
+			if (currentRect.top + mainRect.height >= viewClientHeight) {
+				mainRect.top = viewClientHeight - mainRect.height - anchorPointOffsetTop - PADDING_VIEWPORT_BOTTOM
 				mainRect.bottom = mainRect.top + mainRect.height
 			} else {
 				mainRect.top = currentRect.top - anchorPointOffsetTop
@@ -69,7 +83,7 @@ function setSubMenuListShow(panelWrapperElement: HTMLElement): void {
 	/**
 	 * 修正横向定位
 	 **/
-	if (currentRect.right + mainRect.width >= document.documentElement.clientWidth) {
+	if (currentRect.right + mainRect.width >= viewClientWidth) {
 		mainRect.left = currentRect.left - mainRect.width - anchorPointOffsetLeft
 		mainRect.right = mainRect.left + mainRect.width
 	} else {

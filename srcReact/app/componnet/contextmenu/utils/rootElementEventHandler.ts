@@ -1,3 +1,5 @@
+import { RuntimeCache } from '../cache/cache'
+
 export function rootElementBlurEventHandler(e: FocusEvent): void {
 	const targetElement: HTMLElement = e.currentTarget as HTMLElement
 	try {
@@ -9,7 +11,9 @@ export function rootElementBlurEventHandler(e: FocusEvent): void {
 
 export function unmountContextmenu(rootElement: HTMLElement): void {
 	const reactRoot = (rootElement as any).root
-	reactRoot.unmount()
 	rootElement.removeEventListener('blur', rootElementBlurEventHandler)
+	reactRoot.unmount()
 	rootElement.remove()
+	RuntimeCache.delete(rootElement.id)
+	console.log(RuntimeCache)
 }
