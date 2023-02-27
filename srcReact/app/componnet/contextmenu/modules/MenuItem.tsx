@@ -1,5 +1,6 @@
 import React, { useCallback } from 'react'
 import CheckTags from '../component/CheckTags'
+import { CMDLINK_DIVISION_TAG } from '../config/config'
 import { TContextMenuItemProps } from '../types/type'
 import { menuItemElementMouseOverEventHandler } from '../utils/menuItemEventHandler'
 import MenuItemContent from './MenuItemContent'
@@ -14,7 +15,8 @@ function MenuItem(props: TContextMenuItemProps): React.ReactElement {
 			if (currentTarget.nextElementSibling && currentTarget.nextElementSibling.tagName.toLocaleLowerCase() === 'main') {
 				return
 			}
-			const cmdlink: string = currentTarget.getAttribute('data-cmdlink') as string
+			const dataCmdLink: string = currentTarget.getAttribute('data-cmdlink') as string
+			const cmdlink: Array<string> = dataCmdLink ? dataCmdLink.split(CMDLINK_DIVISION_TAG) : []
 			onClickAction && onClickAction({ ...nowMenuItem, cmdlink }, e)
 		}
 	}

@@ -15,5 +15,4 @@ export function unmountContextmenu(rootElement: HTMLElement): void {
 	reactRoot.unmount()
 	rootElement.remove()
 	RuntimeCache.delete(rootElement.id)
-	console.log(RuntimeCache)
 }

@@ -1,4 +1,5 @@
 import React from 'react'
+import { CMDLINK_DIVISION_TAG } from '../config/config'
 import { EContextMenuType } from '../config/enum'
 import { TContextMenuItem, TMenuWrapperProps } from '../types/type'
 import MenuItem from './MenuItem'
@@ -10,7 +11,7 @@ function MenuWrapper(props: TMenuWrapperProps): React.ReactElement {
 		<main className={isSubMenu ? 'ctxmenu-wrapper' : 'ctxmenu-wrapper ctxmenu-show-menu'} style={{ maxHeight: panelMaxHeight + 'px' }}>
 			<ul className="ctxmenu-ulist">
 				{subMenuItems.map((menuItem: TContextMenuItem, index: number): React.ReactElement => {
-					const cmdlink: string = commanLink ? commanLink + ':' + menuItem.cmd : (menuItem.cmd as string)
+					const cmdlink: string = commanLink ? commanLink + CMDLINK_DIVISION_TAG + menuItem.cmd : (menuItem.cmd as string)
 					if (Array.isArray(menuItem.subMenu)) {
 						return (
 							<MenuItem

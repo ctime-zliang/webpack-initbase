@@ -31,7 +31,7 @@ export type TOpenContextMenu = TContextMenu
 /**********************************************************************/
 
 export type TContextMenuItemExtend = TContextMenuItem & {
-	cmdlink?: string
+	cmdlink?: Array<string>
 }
 
 export type TCacheValue = TContextMenu & { id: string }
