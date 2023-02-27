@@ -24,6 +24,9 @@ function ContextMenuRoot(props: TContextMenuRootProps): React.ReactElement {
 			unmount()
 		})
 	}
+	const onContextmenuAction = (e: React.MouseEvent): void => {
+		e.preventDefault()
+	}
 	const onMouseenterAction = (e: React.MouseEvent): void => {
 		if (containerRef.current) {
 			containerRef.current.removeAttribute('mouselave')
@@ -81,6 +84,7 @@ function ContextMenuRoot(props: TContextMenuRootProps): React.ReactElement {
 			style={{ left: position.x + 'px', top: position.y + 'px' }}
 			onMouseLeave={onMouseleaveAction}
 			onMouseEnter={onMouseenterAction}
+			onContextMenu={onContextmenuAction}
 		>
 			<MenuWrapper
 				panelMaxHeight={panelMaxHeight as number}

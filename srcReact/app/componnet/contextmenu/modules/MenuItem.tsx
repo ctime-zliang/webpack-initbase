@@ -11,7 +11,7 @@ function MenuItem(props: TContextMenuItemProps): React.ReactElement {
 	const onMenuItemClickAction = (e: React.MouseEvent): void => {
 		const currentTarget: HTMLElement = e.currentTarget as HTMLElement
 		if (currentTarget) {
-			if (currentTarget.nextElementSibling && currentTarget.nextElementSibling.tagName.toLocaleLowerCase() === 'ul') {
+			if (currentTarget.nextElementSibling && currentTarget.nextElementSibling.tagName.toLocaleLowerCase() === 'main') {
 				return
 			}
 			const cmdlink: string = currentTarget.getAttribute('data-cmdlink') as string

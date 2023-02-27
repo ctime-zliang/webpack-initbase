@@ -29,8 +29,9 @@ function ContextmenuNoraml(props: any): React.ReactElement {
 			onClick: (menuItem: TContextMenuItem, e: React.MouseEvent): boolean | void => {
 				console.log(menuItem, e)
 				if (menuItem.cmd === 'refresh') {
-					console.log(`此项操作将设置右键菜单持续显示.`)
-					return false
+					window.location.reload()
+					// 返回 false 将屏蔽右键菜单的自动关闭功能
+					// return false
 				}
 			},
 		})
