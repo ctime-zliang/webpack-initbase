@@ -1,5 +1,6 @@
 import React, { useCallback } from 'react'
 import CheckTags from '../component/CheckTags'
+import IconTags from '../component/IconTags'
 import { CMDLINK_DIVISION_TAG } from '../config/config'
 import { TContextMenuItemProps } from '../types/type'
 import { menuItemElementMouseOverEventHandler } from '../utils/menuItemEventHandler'
@@ -33,7 +34,7 @@ function MenuItem(props: TContextMenuItemProps): React.ReactElement {
 		>
 			<div className={'ctxmenu-content'} onClick={onMenuItemClickAction} data-cmdlink={cmdlink}>
 				<div className="content-checktags" style={{ display: nowMenuItem.isHideChecked ? 'none' : 'flex' }}>
-					{nowMenuItem.checked ? <CheckTags /> : null}
+					{nowMenuItem.checked ? <CheckTags /> : <IconTags iconClassName={nowMenuItem.iconClassName} />}
 				</div>
 				<div className="content-text">
 					<MenuItemContent {...nowMenuItem} />

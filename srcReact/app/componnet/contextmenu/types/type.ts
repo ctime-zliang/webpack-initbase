@@ -13,6 +13,7 @@ export type TContextMenuItem = {
 	isHideExt?: boolean
 	isSetContentHtml?: boolean
 	isSetContentJSX?: boolean
+	iconClassName?: string
 	data?: any
 }
 
@@ -81,3 +82,7 @@ export type TContextMenuItemProps = {
 }
 
 export type TContextMenuItemContentProps = TContextMenuItem
+
+export type TIconTagsProps = {
+	iconClassName?: string
+}

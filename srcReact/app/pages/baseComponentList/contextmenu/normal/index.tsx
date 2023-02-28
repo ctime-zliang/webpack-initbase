@@ -3,6 +3,7 @@ import { EContextPanelAlignment, EContextMenuType } from '../../../../componnet/
 import { TContextMenuItem } from '../../../../componnet/contextmenu/types/type'
 import ContextMenu from '../../../../componnet/contextmenu'
 import contextmenuData from './config'
+import styles from '../index.module.less'
 
 function ContextmenuNoraml(props: any): React.ReactElement {
 	const elementRef: { current: any } = useRef<HTMLElement>(null)
@@ -11,6 +12,8 @@ function ContextmenuNoraml(props: any): React.ReactElement {
 		e.preventDefault()
 		e.stopPropagation()
 		const menuData: Array<TContextMenuItem> = JSON.parse(JSON.stringify(contextmenuData))
+		/* ... */
+		menuData[menuData.length - 1].iconClassName = styles['icon-demo']
 		/* ... */
 		// menuData.push({ type: EContextMenuType.SEPARATOR })
 		// for (let i: number = 0; i < 50; i++) {
