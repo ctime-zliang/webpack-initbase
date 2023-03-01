@@ -3,7 +3,12 @@ import ReactDOMClient from 'react-dom/client'
 import { RuntimeCache } from '../cache/cache'
 import { ROOT_PREFIEX_TAG, PADDING_VIEWPORT_TOP, PADDING_VIEWPORT_BOTTOM } from '../config/config'
 import { TOpenContextMenu } from '../types/type'
-import { rootElementBlurEventHandler, unmountContextmenu } from '../utils/rootElementEventHandler'
+import {
+	rootElementBlurEventHandler,
+	rootElementKeydownEventHandler,
+	rootElementKeyupEventHandler,
+	unmountContextmenu,
+} from '../utils/rootElementEventHandler'
 import ContextMenuRoot from './ContextMenuRoot'
 
 let id: number = 0
@@ -42,6 +47,8 @@ export class ContextMenu {
 		;(htmlRoot as any).root = root
 		if (htmlRoot) {
 			htmlRoot.addEventListener('blur', rootElementBlurEventHandler)
+			htmlRoot.addEventListener('keydown', rootElementKeydownEventHandler)
+			htmlRoot.addEventListener('keyup', rootElementKeyupEventHandler)
 			htmlRoot.focus()
 		}
 	}

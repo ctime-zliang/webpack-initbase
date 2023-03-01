@@ -29,13 +29,32 @@ function ContextmenuNoraml(props: any): React.ReactElement {
 			// panelAlignment: EContextPanelAlignment.RIGHT_TOP,
 			// panelMaxHeight: 300,
 			position: { x: e.clientX, y: e.clientY },
-			onClick: (menuItem: TContextMenuItem, e: React.MouseEvent): boolean | void => {
+			onClick(menuItem: TContextMenuItem, e: React.MouseEvent): boolean | void {
 				console.log(menuItem, e)
 				if (menuItem.cmd === 'refresh') {
 					window.location.reload()
 					// 返回 false 将屏蔽右键菜单的自动关闭功能
 					// return false
 				}
+			},
+			onKeydown(e: KeyboardEvent, unmount: () => void): void {
+				e.stopPropagation()
+				if (e.shiftKey && e.keyCode === 81) {
+					// Shift + Q
+					console.log(`按下了 [Shift + Q] 组合键`)
+					unmount()
+					return
+				}
+				if (!e.shiftKey && !e.ctrlKey && !e.altKey && e.keyCode === 86) {
+					// Shift + Q
+					console.log(`按下了 [V] 键`)
+					unmount()
+					return
+				}
+			},
+			onKeyup(e: KeyboardEvent, unmount: () => void): void {
+				e.stopPropagation()
+				console.log(e)
 			},
 		})
 	}, [])

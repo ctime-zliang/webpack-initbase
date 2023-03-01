@@ -287,9 +287,11 @@ export default [
 	{
 		title: `显示设置`,
 		cmd: 'systemDisplaySetting',
+		tips: `V`,
 	},
 	{
 		title: `个性化`,
 		cmd: `individuation`,
+		tips: `Shift + Q`,
 	},
 ]

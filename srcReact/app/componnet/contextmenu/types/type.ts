@@ -1,3 +1,4 @@
+import React from 'react'
 import { EContextMenuType, EContextPanelAlignment } from '../config/enum'
 
 export type TContextMenuItem = {
@@ -23,6 +24,8 @@ export type TContextMenu = {
 	panelAlignment?: EContextPanelAlignment
 	panelMaxHeight?: number
 	onClick?: (menuItem: TContextMenuItemExtend, e: React.MouseEvent) => void
+	onKeydown?: (e: KeyboardEvent, unmount: () => void) => void
+	onKeyup?: (e: KeyboardEvent, unmount: () => void) => void
 }
 
 export type TOpenContextMenu = TContextMenu
