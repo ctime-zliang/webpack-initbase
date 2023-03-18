@@ -1,19 +1,19 @@
 import React from 'react'
 import { Helmet } from 'react-helmet-async'
 import { useContentBgColor } from '../../../../app/utils/hooks/useContentBgColor'
-import ContextmenuNoraml from './normal'
+import PresetManagerNoraml from './normal'
 
-function ContextmenuRoot(props: any): React.ReactElement {
-	console.log(`ContextmenuRoot ☆☆☆`, props)
+function PresetManagerRoot(props: any): React.ReactElement {
+	console.log(`PresetManagerRoot ☆☆☆`, props)
 	useContentBgColor('rgba(255, 255, 255, 1)')
 	return (
 		<>
 			<Helmet>
 				<title>Contextmenu Component</title>
 			</Helmet>
-			<ContextmenuNoraml />
+			<PresetManagerNoraml />
 		</>
 	)
 }
 
-export default React.memo(ContextmenuRoot)
+export default React.memo(PresetManagerRoot)

@@ -24,6 +24,7 @@ export const createInitialState = (): TStore => {
 					{ id: uuidv4(), title: 'Tree', desc: 'Tree Base Component', path: '/componentLib/tree' },
 					{ id: uuidv4(), title: 'Virtual Scrolling', desc: 'VirtualScrolling Base Component', path: '/componentLib/virtualscrolling' },
 					{ id: uuidv4(), title: 'Contextmenu', desc: 'Contextmenu Base Component', path: '/componentLib/contextmenu' },
+					{ id: uuidv4(), title: 'Preset Manager', desc: 'Preset Manager Component', path: '/componentLib/presetManager' },
 				],
 			},
 			{

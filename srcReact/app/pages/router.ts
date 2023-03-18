@@ -15,6 +15,7 @@ import { componentPaginationRoute } from './baseComponentList/pagination/route'
 import { componentTreeRoute } from './baseComponentList/tree/route'
 import { componentVirtualScrollingRoute } from './baseComponentList/virtualScrolling/route'
 import { componentContextmenuRoute } from './baseComponentList/contextmenu/route'
+import { componentPresetManagerRoute } from './baseComponentList/presetManager/route'
 
 export const createRoutes = (reduxStore: TReduxStore): Array<TRouteItem> => {
 	return [
@@ -34,6 +35,7 @@ export const createRoutes = (reduxStore: TReduxStore): Array<TRouteItem> => {
 				componentTreeRoute(reduxStore),
 				componentVirtualScrollingRoute(reduxStore),
 				componentContextmenuRoute(reduxStore),
+				componentPresetManagerRoute(reduxStore),
 			],
 		},
 		error404Route(reduxStore),
