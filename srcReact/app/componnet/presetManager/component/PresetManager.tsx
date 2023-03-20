@@ -79,6 +79,11 @@ function PresetManager(props: TPresetManagerProps): React.ReactElement {
 		}
 	}, [initSelectedValue])
 
+	useEffect((): void => {
+		const selectedItem: DataItem | null = findItemByValue([...fixedList, ...floatList], initSelectedValue)
+		setStaticShowText(selectedItem ? selectedItem.title : '-')
+	}, [floatList, fixedList])
+
 	return (
 		<div
 			className="presetmgr-container"
