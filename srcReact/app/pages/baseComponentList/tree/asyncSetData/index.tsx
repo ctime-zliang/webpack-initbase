@@ -30,7 +30,6 @@ function TreeAyncSetData(props: any): React.ReactElement {
 			<ReactTree
 				selectedIds={['002']}
 				contentUnderline={true}
-				leftTranslationalAlignment={true}
 				showExpandBtn={false}
 				onExpand={expandAction}
 				onClick={clickAction}

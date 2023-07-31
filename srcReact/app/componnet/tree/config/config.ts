@@ -19,7 +19,6 @@ export const defaultProfile: TTreeRootPorps = {
 	showTagLine: true,
 	showExpandBtn: true,
 	expandAll: undefined,
-	leftTranslationalAlignment: false,
 	multiSelect: false,
 	itemHeight: DEFAULT_ITEMHIEGHT,
 	contentUnderline: false,

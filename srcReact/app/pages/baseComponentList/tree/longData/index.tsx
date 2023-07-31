@@ -26,7 +26,6 @@ function TreeNormal(props: any): React.ReactElement {
 					multiSelect={false}
 					showTagLine={true}
 					showExpandBtn={true}
-					leftTranslationalAlignment={true}
 					onExpand={expandAction}
 					onClick={clickAction}
 					data={dataLine}

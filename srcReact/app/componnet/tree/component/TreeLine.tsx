@@ -6,7 +6,7 @@ import { TLevels, TLineComponentProps } from '../types/types'
 function TreeLine(props: TLineComponentProps): React.ReactElement {
 	const { lineKey, lineData, selectedKeys, profile, expandAction, contentClickAction } = props
 	const { levels = [], expand, sourceData } = lineData
-	const { leftTranslationalAlignment = false, itemStyleObject, showTagLine = true, showExpandBtn = true, contentUnderline, itemRender } = profile
+	const { itemStyleObject, showTagLine = true, showExpandBtn = true, contentUnderline, itemRender } = profile
 	const treeContentClassString: string = classNames({
 		'tree-content': true,
 		'tree-content-selected': selectedKeys.indexOf(sourceData.id) >= 0,
@@ -27,7 +27,7 @@ function TreeLine(props: TLineComponentProps): React.ReactElement {
 	levels.forEach((levelItem: TLevels, index: number): void => {
 		switch (levelItem.stag) {
 			case ELEVEL_STAG.TYPE_BLANK: {
-				if (!!leftTranslationalAlignment && index === 0) {
+				if (index <= 0) {
 					viewComponent.push(<span key={levelItem.key}></span>)
 					return
 				}
