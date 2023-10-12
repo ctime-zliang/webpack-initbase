@@ -49,7 +49,7 @@ function TreeRoot(props: TTreeRootPorps, ref: any): React.ReactElement {
 	}, [selectedIds])
 
 	useEffect((): void => {
-		const handleData: Array<TComponentTreeRowData> = handleFormatData(data, [], expandedKeys.current, expandAll)
+		const handleData: Array<TComponentTreeRowData> = handleFormatData(data, [], expandedKeys.current, expandAll, undefined)
 		console.log(handleData)
 		setViewData(handleData)
 	}, [data])

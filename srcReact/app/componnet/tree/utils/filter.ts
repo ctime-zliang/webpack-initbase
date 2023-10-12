@@ -28,7 +28,8 @@ export function handleFormatData(
 	data: Array<TTreeDataItem | TComponentTreeRowData>,
 	levels: Array<TLevels>,
 	expandedKeys: Array<string>,
-	defaultExpand: boolean | undefined = undefined
+	defaultExpand: boolean | undefined = undefined,
+	parent: TComponentTreeRowData | undefined = undefined
 ): Array<TComponentTreeRowData> {
 	const result: Array<TComponentTreeRowData> = []
 	for (let i: number = 0; i < data.length; i++) {
@@ -66,10 +67,11 @@ export function handleFormatData(
 			expand: getExpands(newId, !!expand, !!isLeaf, expandedKeys, defaultExpand),
 			children: [],
 			sourceData: rowData.sourceData ? rowData.sourceData : (rowData as unknown as TTreeDataItem),
+			parent,
 		}
 
 		if (children && children.length) {
-			itemData.children = handleFormatData(children, newLevels, expandedKeys, defaultExpand)
+			itemData.children = handleFormatData(children, newLevels, expandedKeys, defaultExpand, itemData)
 		}
 
 		result.push(itemData)

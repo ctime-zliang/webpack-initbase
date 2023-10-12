@@ -27,7 +27,7 @@ function TreeLine(props: TLineComponentProps): React.ReactElement {
 	levels.forEach((levelItem: TLevels, index: number): void => {
 		switch (levelItem.stag) {
 			case ELEVEL_STAG.TYPE_BLANK: {
-				if (index <= 0) {
+				if (!lineData.parent) {
 					viewComponent.push(<span key={levelItem.key}></span>)
 					return
 				}

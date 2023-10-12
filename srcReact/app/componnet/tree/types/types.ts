@@ -103,6 +103,7 @@ export type TComponentTreeRowData = {
 	isLeaf: boolean
 	levels: Array<TLevels>
 	sourceData: TTreeDataItem
+	parent: TComponentTreeRowData | undefined
 }
 
 export type TLevels = {
