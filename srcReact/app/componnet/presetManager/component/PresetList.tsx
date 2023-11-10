@@ -40,8 +40,8 @@ function PresetList(props: TPresetListProps): React.ReactElement {
 	}
 	const onActionTagClickedAction = (e: React.MouseEvent<HTMLElement>): void => {
 		const targetElement: HTMLElement = e.currentTarget as HTMLElement
-		const action: string | null = targetElement.getAttribute('data-action')
-		if (!action) {
+		const action: string = targetElement.getAttribute('data-action') as string
+		if (!action || targetElement.classList.contains('presetlist-item-disabled')) {
 			return
 		}
 		onActionTagClicked && onActionTagClicked(action as EPresetManagerActionTag)

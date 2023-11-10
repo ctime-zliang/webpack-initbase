@@ -24,10 +24,18 @@ function PresetManager(props: TPresetManagerProps): React.ReactElement {
 	} = props
 	const selectedItem: DataItem | null = findItemByValue([...fixedList, ...floatList], initSelectedValue)
 	const presetManagerContainerRef: { current: any } = useRef<HTMLElement>(null)
+	const presetManagerWrapperRef: { current: any } = useRef<HTMLElement>(null)
 	const [isShowList, setIsShowList] = useState<boolean>(false)
 	const [staticShowText, setStaticShowText] = useState<string>(selectedItem ? selectedItem.title : '-')
 
-	const onPresetMgrFocusedAction = (e: React.FocusEvent): void => {
+	const onPresetMgrClickedAction = (e: React.MouseEvent): void => {
+		const targetElement: HTMLElement = e.target as HTMLElement
+		if (isShowList) {
+			if (presetManagerWrapperRef.current && presetManagerWrapperRef.current.contains(targetElement)) {
+				setIsShowList(false)
+				return
+			}
+		}
 		setIsShowList(true)
 	}
 	const onPresetMgrbluredAction = (e: React.FocusEvent): void => {
@@ -89,10 +97,10 @@ function PresetManager(props: TPresetManagerProps): React.ReactElement {
 			className="presetmgr-container"
 			ref={presetManagerContainerRef}
 			tabIndex={0}
-			onFocus={onPresetMgrFocusedAction}
 			onBlur={onPresetMgrbluredAction}
+			onClick={onPresetMgrClickedAction}
 		>
-			<div className="presetmgr-wrapper">
+			<div ref={presetManagerWrapperRef} className="presetmgr-wrapper">
 				<div className="staticshow-content">{staticShowText}</div>
 				<svg className="staticshow-icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" width="20" height="20">
 					<path d="M511.862 750.76l-431.297-431.297 34.419-34.419 431.297 431.297-34.419 34.419z" fill="#272636"></path>
