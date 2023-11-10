@@ -10,6 +10,7 @@ function DetailRoot(props: any): React.ReactElement {
 				<title>Article Detail</title>
 			</Helmet>
 			<section>Article Detail</section>
+			<section>{window.location.href}</section>
 		</>
 	)
 }

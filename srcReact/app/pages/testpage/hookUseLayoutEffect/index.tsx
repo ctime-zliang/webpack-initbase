@@ -2,9 +2,9 @@ import { TCommonComponentBaseProps } from '../../../types/comm.types'
 import React, { useEffect, useState, useLayoutEffect } from 'react'
 
 function AAA(props: any): React.ReactElement {
-	useLayoutEffect(() => {
+	useLayoutEffect((): (() => void) => {
 		console.log('AAA: useLayoutEffect')
-		return () => {
+		return (): void => {
 			console.log('AAA: useLayoutEffect - return')
 		}
 	}, [])
@@ -14,13 +14,13 @@ function AAA(props: any): React.ReactElement {
 export function HookUseLayoutEffect(props: any): React.ReactElement {
 	console.log(`Component: HookUseLayoutEffect`)
 	const [count, setCount] = useState(0)
-	useEffect(() => {
+	useEffect((): void => {
 		console.log('HookUseLayoutEffect: useEffect')
 		console.log(document.querySelector('#useLayoutEffectView'))
 		console.log(document.getElementById('useLayoutEffectView')?.innerHTML)
 	}, [])
 
-	useLayoutEffect(() => {
+	useLayoutEffect((): void => {
 		console.log('HookUseLayoutEffect: useLayoutEffect')
 		console.log(document.querySelector('#useLayoutEffectView'))
 		console.log(document.getElementById('useLayoutEffectView')?.innerHTML)
@@ -29,7 +29,7 @@ export function HookUseLayoutEffect(props: any): React.ReactElement {
 		<div>
 			<div id="useLayoutEffectView">{count}</div>
 			<button
-				onClick={() => {
+				onClick={(): void => {
 					setCount(count + 1)
 				}}
 			>

@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { InfiniteScroller } from './Scroller/scroller.class'
 
-const createItemsData = () => {
+const createItemsData = (): Array<any> => {
 	const list = []
 	const len = 100
 	for (let i = 0; i < len; i++) {
@@ -24,10 +24,10 @@ function InfiniteScrollRoot(props: any) {
 	const [items, setItems] = useState(createItemsData())
 	const [cache, setCache] = useState([])
 	const [initialScrollTop, setInitialScrollTop] = useState(0)
-	const onScroll = () => {
+	const onScroll = (): void => {
 		console.log('onScroll')
 	}
-	const onEnd = () => {
+	const onEnd = (): void => {
 		console.log('onEnd')
 		// setItems([...items, ...createItemsData()])
 	}

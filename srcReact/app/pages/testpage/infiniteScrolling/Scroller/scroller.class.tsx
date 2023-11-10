@@ -23,8 +23,8 @@ export type ScrollerState = {
 export class InfiniteScroller extends React.Component<ScrollerProps> {
 	public static defaultProps: { [key: string]: any } = {
 		initialScrollTop: 0,
-		onScroll: () => {},
-		onEnd: () => {},
+		onScroll: (): void => {},
+		onEnd: (): void => {},
 	}
 	public state: ScrollerState = {
 		projectedItems: [],
@@ -67,7 +67,7 @@ export class InfiniteScroller extends React.Component<ScrollerProps> {
 					upperPlaceholderHeight,
 					underPlaceholderHeight,
 				},
-				() => {
+				(): void => {
 					if (prevStateItemsLength === 0 && projectedItems.length > 0) {
 						this.containerElement.scrollTop = initialScrollTop!
 					}
@@ -78,7 +78,7 @@ export class InfiniteScroller extends React.Component<ScrollerProps> {
 			this.hasBottomTouched = false
 			this.scroller.next()
 		}
-		window.addEventListener('resize', () => {
+		window.addEventListener('resize', (): void => {
 			if (this.containerElement.clientWidth !== this.width) {
 				this.width = this.containerElement.clientWidth
 				this.resizing = true
@@ -135,7 +135,7 @@ export class InfiniteScroller extends React.Component<ScrollerProps> {
 				{
 					upperPlaceholderHeight,
 				},
-				() => {
+				(): void => {
 					if (startItem.index > 0) {
 						if (this.resizing) {
 							const currentAnchor = this.scroller.cachedItemRect[this.scroller.startIndex + 3]

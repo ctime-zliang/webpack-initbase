@@ -14,10 +14,10 @@ export const asyncComponent = function (importComponent: any) {
 	}
 	return (props: any) => {
 		const [component, setComponent] = useState(null)
-		useEffect(() => {
+		useEffect((): void => {
 			importComponent().then((compt: any) => {
 				// setComponent(compt.default)
-				window.setTimeout(() => {
+				window.setTimeout((): void => {
 					setComponent(compt.default)
 				}, 300)
 			})

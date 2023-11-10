@@ -13,7 +13,7 @@ class Compt1 extends React.Component {
 			{
 				index: this.state.index + 1,
 			},
-			() => {
+			(): void => {
 				console.log(`object 1`, this.state.index)
 			}
 		)
@@ -21,7 +21,7 @@ class Compt1 extends React.Component {
 			{
 				index: this.state.index + 1,
 			},
-			() => {
+			(): void => {
 				console.log(`object 2`, this.state.index)
 			}
 		)
@@ -52,7 +52,7 @@ class Compt2 extends React.Component {
 					index: preState.index + 1,
 				}
 			},
-			() => {
+			(): void => {
 				console.log(`function 1`, this.state.index)
 			}
 		)
@@ -62,7 +62,7 @@ class Compt2 extends React.Component {
 					index: preState.index + 1,
 				}
 			},
-			() => {
+			(): void => {
 				console.log(`function 2`, this.state.index)
 			}
 		)
@@ -70,7 +70,7 @@ class Compt2 extends React.Component {
 			{
 				index: this.state.index + 1,
 			},
-			() => {
+			(): void => {
 				console.log(`object 1`, this.state.index)
 			}
 		)

@@ -2,9 +2,9 @@ import React, { useEffect, useState } from 'react'
 
 function A1(props: any): React.ReactElement {
 	const { count } = props
-	useEffect(() => {
+	useEffect((): (() => void) => {
 		console.log(`Component A1 useEffect.`)
-		return () => {
+		return (): void => {
 			console.log(`Component A1 useEffect return-callback.`)
 		}
 	})
@@ -19,9 +19,9 @@ function A1(props: any): React.ReactElement {
 
 function B1(props: any): React.ReactElement {
 	const { count } = props
-	useEffect(() => {
+	useEffect((): (() => void) => {
 		console.log(`Component B1 useEffect.`)
-		return () => {
+		return (): void => {
 			console.log(`Component B1 useEffect return-callback.`)
 		}
 	})
@@ -34,9 +34,9 @@ function B1(props: any): React.ReactElement {
 
 function C1(props: any): React.ReactElement {
 	const { count } = props
-	useEffect(() => {
+	useEffect((): (() => void) => {
 		console.log(`Component C1 useEffect.`)
-		return () => {
+		return (): void => {
 			console.log(`Component C1 useEffect return-callback.`)
 		}
 	})
@@ -48,21 +48,21 @@ function B2(props: any): React.ReactElement {
 
 	const [number, setNumber] = useState(0)
 
-	useEffect(() => {
-		let timer = window.setInterval(() => {
+	useEffect((): (() => void) => {
+		let timer = window.setInterval((): void => {
 			console.log(`++`)
 			setNumber(value => {
 				return value + 1
 			})
 		}, 1000)
-		return () => {
+		return (): void => {
 			window.clearInterval(timer)
 		}
 	}, [])
 
-	useEffect(() => {
+	useEffect((): (() => void) => {
 		console.log(`Component B2 useEffect.`)
-		return () => {
+		return (): void => {
 			console.log(`Component B2 useEffect return-callback.`)
 		}
 	})
@@ -76,9 +76,9 @@ function B2(props: any): React.ReactElement {
 
 function C2(props: any): React.ReactElement {
 	const { count } = props
-	useEffect(() => {
+	useEffect((): (() => void) => {
 		console.log(`Component C2 useEffect.`)
-		return () => {
+		return (): void => {
 			console.log(`Component C2 useEffect return-callback.`)
 		}
 	})
@@ -87,9 +87,9 @@ function C2(props: any): React.ReactElement {
 
 function B3(props: any): React.ReactElement {
 	const { count } = props
-	useEffect(() => {
+	useEffect((): (() => void) => {
 		console.log(`Component B3 useEffect.`)
-		return () => {
+		return (): void => {
 			console.log(`Component B3 useEffect return-callback.`)
 		}
 	})
@@ -98,9 +98,9 @@ function B3(props: any): React.ReactElement {
 
 function C31(props: any): React.ReactElement {
 	const { count } = props
-	useEffect(() => {
+	useEffect((): (() => void) => {
 		console.log(`Component C31 useEffect.`)
-		return () => {
+		return (): void => {
 			console.log(`Component C31 useEffect return-callback.`)
 		}
 	})
@@ -109,9 +109,9 @@ function C31(props: any): React.ReactElement {
 
 function C32(props: any): React.ReactElement {
 	const { count } = props
-	useEffect(() => {
+	useEffect((): (() => void) => {
 		console.log(`Component C32 useEffect.`)
-		return () => {
+		return (): void => {
 			console.log(`Component C32 useEffect return-callback.`)
 		}
 	})
@@ -153,7 +153,7 @@ export function Wrapper(props: any): React.ReactElement {
 	return (
 		<div data-tag="wrapper">
 			<button
-				onClick={() => {
+				onClick={(): void => {
 					setCount(count + 1)
 				}}
 			>

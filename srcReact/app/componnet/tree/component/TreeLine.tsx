@@ -85,7 +85,7 @@ function TreeLine(props: TLineComponentProps): React.ReactElement {
 		}
 	})
 	viewComponent.push(
-		<span key={lineKey} className={treeContentClassString} style={itemStyleObject} onClick={() => contentClickAction(lineData)}>
+		<span key={lineKey} className={treeContentClassString} style={itemStyleObject} onClick={(): void => contentClickAction(lineData)}>
 			{itemRender ? itemRender(sourceData, lineData) : sourceData.title}
 		</span>
 	)

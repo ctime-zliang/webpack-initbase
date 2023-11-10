@@ -24,7 +24,7 @@ function RowItem(props: any): React.ReactElement {
 		<div
 			key={index}
 			style={rowItemStyle}
-			onClick={() => {
+			onClick={(): void => {
 				console.log('item-', index)
 			}}
 		>

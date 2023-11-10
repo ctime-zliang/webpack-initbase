@@ -7,8 +7,8 @@
 // })
 
 export async function sleep(delay: number = 500, ...args: any): Promise<any> {
-	return new Promise(_ => {
-		window.setTimeout(() => {
+	return new Promise((_): void => {
+		window.setTimeout((): void => {
 			_(args)
 		}, +delay)
 	})

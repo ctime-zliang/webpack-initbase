@@ -6,7 +6,7 @@ import FixedHeightListScrollingRoot from './fixedHeightListScrolling'
 
 function VirtualScrollingRoot(props: any): React.ReactElement {
 	console.log(`VirtualScrolling ☆☆☆`, props)
-	useContentBgColor('rgba(230, 230, 230, 1)')
+	useContentBgColor('rgba(255, 255, 255, 1)')
 	return (
 		<>
 			<Helmet>

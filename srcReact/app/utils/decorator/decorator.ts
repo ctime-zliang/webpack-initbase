@@ -48,7 +48,7 @@ class MyClass {
 	}
 }
 
-export default () => {
+export default (): boolean => {
 	const _MyClass: any = MyClass
 	console.log(_MyClass.getNumber(_MyClass.iden))
 

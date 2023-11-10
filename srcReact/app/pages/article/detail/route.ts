@@ -4,7 +4,7 @@ import Index from '.'
 
 export const articleDetailRoute = (reduxStore: TReduxStore): TRouteItem => {
 	return {
-		path: '/detail',
+		path: '/detail/*',
 		exact: true,
 		element: Index,
 	}

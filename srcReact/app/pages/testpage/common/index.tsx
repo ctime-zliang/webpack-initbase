@@ -13,13 +13,13 @@ export function BaseUseMemo(props: TCommonComponentBaseProps): React.ReactElemen
 	console.log(`Component: BaseUseMemo`)
 
 	const [count1, setCount1] = useState(1)
-	const setCountAction1 = () => {
+	const setCountAction1 = (): void => {
 		setCount1(value => {
 			return value + 1
 		})
 	}
 
-	const number = useMemo(() => {
+	const number = useMemo((): number => {
 		syncBlock()
 		return count1 * 2
 	}, [count1])
@@ -32,14 +32,14 @@ export function BaseUseMemo(props: TCommonComponentBaseProps): React.ReactElemen
 	)
 }
 
-const sourceCallback = () => {
+const sourceCallback = (): void => {
 	console.log(`123456`)
 }
 let flagA: any = null
 export function BaseUseCallback(props: TCommonComponentBaseProps): React.ReactElement {
 	console.log('Component: BaseUseCallback')
 	const [count, setCount] = useState(0)
-	const btnClickAction = () => {
+	const btnClickAction = (): void => {
 		setCount(count + 1)
 	}
 	const callback = useCallback(sourceCallback, [count])

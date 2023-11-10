@@ -11,8 +11,8 @@ const expandAction = (a: any, b: any) => {
 
 function TreeAyncSetData(props: any): React.ReactElement {
 	const [data2, setData2] = useState<Array<TTreeDataItem>>([])
-	useEffect(() => {
-		window.setTimeout(() => {
+	useEffect((): void => {
+		window.setTimeout((): void => {
 			setData2(dataLine as Array<TTreeDataItem>)
 		}, 2000)
 	}, [])

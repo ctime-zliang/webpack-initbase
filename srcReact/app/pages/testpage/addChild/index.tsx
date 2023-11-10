@@ -6,7 +6,7 @@ export function AddLongChild(props: TCommonComponentBaseProps): React.ReactEleme
 	console.log(`Component: ClickAddLongChild`)
 
 	const [list, setList] = useState<Array<string>>([])
-	const modifyList = () => {
+	const modifyList = (): void => {
 		const array: Array<string> = []
 		const random = Math.random() + ''
 		++count

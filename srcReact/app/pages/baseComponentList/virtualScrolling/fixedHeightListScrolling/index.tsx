@@ -30,7 +30,7 @@ function RowItem(props: any): React.ReactElement {
 			key={index}
 			style={rowItemStyle}
 			data-row-height={rowHeight}
-			onClick={() => {
+			onClick={(): void => {
 				console.log('item-', index)
 			}}
 		>

@@ -1,8 +1,8 @@
 import React, { useCallback, useState, useMemo } from 'react'
 
-export const useForceUpdate = () => {
+export const useForceUpdate = (): (() => void) => {
 	const [, setState] = useState(false)
-	return useCallback(() => {
+	return useCallback((): void => {
 		setState((preState: boolean): boolean => {
 			return !preState
 		})
@@ -22,7 +22,7 @@ export const useReactive = (initValue: any): TUseReactive => {
 			update(value: any): void {
 				reactive.value = value
 			},
-			render() {
+			render(): void {
 				forceUpdate()
 			},
 		}

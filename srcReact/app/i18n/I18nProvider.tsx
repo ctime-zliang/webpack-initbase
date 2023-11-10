@@ -47,7 +47,7 @@ function I18nProvider(props: any): React.ReactElement {
 	const languageSetting: string = useSelector(getLanguageSetting)
 	const [isInitial, setIsInitial] = useState<boolean>(true)
 	console.log(`I18nProvider 🌙🌙🌙`, props, languageSetting)
-	useEffect(() => {
+	useEffect((): void => {
 		i18next.changeLanguage(languageSetting)
 	}, [languageSetting])
 	if (isInitial) {

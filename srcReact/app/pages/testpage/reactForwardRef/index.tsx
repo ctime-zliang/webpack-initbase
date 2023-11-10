@@ -9,7 +9,7 @@ import { TCommonComponentBaseProps } from '../../../types/comm.types'
 export function Parent(props: TCommonComponentBaseProps): React.ReactElement {
 	const [count, setCount] = useState(0)
 	const ref = useRef(null)
-	const clickAction = () => {
+	const clickAction = (): void => {
 		setCount(count + 1)
 	}
 	return (
@@ -26,10 +26,10 @@ export function Parent(props: TCommonComponentBaseProps): React.ReactElement {
 
 export const Child = React.memo(({ count }: any): React.ReactElement => {
 	const [number, setNumber] = useState(0)
-	const clickAction = () => {
+	const clickAction = (): void => {
 		setNumber(number + 1)
 	}
-	useEffect(() => {
+	useEffect((): void => {
 		setNumber(count)
 	}, [count])
 
@@ -45,7 +45,7 @@ export const Child = React.memo(({ count }: any): React.ReactElement => {
 
 export const Child2 = React.forwardRef((props: any, ref): React.ReactElement => {
 	const [number, setNumber] = useState(0)
-	const clickAction = () => {
+	const clickAction = (): void => {
 		setNumber(number + 1)
 	}
 	useImperativeHandle(
@@ -73,14 +73,14 @@ export const Child2 = React.forwardRef((props: any, ref): React.ReactElement => 
 
 export const Child3 = React.memo(({ count }: any): React.ReactElement => {
 	const reactive = useReactive(count)
-	const clickAction = () => {
+	const clickAction = (): void => {
 		reactive.update(reactive.value + 1)
 		reactive.render()
 	}
-	// useEffect(() => {
+	// useEffect((): void => {
 	// 	reactive.update(count)
 	// }, [count])
-	useMemo(() => {
+	useMemo((): void => {
 		reactive.update(count)
 	}, [count])
 
