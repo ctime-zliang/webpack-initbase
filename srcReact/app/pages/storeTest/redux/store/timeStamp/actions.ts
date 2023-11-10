@@ -1,7 +1,7 @@
-import { TStoreReduxCommonAction } from '../public/types'
-import { ACTION_TYPE as timeStamp_ACTION_TYPE } from '../../store/redux-timeStamp/types'
-import { ACTION_TYPE as counter_ACTION_TYPE } from '../../store/redux-counter/types'
-import { sleep } from '../../utils/utils'
+import { ACTION_TYPE as timeStamp_ACTION_TYPE } from './types'
+import { ACTION_TYPE as counter_ACTION_TYPE } from '../counter/types'
+import { TStoreReduxCommonAction } from '../../../../../store/public/types'
+import { sleep } from '../../../../../utils/utils'
 
 export const changeStampAction = (params: any): ((dispatch: (a: TStoreReduxCommonAction<string>) => void, getState: () => any) => void) => {
 	return async (dispatch: (a: TStoreReduxCommonAction<string>) => void, getState: () => any): Promise<void> => {

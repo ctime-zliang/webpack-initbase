@@ -2,11 +2,11 @@ import React, { useEffect, useRef } from 'react'
 import { useSnapshot, subscribe } from 'valtio'
 import { watch } from 'valtio/utils'
 import { Button } from 'antd'
-import { useComparisonThreshold } from '../../store/valtio/hooks'
-import { valtioStore, valtioAction } from '../../store/valtio/store'
-import { TValtioStore } from '../../store/valtio/types'
+import { useComparisonThreshold } from '../../store/hooks'
+import { TValtioStore } from '../../store/types'
+import { valtioAction, valtioStore } from '../../store/store'
 
-function ValtioRoot(props: any): React.ReactElement {
+export function ValtioCommon(props: any): React.ReactElement {
 	const valtioSubscribeHandler: { current: any } = useRef<any>(null)
 	const valtioWatchHandler: { current: any } = useRef<any>(null)
 	const isThan: boolean = useComparisonThreshold()
@@ -55,5 +55,3 @@ function ValtioRoot(props: any): React.ReactElement {
 		</div>
 	)
 }
-
-export default ValtioRoot

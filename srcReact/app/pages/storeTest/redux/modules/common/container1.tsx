@@ -1,10 +1,10 @@
 import React, { useEffect, useRef, useState } from 'react'
-import { TCombineState } from '../../store/redux'
-import { ACTION_TYPE as counter_ACTION_TYPE } from '../../store/redux-counter/types'
-import { TStore as counter_TStore } from '../../store/redux-counter/types'
-import { ACTION_TYPE as timeStamp_ACTION_TYPE } from '../../store/redux-timeStamp/types'
-import { TStore as timeStamp_TStore } from '../../store/redux-timeStamp/types'
-import ReduxView from './view'
+import { TCombineState } from '../../../../../store/redux'
+import { ACTION_TYPE as counter_ACTION_TYPE } from '../../store/counter/types'
+import { TStore as counter_TStore } from '../../store/counter/types'
+import { ACTION_TYPE as timeStamp_ACTION_TYPE } from '../../store/timeStamp/types'
+import { TStore as timeStamp_TStore } from '../../store/timeStamp/types'
+import ReduxView from '../../components/view'
 
 type TTCombineExtendState = TCombineState & {
 	counter: counter_TStore

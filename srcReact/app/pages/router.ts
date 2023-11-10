@@ -8,14 +8,17 @@ import { linkListRoute } from './linkList/route'
 import { articleListRoute } from './article/list/route'
 import { articleDetailRoute } from './article/detail/route'
 import { articleErrorRoute } from './article/error/route'
-import { reduxContainerRoute } from './redux/route'
-import { valtioContainerRoute } from './valtio/route'
-import { testpageRoute } from './testpage/route'
 import { componentPaginationRoute } from './baseComponentList/pagination/route'
 import { componentTreeRoute } from './baseComponentList/tree/route'
 import { componentVirtualScrollingRoute } from './baseComponentList/virtualScrolling/route'
 import { componentContextmenuRoute } from './baseComponentList/contextmenu/route'
 import { componentPresetManagerRoute } from './baseComponentList/presetManager/route'
+import { testpageCommonRoute } from './testpage/common/route'
+import { testpageErrorRoute } from './testpage/error/route'
+import { storeTestValtioCommonRoute } from './storeTest/valtio/route'
+import { storeTestErrorRoute } from './storeTest/error/route'
+import { storeTestReduxCommonRoute } from './storeTest/redux/route'
+import { storeTestEdaAbstractStoreCommonRoute } from './storeTest/edaStore/route'
 
 export const createRoutes = (reduxStore: TReduxStore): Array<TRouteItem> => {
 	return [
@@ -25,9 +28,19 @@ export const createRoutes = (reduxStore: TReduxStore): Array<TRouteItem> => {
 			path: '/article/*',
 			routes: [articleListRoute(reduxStore), articleDetailRoute(reduxStore), articleErrorRoute(reduxStore)],
 		},
-		reduxContainerRoute(reduxStore),
-		valtioContainerRoute(reduxStore),
-		testpageRoute(reduxStore),
+		{
+			path: '/storetest/*',
+			routes: [
+				storeTestValtioCommonRoute(reduxStore),
+				storeTestReduxCommonRoute(reduxStore),
+				storeTestEdaAbstractStoreCommonRoute(reduxStore),
+				storeTestErrorRoute(reduxStore),
+			],
+		},
+		{
+			path: '/testpage/*',
+			routes: [testpageCommonRoute(reduxStore), testpageErrorRoute(reduxStore)],
+		},
 		{
 			path: '/componentLib/*',
 			routes: [

@@ -13,8 +13,9 @@ export const createInitialState = (): TStore => {
 			{
 				subject: 'Store Manager',
 				list: [
-					{ id: uuidv4(), title: 'Valtio State Manager', desc: 'Valtio Store Manager Case', path: '/valtio' },
-					{ id: uuidv4(), title: 'Redux State Manager', desc: 'Redux Store Manager Case', path: '/redux' },
+					{ id: uuidv4(), title: 'Valtio State Manager', desc: 'Valtio Store Manager Case', path: '/storetest/valtio' },
+					{ id: uuidv4(), title: 'Redux State Manager', desc: 'Redux Store Manager Case', path: '/storetest/redux' },
+					{ id: uuidv4(), title: 'EdaAbstractStore State Manager', desc: 'EdaAbstract Store Manager Case', path: '/storetest/eda' },
 				],
 			},
 			{
@@ -29,7 +30,7 @@ export const createInitialState = (): TStore => {
 			},
 			{
 				subject: 'Test Page',
-				list: [{ id: uuidv4(), title: 'Test Page', desc: 'Test Case Page', path: '/testpage' }],
+				list: [{ id: uuidv4(), title: 'Common', desc: 'Test Common Case Page', path: '/testpage/common' }],
 			},
 		],
 	}

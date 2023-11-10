@@ -1,5 +1,5 @@
 import React from 'react'
-import ModulesCase from './modulesCase'
+import ModulesCase from './modules'
 
 function UseDervStoreTestRoot(props: any): React.ReactElement {
 	return (

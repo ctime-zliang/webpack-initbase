@@ -9,7 +9,7 @@ function syncBlock(delay: number = 1000): void {
 	}
 }
 
-export function BaseUseMemo(props: TCommonComponentBaseProps): React.ReactElement {
+function BaseUseMemo(props: any): React.ReactElement {
 	console.log(`Component: BaseUseMemo`)
 
 	const [count1, setCount1] = useState(1)
@@ -36,7 +36,7 @@ const sourceCallback = (): void => {
 	console.log(`123456`)
 }
 let flagA: any = null
-export function BaseUseCallback(props: TCommonComponentBaseProps): React.ReactElement {
+function BaseUseCallback(props: any): React.ReactElement {
 	console.log('Component: BaseUseCallback')
 	const [count, setCount] = useState(0)
 	const btnClickAction = (): void => {
@@ -54,3 +54,12 @@ export function BaseUseCallback(props: TCommonComponentBaseProps): React.ReactEl
 		</article>
 	)
 }
+
+function Main(): React.ReactElement {
+	return (
+		<>
+			<BaseUseCallback />
+		</>
+	)
+}
+export default React.memo(Main)
