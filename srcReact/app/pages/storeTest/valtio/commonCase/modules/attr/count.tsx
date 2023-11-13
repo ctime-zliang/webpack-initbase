@@ -5,12 +5,12 @@ import { useSnapshot } from 'valtio'
 export function CountView(): React.ReactElement {
 	console.log(`Component: CountView`)
 	const mainStore: MainStore = useContext(MainStoreContext)
-	const attrStore = useSnapshot(mainStore.attrStore)
 	const inputInputAction = (e: React.FormEvent<HTMLInputElement>): void => {
 		const inputElement: HTMLInputElement = e.target as HTMLInputElement
 		mainStore.attrStore.count = +inputElement.value
 		mainStore.attrStore.whenPayamountUpdate()
 	}
+	const attrStore = useSnapshot(mainStore.attrStore)
 	const count: number = attrStore.count
 	return (
 		<div>

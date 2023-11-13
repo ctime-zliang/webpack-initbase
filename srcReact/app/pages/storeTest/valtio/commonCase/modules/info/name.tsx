@@ -5,11 +5,11 @@ import { useSnapshot } from 'valtio'
 export function NameView(): React.ReactElement {
 	console.log(`Component: NameView`)
 	const mainStore: MainStore = useContext(MainStoreContext)
-	const infoStore = useSnapshot(mainStore.infoStore)
 	const inputInputAction = (e: React.FormEvent<HTMLInputElement>): void => {
 		const inputElement: HTMLInputElement = e.target as HTMLInputElement
 		mainStore.infoStore.name = inputElement.value
 	}
+	const infoStore = useSnapshot(mainStore.infoStore)
 	return (
 		<div>
 			<label>Name: </label>
