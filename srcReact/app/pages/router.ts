@@ -15,10 +15,10 @@ import { componentContextmenuRoute } from './baseComponentList/contextmenu/route
 import { componentPresetManagerRoute } from './baseComponentList/presetManager/route'
 import { testpageCommonRoute } from './testpage/common/route'
 import { testpageErrorRoute } from './testpage/error/route'
-import { storeTestValtioCommonRoute } from './storeTest/valtio/route'
+import { storeTestValtioCommonRoute } from './storeTest/valtio/commonCase/route'
 import { storeTestErrorRoute } from './storeTest/error/route'
-import { storeTestReduxCommonRoute } from './storeTest/redux/route'
-import { storeTestEdaAbstractStoreCommonRoute } from './storeTest/edaStore/route'
+import { storeTestReduxCommonRoute } from './storeTest/redux/commonCase/route'
+import { storeTestEdaAbstractStoreCommonRoute } from './storeTest/edaStore/commonCase/route'
 
 export const createRoutes = (reduxStore: TReduxStore): Array<TRouteItem> => {
 	return [
