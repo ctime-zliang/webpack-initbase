@@ -10,6 +10,9 @@ export function PriceView(): React.ReactElement {
 		mainStore.attrStore.price = +inputElement.value
 		mainStore.attrStore.whenPayamountUpdate()
 	}
+	/**
+	 * 创建一份只读的快照
+	 */
 	const attrStore = useSnapshot(mainStore.attrStore)
 	return (
 		<div>

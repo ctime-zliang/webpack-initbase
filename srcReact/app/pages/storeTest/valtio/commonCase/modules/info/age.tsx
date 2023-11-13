@@ -9,6 +9,9 @@ export function AgeView(): React.ReactElement {
 		const inputElement: HTMLInputElement = e.target as HTMLInputElement
 		mainStore.infoStore.age = +inputElement.value
 	}
+	/**
+	 * 创建一份只读的快照
+	 */
 	const infoStore = useSnapshot(mainStore.infoStore)
 	return (
 		<div>

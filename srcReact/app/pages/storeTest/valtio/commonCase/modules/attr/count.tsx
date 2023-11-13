@@ -10,6 +10,9 @@ export function CountView(): React.ReactElement {
 		mainStore.attrStore.count = +inputElement.value
 		mainStore.attrStore.whenPayamountUpdate()
 	}
+	/**
+	 * 创建一份只读的快照
+	 */
 	const attrStore = useSnapshot(mainStore.attrStore)
 	const count: number = attrStore.count
 	return (

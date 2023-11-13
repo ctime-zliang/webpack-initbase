@@ -19,6 +19,7 @@ import { storeTestValtioCommonRoute } from './storeTest/valtio/commonCase/route'
 import { storeTestErrorRoute } from './storeTest/error/route'
 import { storeTestReduxCommonRoute } from './storeTest/redux/commonCase/route'
 import { storeTestEdaAbstractStoreCommonRoute } from './storeTest/edaStore/commonCase/route'
+// import { storeTestJotaiCommonRoute } from './storeTest/jotai/commonCase/route'
 
 export const createRoutes = (reduxStore: TReduxStore): Array<TRouteItem> => {
 	return [
@@ -34,6 +35,7 @@ export const createRoutes = (reduxStore: TReduxStore): Array<TRouteItem> => {
 				storeTestValtioCommonRoute(reduxStore),
 				storeTestReduxCommonRoute(reduxStore),
 				storeTestEdaAbstractStoreCommonRoute(reduxStore),
+				// storeTestJotaiCommonRoute(reduxStore),
 				storeTestErrorRoute(reduxStore),
 			],
 		},
