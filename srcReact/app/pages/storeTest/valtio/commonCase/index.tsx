@@ -1,16 +1,19 @@
 import React, { useLayoutEffect, useRef, useState } from 'react'
 import { Main } from './main'
-import { createStoreInstance, MainStoreContext, TMainStore } from './store/Main'
+import { createStoreInstance, MainStore, MainStoreContext } from './store/Main'
 
 function ValtioRoot(): React.ReactElement {
-	const [store, setStore] = useState<TMainStore>(null!)
-	const storeRef: { current: TMainStore } = useRef<TMainStore>(null!)
+	const [store, setStore] = useState<MainStore>(null!)
+	const storeRef: { current: MainStore } = useRef<MainStore>(null!)
 	useLayoutEffect((): (() => void) => {
-		createStoreInstance().then((storeInstacen: TMainStore): void => {
+		createStoreInstance().then((storeInstacen: MainStore): void => {
 			setStore(storeInstacen)
 			storeRef.current = storeInstacen
+			storeRef.current.whenMouned()
 		})
-		return (): void => {}
+		return (): void => {
+			storeRef.current.whenUnmount()
+		}
 	}, [])
 	if (!store) {
 		return <section>store initialing...</section>

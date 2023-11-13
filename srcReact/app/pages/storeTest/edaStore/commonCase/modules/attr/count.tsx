@@ -13,7 +13,8 @@ export function CountView(): React.ReactElement {
 	}
 	return (
 		<div>
-			<Input type="number" addonBefore="Count" defaultValue={mainStore.attrStore.count} onChange={inputInputAction} />
+			<label>Count: </label>
+			<input type="number" value={mainStore.attrStore.count} onChange={inputInputAction} />
 		</div>
 	)
 }

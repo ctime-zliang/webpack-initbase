@@ -9,9 +9,7 @@ export function ResultView(): React.ReactElement {
 	useWatch(mainStore.attrStore)
 	return (
 		<div>
-			<div>
-				Result: {mainStore.attrStore.price * mainStore.attrStore.count} (Title: {mainStore.infoStore.title || '-'})
-			</div>
+			Result: {mainStore.attrStore.price * mainStore.attrStore.count} (Title: {mainStore.infoStore.title || '-'})
 		</div>
 	)
 }

@@ -13,7 +13,8 @@ export function TitleView(): React.ReactElement {
 	}
 	return (
 		<div>
-			<Input addonBefore="Title" defaultValue={mainStore.infoStore.title} onChange={inputInputAction} />
+			<label>Title: </label>
+			<input type="text" value={mainStore.infoStore.title} onChange={inputInputAction} />
 		</div>
 	)
 }

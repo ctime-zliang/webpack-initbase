@@ -13,7 +13,8 @@ export function NameView(): React.ReactElement {
 	}
 	return (
 		<div>
-			<Input addonBefore="Name" defaultValue={mainStore.infoStore.name} onChange={inputInputAction} />
+			<label>Name: </label>
+			<input type="text" value={mainStore.infoStore.name} onChange={inputInputAction} />
 		</div>
 	)
 }

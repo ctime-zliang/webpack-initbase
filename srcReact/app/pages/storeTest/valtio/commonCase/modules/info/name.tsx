@@ -1,19 +1,19 @@
 import React, { useContext } from 'react'
-import { Input } from 'antd'
-import { TMainStore, MainStoreContext } from '../../store/Main'
+import { MainStoreContext, MainStore } from '../../store/Main'
 import { useSnapshot } from 'valtio'
 
 export function NameView(): React.ReactElement {
 	console.log(`Component: NameView`)
-	const mainStore: TMainStore = useContext(MainStoreContext)
-	useSnapshot(mainStore.infoStore)
+	const mainStore: MainStore = useContext(MainStoreContext)
+	const infoStore = useSnapshot(mainStore.infoStore)
 	const inputInputAction = (e: React.FormEvent<HTMLInputElement>): void => {
 		const inputElement: HTMLInputElement = e.target as HTMLInputElement
 		mainStore.infoStore.name = inputElement.value
 	}
 	return (
 		<div>
-			<Input addonBefore="Name" defaultValue={mainStore.infoStore.name} onChange={inputInputAction} />
+			<label>Name: </label>
+			<input type="text" value={infoStore.name} onChange={inputInputAction} />
 		</div>
 	)
 }

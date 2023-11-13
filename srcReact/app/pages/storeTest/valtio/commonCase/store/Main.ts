@@ -1,21 +1,33 @@
 import { createContext } from 'react'
 import { proxy, useSnapshot } from 'valtio'
-import { attrStoreTemplate, TAttrStore } from './Attr'
-import { infoStoreTemplate, TInfoStore } from './Info'
+import { AttrStore } from './Attr'
+import { InfoStore } from './Info'
 
-export async function createStoreInstance(): Promise<TMainStore> {
-	const store: TMainStore = proxy(mainStoreTemplate)
+export async function createStoreInstance(): Promise<MainStore> {
+	const storeInstance: MainStore = new MainStore()
+	const store: MainStore = proxy(storeInstance)
 	return store
 }
 
-export type TMainStore = {
-	attrStore: TAttrStore
-	infoStore: TInfoStore
+export class MainStore {
+	public infoStore: InfoStore
+	public attrStore: AttrStore
+	constructor() {
+		this.infoStore = new InfoStore(this)
+		this.attrStore = new AttrStore(this)
+	}
+
+	public async initial(): Promise<void> {
+		/* ... */
+	}
+
+	public whenMouned(): void {
+		console.log(`The module has mounted.`)
+	}
+
+	public whenUnmount(): void {
+		console.log(`The module has unmounted.`)
+	}
 }
 
-export const mainStoreTemplate: TMainStore = {
-	attrStore: attrStoreTemplate,
-	infoStore: infoStoreTemplate,
-}
-
-export const MainStoreContext = createContext<TMainStore>(null!)
+export const MainStoreContext = createContext<MainStore>(null!)

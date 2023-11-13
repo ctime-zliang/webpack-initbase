@@ -13,7 +13,8 @@ export function AgeView(): React.ReactElement {
 	}
 	return (
 		<div>
-			<Input type="number" addonBefore="Age" defaultValue={mainStore.infoStore.age} onChange={inputInputAction} />
+			<label>Age: </label>
+			<input type="number" value={mainStore.infoStore.age} onChange={inputInputAction} />
 		</div>
 	)
 }

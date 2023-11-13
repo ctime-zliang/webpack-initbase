@@ -13,7 +13,8 @@ export function PriceView(): React.ReactElement {
 	}
 	return (
 		<div>
-			<Input type="number" addonBefore="Price" defaultValue={mainStore.attrStore.price} onChange={inputInputAction} />
+			<label>Price: </label>
+			<input type="number" value={mainStore.attrStore.price} onChange={inputInputAction} />
 		</div>
 	)
 }
