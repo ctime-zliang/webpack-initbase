@@ -10,6 +10,7 @@ export function PriceView(): React.ReactElement {
 	const inputInputAction = (e: React.FormEvent<HTMLInputElement>): void => {
 		const inputElement: HTMLInputElement = e.target as HTMLInputElement
 		mainStore.attrStore.price = +inputElement.value
+		mainStore.attrStore.whenPayamountUpdate()
 	}
 	return (
 		<div>

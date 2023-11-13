@@ -8,7 +8,7 @@ export function ResultView(): React.ReactElement {
 	useWatch(mainStore.infoStore)
 	useWatch(mainStore.attrStore)
 	return (
-		<div>
+		<div style={{ color: mainStore.attrStore.warn ? 'red' : 'black' }}>
 			Result: {mainStore.attrStore.price * mainStore.attrStore.count} (Title: {mainStore.infoStore.title || '-'})
 		</div>
 	)

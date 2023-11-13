@@ -9,6 +9,7 @@ export function CountView(): React.ReactElement {
 	const inputInputAction = (e: React.FormEvent<HTMLInputElement>): void => {
 		const inputElement: HTMLInputElement = e.target as HTMLInputElement
 		mainStore.attrStore.count = +inputElement.value
+		mainStore.attrStore.whenPayamountUpdate()
 	}
 	const count: number = attrStore.count
 	return (

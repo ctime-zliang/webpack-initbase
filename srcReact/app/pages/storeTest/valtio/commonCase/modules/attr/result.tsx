@@ -7,7 +7,7 @@ export function ResultView(): React.ReactElement {
 	const mainStore: MainStore = useContext(MainStoreContext)
 	const { attrStore, infoStore } = useSnapshot(mainStore)
 	return (
-		<div>
+		<div style={{ color: attrStore.warn ? 'red' : 'black' }}>
 			Result: {attrStore.price * attrStore.count} (Title: {infoStore.title || '-'})
 		</div>
 	)

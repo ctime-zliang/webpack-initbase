@@ -4,10 +4,12 @@ export class AttrStore {
 	private parent: MainStore
 	private _price: number
 	private _count: number
+	private _warn: boolean
 	constructor(parent: MainStore) {
 		this.parent = parent
 		this._price = 100
 		this._count = 0
+		this._warn = false
 	}
 
 	public get price(): number {
@@ -22,5 +24,16 @@ export class AttrStore {
 	}
 	public set count(value: number) {
 		this._count = value
+	}
+
+	public get warn(): boolean {
+		return this._warn
+	}
+	public set warn(value: boolean) {
+		this._warn = value
+	}
+
+	public whenPayamountUpdate(): void {
+		this.warn = this.count * this.price >= 1000
 	}
 }
