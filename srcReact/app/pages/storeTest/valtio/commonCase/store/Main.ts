@@ -5,6 +5,7 @@ import { InfoStore } from './Info'
 
 export async function createStoreInstance(): Promise<MainStore> {
 	const storeInstance: MainStore = new MainStore()
+	await storeInstance.initial()
 	const store: MainStore = proxy(storeInstance)
 	return store
 }
