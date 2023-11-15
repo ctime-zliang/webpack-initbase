@@ -7,15 +7,15 @@ export type TAtomResult<T> = {
 	init: TAttrStore | TInfoStore
 } & any
 
-export type TMixinStore = {
+export type TMixinStoreMap = {
 	[key: string]: TAtomResult<TAttrStore | TInfoStore>
 }
 
-export async function createStoreInstance(): Promise<TMixinStore> {
-	const atomInstanceMap: TMixinStore = {}
-	atomInstanceMap[INFO_STORE_NAME] = atom({ ...infoStore })
-	atomInstanceMap[ATTR_STORE_NAME] = atom({ ...attrStore })
+export async function createStoreInstance(): Promise<TMixinStoreMap> {
+	const atomInstanceMap: Map<string, any> = new Map()
+	atomInstanceMap.set(INFO_STORE_NAME, atom({ ...infoStore }))
+	atomInstanceMap.set(ATTR_STORE_NAME, atom({ ...attrStore }))
 	return atomInstanceMap
 }
 
-export const AtomStoreContext = createContext<TMixinStore>(null!)
+export const AtomStoreContext = createContext<TMixinStoreMap>(null!)

@@ -12,7 +12,7 @@ export function NameView(): React.ReactElement {
 
 	useEffect((): (() => void) => {
 		const handler: () => void = subscribe(mainStore, (): void => {
-			console.log(`[Component: NameView] store.title has changed:`, mainStore.infoStore.title)
+			// console.log(`[Component: NameView] store.title has changed:`, mainStore.infoStore.title)
 		})
 		return (): void => {
 			handler()
@@ -23,6 +23,14 @@ export function NameView(): React.ReactElement {
 	 * 创建一份只读的快照
 	 */
 	const infoStore = useSnapshot(mainStore.infoStore)
+	// if (Math.random() > 0.5) {
+	// 	return (
+	// 		<div>
+	// 			<label>Name({infoStore.title}): </label>
+	// 			<input type="text" value={infoStore.name} onChange={inputInputAction} />
+	// 		</div>
+	// 	)
+	// }
 	return (
 		<div>
 			<label>Name: </label>

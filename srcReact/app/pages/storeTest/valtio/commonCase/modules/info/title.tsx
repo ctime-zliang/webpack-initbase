@@ -26,7 +26,7 @@ export function TitleView(): React.ReactElement {
 	return (
 		<div>
 			<label>Title: </label>
-			<input type="text" value={infoStore.title} onChange={inputInputAction} />
+			<input type="text" value={mainStore.infoStore.title} onChange={inputInputAction} />
 		</div>
 	)
 }

@@ -1,12 +1,12 @@
 import React, { useLayoutEffect, useRef, useState } from 'react'
 import { Main } from './main'
-import { createStoreInstance, AtomStoreContext, TMixinStore } from './store/Main'
+import { createStoreInstance, AtomStoreContext, TMixinStoreMap } from './store/Main'
 
 function ZustandRoot(): React.ReactElement {
-	const [store, setStore] = useState<TMixinStore>(null!)
-	const storeRef: { current: TMixinStore } = useRef<TMixinStore>(null!)
+	const [store, setStore] = useState<TMixinStoreMap>(null!)
+	const storeRef: { current: TMixinStoreMap } = useRef<TMixinStoreMap>(null!)
 	useLayoutEffect((): (() => void) => {
-		createStoreInstance().then((atomInstance: TMixinStore): void => {
+		createStoreInstance().then((atomInstance: TMixinStoreMap): void => {
 			setStore(atomInstance)
 			storeRef.current = atomInstance
 		})

@@ -1,12 +1,12 @@
 import React, { useContext } from 'react'
 import { useAtom } from 'jotai'
-import { AtomStoreContext, TMixinStore } from '../../store/Main'
+import { AtomStoreContext, TMixinStoreMap } from '../../store/Main'
 import { ATTR_STORE_NAME, TAttrStore, whenStoreCountUpdate } from '../../store/Attr'
 
 export function PriceView(): React.ReactElement {
 	console.log(`Component: PriceView`)
-	const atomStore: TMixinStore = useContext(AtomStoreContext)
-	const [valStore, setStore] = useAtom(atomStore[ATTR_STORE_NAME])
+	const atomStore: TMixinStoreMap = useContext(AtomStoreContext)
+	const [valStore, setStore] = useAtom(atomStore.get(ATTR_STORE_NAME))
 	const attrStore: TAttrStore = valStore as TAttrStore
 	const inputInputAction = (e: React.FormEvent<HTMLInputElement>): void => {
 		const inputElement: HTMLInputElement = e.target as HTMLInputElement
