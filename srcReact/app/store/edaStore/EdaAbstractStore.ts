@@ -1,8 +1,10 @@
 import { Dispatch } from 'react'
 
-type TTriggerItem = {
+export type TTriggerItemCallback = () => boolean
+
+export type TTriggerItem = {
 	setState: Dispatch<number>
-	callback?: () => Promise<boolean> | boolean
+	callback?: TTriggerItemCallback
 }
 
 export abstract class EdaAbstractStore {
@@ -24,9 +26,9 @@ export abstract class EdaAbstractStore {
 		this._$triggering = true
 		Promise.resolve().then((): void => {
 			++this._$ticket
-			this._$triggerMap.forEach(async (trigger: TTriggerItem): Promise<void> => {
+			this._$triggerMap.forEach((trigger: TTriggerItem): void => {
 				if (trigger.callback) {
-					const result: boolean = await trigger.callback()
+					const result: boolean = trigger.callback()
 					if (result) {
 						trigger.setState(this._$ticket)
 					}
@@ -38,7 +40,7 @@ export abstract class EdaAbstractStore {
 		})
 	}
 
-	public createEffect(setState: Dispatch<number>, callback?: () => Promise<boolean> | boolean): () => () => void {
+	public createEffect(setState: Dispatch<number>, callback?: TTriggerItemCallback): () => () => void {
 		const idx: number = ++this._$triggerIndex
 		return (): (() => void) => {
 			this._$triggerMap.set(idx, { setState, callback })

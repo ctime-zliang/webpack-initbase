@@ -1,7 +1,7 @@
 import { useLayoutEffect, useState } from 'react'
-import { EdaAbstractStore } from './EdaAbstractStore'
+import { EdaAbstractStore, TTriggerItemCallback } from './EdaAbstractStore'
 
-export function useWatch(store: EdaAbstractStore, callback?: () => Promise<boolean> | boolean): void {
+export function useWatch(store: EdaAbstractStore, callback?: TTriggerItemCallback): void {
 	const [, setState] = useState<number>(0)
-	useLayoutEffect(store.createEffect(setState, callback), [])
+	useLayoutEffect(store.createEffect(setState, callback))
 }
