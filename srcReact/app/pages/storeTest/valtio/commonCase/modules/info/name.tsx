@@ -23,7 +23,7 @@ export function NameView(): React.ReactElement {
 	 * 创建一份只读的快照
 	 */
 	const infoStore = useSnapshot(mainStore.infoStore)
-	// if (Math.random() > 0.5) {
+	// if (infoStore.title.length >= 5) {
 	// 	return (
 	// 		<div>
 	// 			<label>Name({infoStore.title}): </label>
