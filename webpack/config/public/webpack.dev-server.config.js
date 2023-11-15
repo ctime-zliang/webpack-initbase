@@ -13,7 +13,7 @@ module.exports = ({ port }) => {
 		inline: true,
 		watchContentBase: true,
 		historyApiFallback: true,
-		writeToDisk: true,
+		writeToDisk: false,
 		headers: {
 			Cookie: `sessionKey=webpacdevsessionKey; PATH=/;`,
 		},
