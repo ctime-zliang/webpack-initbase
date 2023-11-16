@@ -20,6 +20,7 @@ import { storeTestErrorRoute } from './storeTest/error/route'
 import { storeTestReduxCommonRoute } from './storeTest/redux/commonCase/route'
 import { storeTestEdaAbstractStoreCommonRoute } from './storeTest/edaStore/commonCase/route'
 import { storeTestJotaiCommonRoute } from './storeTest/jotai/commonCase/route'
+import { storeTestProxyStoreCommonRoute } from './storeTest/proxyStore/commonCase/route'
 
 export const createRoutes = (reduxStore: TReduxStore): Array<TRouteItem> => {
 	return [
@@ -36,6 +37,7 @@ export const createRoutes = (reduxStore: TReduxStore): Array<TRouteItem> => {
 				storeTestReduxCommonRoute(reduxStore),
 				storeTestEdaAbstractStoreCommonRoute(reduxStore),
 				storeTestJotaiCommonRoute(reduxStore),
+				storeTestProxyStoreCommonRoute(reduxStore),
 				storeTestErrorRoute(reduxStore),
 			],
 		},

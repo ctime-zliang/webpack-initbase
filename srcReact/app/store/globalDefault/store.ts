@@ -17,6 +17,7 @@ export const createInitialState = (): TStore => {
 					{ id: uuidv4(), title: 'Redux State Manager', desc: 'Redux Store Manager Case', path: '/storetest/redux' },
 					{ id: uuidv4(), title: 'EdaAbstractStore State Manager', desc: 'EdaAbstract Store Manager Case', path: '/storetest/eda' },
 					{ id: uuidv4(), title: 'Jotai State Manager', desc: 'Jotai Store Manager Case', path: '/storetest/jotai' },
+					{ id: uuidv4(), title: 'ProxyStore State Manager', desc: 'Proxy Store Manager Case', path: '/storetest/proxyStore' },
 				],
 			},
 			{

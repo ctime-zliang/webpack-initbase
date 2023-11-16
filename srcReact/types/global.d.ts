@@ -4,6 +4,8 @@ declare namespace NodeJS {
 	}
 }
 
+declare type PlainObject<T = any> = Record<string, T>
+
 declare module 'process'
 declare module 'lodash'
 
