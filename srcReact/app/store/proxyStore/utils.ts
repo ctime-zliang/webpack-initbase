@@ -1,5 +1,5 @@
-import { globalProxyStateMap, globalSnapCache } from './config'
-import { TKeyPath } from './types'
+import { globalProxyObjectHandlerMap, globalSnapCache } from './config'
+import { TKeyPath, TProxyObjectHandlerItem } from './types'
 
 export function isObject(val: any): boolean {
 	return typeof val === 'object' && val !== null
@@ -20,38 +20,38 @@ export function canProxy(val: any): boolean {
 	)
 }
 
-export function createSnapshot(target: PlainObject, version: number): any {
+export function createSnapshot(target: PlainObject, version: number): PlainObject {
 	const cache: PlainObject = globalSnapCache.get(target)
 	if (cache?.[0] === version) {
 		return cache[1]
 	}
 	const snap: PlainObject = Array.isArray(target) ? [] : Object.create(Object.getPrototypeOf(target))
 	globalSnapCache.set(target, [version, snap])
-	Reflect.ownKeys(target).forEach((key: TKeyPath): void => {
-		if (Object.getOwnPropertyDescriptor(snap, key)) {
+	Reflect.ownKeys(target).forEach((propKey: TKeyPath): void => {
+		if (Object.getOwnPropertyDescriptor(snap, propKey)) {
 			return
 		}
-		const value: any = Reflect.get(target, key)
+		const value: any = Reflect.get(target, propKey)
 		const descriptor: PlainObject = {
 			value,
 			enumerable: true,
 			configurable: true,
 		}
-		if (globalProxyStateMap.has(value)) {
-			const [target] = globalProxyStateMap.get(value)
-			descriptor.value = createSnapshot(target, version)
+		if (globalProxyObjectHandlerMap.has(value)) {
+			const proxyObjectHandlerItem: TProxyObjectHandlerItem = globalProxyObjectHandlerMap.get(value) as TProxyObjectHandlerItem
+			const { data } = proxyObjectHandlerItem
+			descriptor.value = createSnapshot(data, version)
 		}
-		Object.defineProperty(snap, key, descriptor)
+		Object.defineProperty(snap, propKey, descriptor)
 	})
 	return Object.preventExtensions(snap)
 }
 
 export function subscribe(proxyObject: PlainObject, callback: (val: any) => void): () => void {
-	const proxyState = globalProxyStateMap.get(proxyObject)
+	const proxyObjectHandlerItem: TProxyObjectHandlerItem = globalProxyObjectHandlerMap.get(proxyObject) as TProxyObjectHandlerItem
 	const ops: Array<any> = []
-	const addListener = proxyState[3]
 	// let isListenerActive: boolean = false
-	const removeListener = addListener((op: any): void => {
+	const removeListener = proxyObjectHandlerItem.addListener((op: any): void => {
 		ops.push(op)
 		callback(ops.splice(0))
 	})
@@ -63,7 +63,7 @@ export function subscribe(proxyObject: PlainObject, callback: (val: any) => void
 }
 
 export function snapshot(proxyObject: PlainObject) {
-	const proxyState = globalProxyStateMap.get(proxyObject)
-	const [target, ensureVersion, createSnapshot] = proxyState
-	return createSnapshot(target, ensureVersion())
+	const proxyObjectHandlerItem: TProxyObjectHandlerItem = globalProxyObjectHandlerMap.get(proxyObject) as TProxyObjectHandlerItem
+	const { data, ensureVersion, createSnapshot } = proxyObjectHandlerItem
+	return createSnapshot(data, ensureVersion())
 }

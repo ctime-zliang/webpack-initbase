@@ -1,19 +1,21 @@
-import { globalProxyStateMap, versionHolder } from './config'
-import { TKeyPath, TListenerHandler, TPropProxyStateItem } from './types'
+import { EMarkOperation, globalProxyObjectHandlerMap, versionHolder } from './config'
+import { TKeyPath, TListenerHandler, TMarkOperationStructureItem, TPropProxyObjectHandlerItem, TProxyObjectHandlerItem } from './types'
 import { createSnapshot, isObject } from './utils'
 
 export class ProxyStore {
+	private parent: ProxyStore
 	private _initialObject: PlainObject
 	private _nowVersion: number
 	private _checkVersion: number
 	private _listeners: Set<TListenerHandler>
-	private _propProxyStates: Map<string, TPropProxyStateItem>
-	constructor(initialObject: PlainObject) {
+	private _childPropProxyObjectHandlerMap: Map<string, TPropProxyObjectHandlerItem>
+	constructor(initialObject: PlainObject, parent?: ProxyStore) {
+		this.parent = parent || null!
 		this._initialObject = initialObject
 		this._nowVersion = versionHolder[0]
 		this._checkVersion = versionHolder[1]
 		this._listeners = new Set()
-		this._propProxyStates = new Map()
+		this._childPropProxyObjectHandlerMap = new Map()
 	}
 
 	public create(): any {
@@ -22,22 +24,32 @@ export class ProxyStore {
 		}
 		const localObject: PlainObject = Array.isArray(this._initialObject) ? [] : Object.create(Object.getPrototypeOf(this._initialObject))
 		const proxyObject: PlainObject = new Proxy(localObject, this.createProxyHandler())
+		/**
+		 * 获取对象 key 列表(不包含深层 key)
+		 */
 		const ownKeys: Array<TKeyPath> = Reflect.ownKeys(this._initialObject)
-		const proxyState = [this._initialObject, this.ensureVersion.bind(this), createSnapshot, this.addListener.bind(this)]
-		globalProxyStateMap.set(proxyObject, proxyState)
+		const proxyObjectHandlerItem: TProxyObjectHandlerItem = {
+			hostInstance: this,
+			/* ... */
+			data: this._initialObject,
+			createSnapshot,
+			ensureVersion: this.ensureVersion.bind(this),
+			addListener: this.addListener.bind(this),
+		}
+		globalProxyObjectHandlerMap.set(proxyObject, proxyObjectHandlerItem)
 		for (let i: number = 0; i < ownKeys.length; i++) {
-			const key: TKeyPath = ownKeys[i]
-			const descriptor: PropertyDescriptor = Object.getOwnPropertyDescriptor(this._initialObject, key) as PropertyDescriptor
+			const propKey: TKeyPath = ownKeys[i]
+			const descriptor: PropertyDescriptor = Object.getOwnPropertyDescriptor(this._initialObject, propKey) as PropertyDescriptor
 			if (descriptor.get || descriptor.set) {
-				Object.defineProperty(localObject, key, descriptor)
+				Object.defineProperty(localObject, propKey, descriptor)
 				continue
 			}
-			proxyObject[key as string] = this._initialObject[key as keyof PlainObject]
+			proxyObject[propKey as string] = this._initialObject[propKey as keyof PlainObject]
 		}
 		return proxyObject
 	}
 
-	private notifyUpdate(op: Array<any>, nextVersion: number = ++versionHolder[0]): void {
+	private notifyUpdate(op: TMarkOperationStructureItem, nextVersion: number = ++versionHolder[0]): void {
 		if (this._nowVersion !== nextVersion) {
 			this._nowVersion = nextVersion
 			this._listeners.forEach((listener: TListenerHandler): void => {
@@ -49,8 +61,9 @@ export class ProxyStore {
 	private ensureVersion(nextCheckVersion: number = ++versionHolder[0]): number {
 		if (this._checkVersion !== nextCheckVersion && !this._listeners.size) {
 			this._checkVersion = nextCheckVersion
-			this._propProxyStates.forEach(([propProxyStateItem]): void => {
-				const propVersion: number = propProxyStateItem[1](nextCheckVersion)
+			this._childPropProxyObjectHandlerMap.forEach((propProxyObjectHandlerItem: TPropProxyObjectHandlerItem, propKey: string): void => {
+				const proxyObjectHandlerItem: TProxyObjectHandlerItem = propProxyObjectHandlerItem.handlerItem as TProxyObjectHandlerItem
+				const propVersion: number = proxyObjectHandlerItem.ensureVersion(nextCheckVersion)
 				if (propVersion > this._nowVersion) {
 					this._nowVersion = propVersion
 				}
@@ -59,46 +72,63 @@ export class ProxyStore {
 		return this._nowVersion
 	}
 
-	private createPropListener(prop: string): (op: Array<any>) => void {
-		return (op: Array<any>): void => {
-			const newOp: Array<any> = [...op]
-			newOp[1] = [prop, ...newOp[1]]
-			this.notifyUpdate(newOp)
-		}
-	}
-
-	private addPropListener(prop: string, propProxyStateItem: any): void {
+	private addPropListener(propKey: string, proxyObjectHandlerItem: TProxyObjectHandlerItem): void {
 		if (this._listeners.size) {
-			const remove = propProxyStateItem[3](this.createPropListener(prop))
-			this._propProxyStates.set(prop, [propProxyStateItem, remove])
+			const remove = proxyObjectHandlerItem.addListener((op: TMarkOperationStructureItem): void => {
+				const newOp: TMarkOperationStructureItem = [...op]
+				newOp[1] = [propKey, ...newOp[1]]
+				this.notifyUpdate(newOp)
+			})
+			this._childPropProxyObjectHandlerMap.set(propKey, {
+				handlerItem: proxyObjectHandlerItem,
+				listenerRemove: remove,
+			})
 			return
 		}
-		this._propProxyStates.set(prop, [propProxyStateItem])
+		this._childPropProxyObjectHandlerMap.set(propKey, {
+			handlerItem: proxyObjectHandlerItem,
+			listenerRemove: null!,
+		})
 	}
 
-	private removePropListener(prop: string): void {
-		const entry = this._propProxyStates.get(prop)
-		if (entry) {
-			this._propProxyStates.delete(prop)
-			entry[1]?.()
+	private removePropListener(propKey: string): void {
+		const propProxyObjectHandlerItem: TPropProxyObjectHandlerItem = this._childPropProxyObjectHandlerMap.get(
+			propKey
+		) as TPropProxyObjectHandlerItem
+		if (propProxyObjectHandlerItem) {
+			this._childPropProxyObjectHandlerMap.delete(propKey)
+			propProxyObjectHandlerItem.listenerRemove && propProxyObjectHandlerItem.listenerRemove()
 		}
 	}
 
 	private addListener(listener: TListenerHandler): () => void {
 		this._listeners.add(listener)
 		if (this._listeners.size <= 1) {
-			this._propProxyStates.forEach(([proxyState, prevRemove], prop): void => {
-				const remove = proxyState[3](this.createPropListener(prop))
-				this._propProxyStates.set(prop, [proxyState, remove])
+			this._childPropProxyObjectHandlerMap.forEach((propProxyObjectHandlerItem: TPropProxyObjectHandlerItem, propKey: string): void => {
+				const proxyObjectHandlerItem: TProxyObjectHandlerItem = propProxyObjectHandlerItem.handlerItem as TProxyObjectHandlerItem
+				const listenerRemove = proxyObjectHandlerItem.addListener((op: TMarkOperationStructureItem): void => {
+					const newOp: TMarkOperationStructureItem = [...op]
+					newOp[1] = [propKey, ...newOp[1]]
+					this.notifyUpdate(newOp)
+				})
+				this._childPropProxyObjectHandlerMap.set(propKey, {
+					handlerItem: proxyObjectHandlerItem,
+					listenerRemove,
+				})
 			})
 		}
 		return (): void => {
 			this._listeners.delete(listener)
 			if (this._listeners.size <= 0) {
-				this._propProxyStates.forEach(([propProxyState, remove], prop): void => {
-					if (remove) {
-						remove()
-						this._propProxyStates.set(prop, [propProxyState])
+				this._childPropProxyObjectHandlerMap.forEach((propProxyObjectHandlerItem: TPropProxyObjectHandlerItem, propKey: string): void => {
+					const proxyObjectHandlerItem: TProxyObjectHandlerItem = propProxyObjectHandlerItem.handlerItem as TProxyObjectHandlerItem
+					const listenerRemove = propProxyObjectHandlerItem.listenerRemove
+					if (listenerRemove) {
+						listenerRemove()
+						this._childPropProxyObjectHandlerMap.set(propKey, {
+							handlerItem: proxyObjectHandlerItem,
+							listenerRemove: null!,
+						})
 					}
 				})
 			}
@@ -113,27 +143,27 @@ export class ProxyStore {
 				self.removePropListener(prop)
 				const deleted: boolean = Reflect.deleteProperty(target, prop)
 				if (deleted) {
-					self.notifyUpdate(['delete', [prop], prevValue])
+					self.notifyUpdate([EMarkOperation.DELETE, [prop], prevValue, undefined])
 				}
 				return deleted
 			},
-			set(target: PlainObject, prop: string, value: any, receiver: any): any | boolean {
+			set(target: PlainObject, prop: string, value: any, receiver: ProxyHandler<PlainObject>): any | boolean {
 				const hasPrev: boolean = Reflect.has(target, prop)
-				const prevValue: any = Reflect.get(target, prop, receiver)
-				if (hasPrev && prevValue === value) {
+				const oldValue: any = Reflect.get(target, prop, receiver)
+				if (hasPrev && oldValue === value) {
 					return true
 				}
 				self.removePropListener(prop)
 				let newValue: any = value
-				if (!globalProxyStateMap.get(value) && isObject(value)) {
-					newValue = new ProxyStore(value).create()
+				if (isObject(value) && !globalProxyObjectHandlerMap.get(value)) {
+					newValue = new ProxyStore(value, self).create()
 				}
-				const childState = globalProxyStateMap.get(newValue)
-				if (childState) {
-					self.addPropListener(prop, childState)
+				const proxyObjectHandlerItem: TProxyObjectHandlerItem = globalProxyObjectHandlerMap.get(newValue) as TProxyObjectHandlerItem
+				if (proxyObjectHandlerItem) {
+					self.addPropListener(prop, proxyObjectHandlerItem)
 				}
 				const res: boolean = Reflect.set(target, prop, newValue, receiver)
-				self.notifyUpdate(['set', [prop], newValue, prevValue])
+				self.notifyUpdate([EMarkOperation.SET, [prop], newValue, oldValue])
 				return res
 			},
 		}

@@ -29,31 +29,47 @@ import { createStoreInstance, MainStore, MainStoreContext } from './store/Main'
 // }
 
 const data: any = {
-	count: 0,
-	text: 'hello',
-	person: {
-		name: 'proxystore',
-		age: 23,
-		box: {
-			width: 3,
-			heigth: 4,
+	username: 'zhang',
+	level: '1',
+	symbolItem: {
+		title: 'symbol',
+		id: 's-1',
+		author: {
+			username: 'zhang',
+		},
+		project: {
+			projectName: 'test',
+			belong: 'zhang',
+		},
+	},
+	footprintItem: {
+		title: 'footprint',
+		id: 'f-1',
+		author: {
+			username: 'zhang',
+		},
+		project: {
+			projectName: 'test',
+			belong: 'zhang',
 		},
 	},
 }
 
-function ProxyStoreRoot(): React.ReactElement {
-	const proData = new ProxyStore(data).create()
+const proxyData = new ProxyStore(data).create()
 
-	const unscribe = subscribe(proData, op => {
-		const snap = snapshot(proData)
-		console.log(`op`, JSON.stringify(op))
-		console.log(`snap`, JSON.stringify(snap))
-	})
-	proData.count = 1
-	// delete proData.text;
-	proData.person.age = 3
-	// unscribe();
-	// proData.person.box.width = 5;
+const cancel = subscribe(proxyData, (op: any): void => {
+	const snap = snapshot(proxyData)
+	console.log(`op`, JSON.stringify(op))
+	console.log(`snap`, JSON.stringify(snap))
+})
+proxyData.username = 'zhang_updated'
+delete proxyData.level
+proxyData.symbolItem.title = 'symbol_updated'
+proxyData.age = 18
+
+function ProxyStoreRoot(): React.ReactElement {
+	// cancel();
+	// proxyData.person.box.width = 5;
 	return <section>Proxy Store</section>
 }
 
