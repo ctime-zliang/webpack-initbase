@@ -29,33 +29,27 @@ import { createStoreInstance, MainStore, MainStoreContext } from './store/Main'
 // }
 
 const data: any = {
-	username: 'zhang',
+	username: 'zhangsan',
 	level: '1',
 	symbolItem: {
 		title: 'symbol',
-		id: 's-1',
 		author: {
-			username: 'zhang',
+			nickname: 'lisi',
 		},
-		project: {
-			projectName: 'test',
-			belong: 'zhang',
-		},
+		id: 's-1',
 	},
 	footprintItem: {
 		title: 'footprint',
-		id: 'f-1',
-		author: {
-			username: 'zhang',
-		},
 		project: {
 			projectName: 'test',
-			belong: 'zhang',
+			belong: 'wangwu',
 		},
+		id: 'f-1',
 	},
 }
 
-const proxyData = new ProxyStore(data).create()
+const proxyStore = new ProxyStore(data)
+const proxyData = proxyStore.create()
 
 const cancel = subscribe(proxyData, (op: any): void => {
 	const snap = snapshot(proxyData)

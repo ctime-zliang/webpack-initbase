@@ -155,8 +155,8 @@ export class ProxyStore {
 				}
 				self.removePropListener(prop)
 				let newValue: any = value
-				if (isObject(value) && !globalProxyObjectHandlerMap.get(value)) {
-					newValue = new ProxyStore(value, self).create()
+				if (isObject(newValue) && !globalProxyObjectHandlerMap.get(newValue)) {
+					newValue = new ProxyStore(newValue, self).create()
 				}
 				const proxyObjectHandlerItem: TProxyObjectHandlerItem = globalProxyObjectHandlerMap.get(newValue) as TProxyObjectHandlerItem
 				if (proxyObjectHandlerItem) {
