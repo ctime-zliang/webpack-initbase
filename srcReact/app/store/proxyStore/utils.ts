@@ -1,5 +1,5 @@
 import { globalProxyObjectHandlerMap, globalSnapCache } from './config'
-import { TKeyPath, TProxyObjectHandlerItem } from './types'
+import { TKeyPath, TMarkOperationStructureItem, TProxyObjectHandlerItem, TSnapCacheItem } from './types'
 
 export function isObject(val: any): boolean {
 	return typeof val === 'object' && val !== null
@@ -20,18 +20,19 @@ export function canProxy(val: any): boolean {
 	)
 }
 
-export function createSnapshot(target: PlainObject, version: number): PlainObject {
-	const cache: PlainObject = globalSnapCache.get(target)
-	if (cache?.[0] === version) {
-		return cache[1]
+export function createSnapshot(data: PlainObject, version: number): PlainObject {
+	const snapCacheItem: TSnapCacheItem = globalSnapCache.get(data) as TSnapCacheItem
+	if (snapCacheItem && snapCacheItem[0] === version) {
+		return snapCacheItem[1]
 	}
-	const snap: PlainObject = Array.isArray(target) ? [] : Object.create(Object.getPrototypeOf(target))
-	globalSnapCache.set(target, [version, snap])
-	Reflect.ownKeys(target).forEach((propKey: TKeyPath): void => {
-		if (Object.getOwnPropertyDescriptor(snap, propKey)) {
+	const snapCacheData: PlainObject = Array.isArray(data) ? [] : Object.create(Object.getPrototypeOf(data))
+	globalSnapCache.set(data, [version, snapCacheData])
+	const ownKeys: Array<TKeyPath> = Reflect.ownKeys(data)
+	ownKeys.forEach((propKey: TKeyPath): void => {
+		if (Object.getOwnPropertyDescriptor(snapCacheData, propKey)) {
 			return
 		}
-		const value: any = Reflect.get(target, propKey)
+		const value: any = Reflect.get(data, propKey)
 		const descriptor: PlainObject = {
 			value,
 			enumerable: true,
@@ -42,22 +43,17 @@ export function createSnapshot(target: PlainObject, version: number): PlainObjec
 			const { data } = proxyObjectHandlerItem
 			descriptor.value = createSnapshot(data, version)
 		}
-		Object.defineProperty(snap, propKey, descriptor)
+		Object.defineProperty(snapCacheData, propKey, descriptor)
 	})
-	return Object.preventExtensions(snap)
+	return Object.preventExtensions(snapCacheData)
 }
 
-export function subscribe(proxyObject: PlainObject, callback: (val: any) => void): () => void {
+export function subscribe(proxyObject: PlainObject, callback: (val: TMarkOperationStructureItem) => void): () => void {
 	const proxyObjectHandlerItem: TProxyObjectHandlerItem = globalProxyObjectHandlerMap.get(proxyObject) as TProxyObjectHandlerItem
-	const ops: Array<any> = []
-	// let isListenerActive: boolean = false
-	const removeListener = proxyObjectHandlerItem.addListener((op: any): void => {
-		ops.push(op)
-		callback(ops.splice(0))
+	const removeListener = proxyObjectHandlerItem.addListener((op: TMarkOperationStructureItem): void => {
+		callback(op)
 	})
-	// isListenerActive = true
 	return (): void => {
-		// isListenerActive = false
 		removeListener()
 	}
 }

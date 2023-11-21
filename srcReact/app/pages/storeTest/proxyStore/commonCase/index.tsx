@@ -1,5 +1,5 @@
 import React, { useLayoutEffect, useRef, useState } from 'react'
-import { ProxyStore, snapshot, subscribe } from '../../../../store/proxyStore'
+import { MarkOperationStructureItem, ProxyStore, snapshot, subscribe } from '../../../../store/proxyStore'
 import { Main } from './main'
 import { createStoreInstance, MainStore, MainStoreContext } from './store/Main'
 
@@ -46,24 +46,40 @@ const data: any = {
 		},
 		id: 'f-1',
 	},
+	list: [
+		{ name: 'name-1', id: '1' },
+		{ name: 'name-2', id: '2' },
+	],
 }
 
 const proxyStore = new ProxyStore(data)
-const proxyData = proxyStore.create()
+const proxyData = proxyStore.proxyObject
 
-const cancel = subscribe(proxyData, (op: any): void => {
-	const snap = snapshot(proxyData)
-	console.log(`op`, JSON.stringify(op))
-	console.log(`snap`, JSON.stringify(snap))
-})
-proxyData.username = 'zhang_updated'
+console.log(proxyStore)
+
+// const cancel = subscribe(proxyData, (op: MarkOperationStructureItem): void => {
+// 	console.log(`op = `, op)
+// 	const snap = snapshot(proxyData)
+// 	console.log(`snap = `, JSON.stringify(snap))
+// })
+
+const snap1 = snapshot(proxyData)
+console.log(`snap1 = `, JSON.stringify(snap1))
+
+proxyData.username = 'zhangsan_updated'
 delete proxyData.level
+proxyData.newKey = 'addKey'
 proxyData.symbolItem.title = 'symbol_updated'
 proxyData.age = 18
+proxyData.list.push({ name: 'name-3', id: '3' })
+proxyData.list[1].name = 'name-2_updated'
+
+// cancel()
+
+const snap2 = snapshot(proxyData)
+console.log(`snap2 = `, JSON.stringify(snap2))
 
 function ProxyStoreRoot(): React.ReactElement {
-	// cancel();
-	// proxyData.person.box.width = 5;
 	return <section>Proxy Store</section>
 }
 
