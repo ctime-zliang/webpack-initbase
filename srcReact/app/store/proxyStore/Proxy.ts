@@ -53,10 +53,6 @@ export class ProxyStore {
 		return this._proxyObject
 	}
 
-	private get proxyObjectHandlerItem(): TProxyObjectHandlerItem {
-		return this._proxyObjectHandlerItem
-	}
-
 	private notifyUpdate(op: TMarkOperationStructureItem, nextVersion: number = ++markVersionHolder[0]): void {
 		this._nowVersion = nextVersion
 		this._listeners.forEach((listener: TListenerHandler): void => {
@@ -165,7 +161,7 @@ export class ProxyStore {
 						const childProxyStore: ProxyStore = new ProxyStore(newValue, self)
 						self._childMap.set(prop, childProxyStore)
 						newValue = childProxyStore.proxyObject
-						self.addPropListener(prop, childProxyStore.proxyObjectHandlerItem)
+						self.addPropListener(prop, childProxyStore._proxyObjectHandlerItem)
 					}
 				}
 				const res: boolean = Reflect.set(target, prop, newValue, receiver)
