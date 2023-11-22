@@ -30,7 +30,7 @@ export class ProxyStore {
 		const localObject: PlainObject = Array.isArray(this._initialObject) ? [] : Object.create(Object.getPrototypeOf(this._initialObject))
 		const proxyObject: PlainObject = new Proxy(localObject, this.createProxyHandler())
 		const proxyObjectHandlerItem: TProxyObjectHandlerItem = {
-			data: this._initialObject,
+			data: localObject,
 			createSnapshot,
 			ensureVersion: this.ensureVersion.bind(this),
 			addListener: this.addListener.bind(this),

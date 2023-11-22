@@ -48,12 +48,34 @@ export function createSnapshot(data: PlainObject, version: number): PlainObject 
 	return Object.preventExtensions(snapCacheData)
 }
 
-export function subscribe(proxyObject: PlainObject, callback: (val: TMarkOperationStructureItem) => void): () => void {
+export function subscribe(
+	proxyObject: PlainObject,
+	callback: (val: Array<TMarkOperationStructureItem>) => void,
+	notifyInSync: boolean = false
+): () => void {
 	const proxyObjectHandlerItem: TProxyObjectHandlerItem = globalProxyObjectHandlerMap.get(proxyObject) as TProxyObjectHandlerItem
-	const removeListener = proxyObjectHandlerItem.addListener((op: TMarkOperationStructureItem): void => {
-		callback(op)
-	})
+	const ops: Array<TMarkOperationStructureItem> = []
+	let promise: Promise<void> | undefined
+	let isListenerActive: boolean = false
+	const listener = (op: TMarkOperationStructureItem): void => {
+		ops.push(op)
+		if (notifyInSync) {
+			callback(ops.splice(0))
+			return
+		}
+		if (!promise) {
+			promise = Promise.resolve().then((): void => {
+				promise = undefined
+				if (isListenerActive) {
+					callback(ops.splice(0))
+				}
+			})
+		}
+	}
+	const removeListener = proxyObjectHandlerItem.addListener(listener)
+	isListenerActive = true
 	return (): void => {
+		isListenerActive = false
 		removeListener()
 	}
 }

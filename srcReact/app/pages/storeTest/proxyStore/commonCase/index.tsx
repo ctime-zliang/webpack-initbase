@@ -1,7 +1,8 @@
 import React, { useLayoutEffect, useRef, useState } from 'react'
-import { MarkOperationStructureItem, ProxyStore, snapshot, subscribe } from '../../../../store/proxyStore'
+import { MarkOperationStructureItem, ProxyStore, snapshot as proxySnapshot, subscribe as proxySubscribe } from '../../../../store/proxyStore'
 import { Main } from './main'
 import { createStoreInstance, MainStore, MainStoreContext } from './store/Main'
+import { proxy, subscribe as valtioSubscribe, snapshot as valtioSnapshot } from 'valtio'
 
 // function ProxyStoreRoot(): React.ReactElement {
 // 	const [store, setStore] = useState<MainStore>(null!)
@@ -28,7 +29,7 @@ import { createStoreInstance, MainStore, MainStoreContext } from './store/Main'
 // 	)
 // }
 
-const data: any = {
+const data: PlainObject = {
 	username: 'zhangsan',
 	level: '1',
 	symbolItem: {
@@ -52,19 +53,23 @@ const data: any = {
 	],
 }
 
-const proxyStore = new ProxyStore(data)
+const proxyStore = new ProxyStore(JSON.parse(JSON.stringify(data)))
 const proxyData = proxyStore.proxyObject
 
 console.log(proxyStore)
 
-// const cancel = subscribe(proxyData, (op: MarkOperationStructureItem): void => {
-// 	console.log(`op = `, op)
-// 	const snap = snapshot(proxyData)
-// 	console.log(`snap = `, JSON.stringify(snap))
-// })
+const proxySubscribeCancel = proxySubscribe(
+	proxyData,
+	(op: Array<MarkOperationStructureItem>): void => {
+		console.log(`op = `, op)
+		const proxySnap = proxySnapshot(proxyData)
+		console.log(`proxySnap = `, JSON.stringify(proxySnap))
+	},
+	false
+)
 
-const snap1 = snapshot(proxyData)
-console.log(`snap1 = `, JSON.stringify(snap1))
+const proxySnap1 = proxySnapshot(proxyData)
+console.log(`proxySnap1 = `, JSON.stringify(proxySnap1))
 
 proxyData.username = 'zhangsan_updated'
 delete proxyData.level
@@ -74,10 +79,36 @@ proxyData.age = 18
 proxyData.list.push({ name: 'name-3', id: '3' })
 proxyData.list[1].name = 'name-2_updated'
 
-// cancel()
+// proxySubscribeCancel()
 
-const snap2 = snapshot(proxyData)
-console.log(`snap2 = `, JSON.stringify(snap2))
+const proxySnap2 = proxySnapshot(proxyData)
+console.log(`proxySnap2 = `, JSON.stringify(proxySnap2))
+
+/******************************************************************************************/
+/******************************************************************************************/
+/******************************************************************************************/
+
+const valtioState = proxy(JSON.parse(JSON.stringify(data)))
+
+// // const valtioSubscribeCancel = valtioSubscribe(valtioState, (params: any): void => {
+// // 	console.log(`params = `, params)
+// // })
+
+// const valtioSnap1 = valtioSnapshot(valtioState)
+// console.log(`valtioSnap1 = `, JSON.stringify(valtioSnap1))
+
+// valtioState.username = 'zhangsan_updated'
+// delete valtioState.level
+// valtioState.newKey = 'addKey'
+// valtioState.symbolItem.title = 'symbol_updated'
+// valtioState.age = 18
+// valtioState.list.push({ name: 'name-3', id: '3' })
+// valtioState.list[1].name = 'name-2_updated'
+
+// const valtioSnap2 = valtioSnapshot(valtioState)
+// console.log(`valtioSnap2 = `, JSON.stringify(valtioSnap2))
+
+// // valtioSubscribeCancel()
 
 function ProxyStoreRoot(): React.ReactElement {
 	return <section>Proxy Store</section>
