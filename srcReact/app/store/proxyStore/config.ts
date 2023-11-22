@@ -9,4 +9,11 @@ export enum EMarkOperation {
 	SET = 'SET',
 	GET = 'GET',
 	DELETE = 'DELETE',
+	RESOLVE = 'RESOLVE',
+	REJECT = 'REJECT',
+}
+
+export enum EPromiseStatus {
+	FULFILLED = 'fulfilled',
+	REJECTED = 'rejected',
 }

@@ -1,6 +1,6 @@
-import { EMarkOperation, globalProxyObjectHandlerMap, markVersionHolder } from './config'
+import { EMarkOperation, EPromiseStatus, globalProxyObjectHandlerMap, markVersionHolder } from './config'
 import { TKeyPath, TListenerHandler, TMarkOperationStructureItem, TProxyObjectHandlerItem } from './types'
-import { createSnapshot, isObject } from './utils'
+import { canProxy, createSnapshot, isObject } from './utils'
 
 export class ProxyStore {
 	private parent: ProxyStore
@@ -148,11 +148,25 @@ export class ProxyStore {
 				}
 				self.removePropListener(prop)
 				let newValue: any = value
-				if (isObject(newValue) && !globalProxyObjectHandlerMap.has(newValue)) {
-					const childProxyStore: ProxyStore = new ProxyStore(newValue, self)
-					self._childMap.set(prop, childProxyStore)
-					newValue = childProxyStore.proxyObject
-					self.addPropListener(prop, childProxyStore.proxyObjectHandlerItem)
+				if (value instanceof Promise) {
+					value
+						.then((v: any): void => {
+							;(value as any).status = EPromiseStatus.FULFILLED
+							;(value as any).value = v
+							self.notifyUpdate([EMarkOperation.RESOLVE, [prop], v, oldValue])
+						})
+						.catch((e: any): void => {
+							;(value as any).status = EPromiseStatus.REJECTED
+							;(value as any).reason = e
+							self.notifyUpdate([EMarkOperation.REJECT, [prop], e, undefined])
+						})
+				} else {
+					if (canProxy(newValue) && !globalProxyObjectHandlerMap.has(newValue)) {
+						const childProxyStore: ProxyStore = new ProxyStore(newValue, self)
+						self._childMap.set(prop, childProxyStore)
+						newValue = childProxyStore.proxyObject
+						self.addPropListener(prop, childProxyStore.proxyObjectHandlerItem)
+					}
 				}
 				const res: boolean = Reflect.set(target, prop, newValue, receiver)
 				self.notifyUpdate([EMarkOperation.SET, [prop], value, oldValue])
