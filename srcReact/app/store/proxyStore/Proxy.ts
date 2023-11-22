@@ -4,7 +4,6 @@ import { createSnapshot, isObject } from './utils'
 
 export class ProxyStore {
 	private parent: ProxyStore
-	private _initialObject: PlainObject
 	private _nowVersion: number
 	private _checkVersion: number
 	private _listeners: Set<TListenerHandler>
@@ -13,21 +12,20 @@ export class ProxyStore {
 	private _proxyObjectHandlerItem: TProxyObjectHandlerItem
 	constructor(initialObject: PlainObject, parent?: ProxyStore) {
 		this.parent = parent || null!
-		this._initialObject = initialObject
 		this._nowVersion = markVersionHolder[0]
 		this._checkVersion = markVersionHolder[1]
 		this._listeners = new Set()
 		this._proxyObject = null!
 		this._childMap = new Map()
 		this._proxyObjectHandlerItem = null!
-		this.initial()
+		this.initial(initialObject)
 	}
 
-	private initial(): void {
-		if (!isObject(this._initialObject)) {
+	private initial(initialObject: PlainObject): void {
+		if (!isObject(initialObject)) {
 			throw new Error('need object.')
 		}
-		const localObject: PlainObject = Array.isArray(this._initialObject) ? [] : Object.create(Object.getPrototypeOf(this._initialObject))
+		const localObject: PlainObject = Array.isArray(initialObject) ? [] : Object.create(Object.getPrototypeOf(initialObject))
 		const proxyObject: PlainObject = new Proxy(localObject, this.createProxyHandler())
 		const proxyObjectHandlerItem: TProxyObjectHandlerItem = {
 			data: localObject,
@@ -37,15 +35,15 @@ export class ProxyStore {
 			listenerRemove: null!,
 		}
 		globalProxyObjectHandlerMap.set(proxyObject, proxyObjectHandlerItem)
-		const ownKeys: Array<TKeyPath> = Reflect.ownKeys(this._initialObject)
+		const ownKeys: Array<TKeyPath> = Reflect.ownKeys(initialObject)
 		for (let i: number = 0; i < ownKeys.length; i++) {
 			const propKey: TKeyPath = ownKeys[i]
-			const descriptor: PropertyDescriptor = Object.getOwnPropertyDescriptor(this._initialObject, propKey) as PropertyDescriptor
+			const descriptor: PropertyDescriptor = Object.getOwnPropertyDescriptor(initialObject, propKey) as PropertyDescriptor
 			if (descriptor.get || descriptor.set) {
 				Object.defineProperty(localObject, propKey, descriptor)
 				continue
 			}
-			proxyObject[propKey as string] = this._initialObject[propKey as keyof PlainObject]
+			proxyObject[propKey as string] = initialObject[propKey as keyof PlainObject]
 		}
 		this._proxyObject = proxyObject
 		this._proxyObjectHandlerItem = proxyObjectHandlerItem

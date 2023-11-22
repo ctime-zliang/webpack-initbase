@@ -61,9 +61,9 @@ console.log(proxyStore)
 const proxySubscribeCancel = proxySubscribe(
 	proxyData,
 	(op: Array<MarkOperationStructureItem>): void => {
-		console.log(`op = `, op)
+		console.log(`proxySubscribe.op = `, op)
 		const proxySnap = proxySnapshot(proxyData)
-		console.log(`proxySnap = `, JSON.stringify(proxySnap))
+		console.log(`proxySubscribe.proxySnap = `, JSON.stringify(proxySnap))
 	},
 	false
 )
@@ -81,8 +81,8 @@ proxyData.list[1].name = 'name-2_updated'
 
 // proxySubscribeCancel()
 
-const proxySnap2 = proxySnapshot(proxyData)
-console.log(`proxySnap2 = `, JSON.stringify(proxySnap2))
+// const proxySnap2 = proxySnapshot(proxyData)
+// console.log(`proxySnap2 = `, JSON.stringify(proxySnap2))
 
 /******************************************************************************************/
 /******************************************************************************************/
