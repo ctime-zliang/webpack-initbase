@@ -1,6 +1,6 @@
 import React, { useContext } from 'react'
 import { MainStoreContext, MainStore } from '../../store/Main'
-import { useSnapshot } from 'valtio'
+import { subscribe, useSnapshot } from '../../../../../../store/proxyStore'
 
 export function PriceView(): React.ReactElement {
 	console.log(`Component: PriceView`)
@@ -17,7 +17,7 @@ export function PriceView(): React.ReactElement {
 	return (
 		<div>
 			<label>Price: </label>
-			<input type="number" value={attrStore.price} onChange={inputInputAction} />
+			<input type="number" value={mainStore.attrStore.price} onChange={inputInputAction} />
 		</div>
 	)
 }

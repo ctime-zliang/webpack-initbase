@@ -1,6 +1,6 @@
 import React, { useContext, useEffect } from 'react'
 import { MainStoreContext, MainStore } from '../../store/Main'
-import { useSnapshot, subscribe } from 'valtio'
+import { subscribe, useSnapshot } from '../../../../../../store/proxyStore'
 
 export function NameView(): React.ReactElement {
 	console.log(`Component: NameView`)
@@ -11,11 +11,11 @@ export function NameView(): React.ReactElement {
 	}
 
 	useEffect((): (() => void) => {
-		const handler: () => void = subscribe(mainStore, (): void => {
-			// console.log(`[Component: NameView] store.title has changed:`, mainStore.infoStore.title)
-		})
+		// const handler: () => void = subscribe(mainStore, (): void => {
+		// 	// console.log(`[Component: NameView] store.title has changed:`, mainStore.infoStore.title)
+		// })
 		return (): void => {
-			handler()
+			// handler()
 		}
 	}, [])
 

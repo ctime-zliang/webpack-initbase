@@ -20,19 +20,20 @@ export function canProxy(val: any): boolean {
 	)
 }
 
-export function createSnapshot(data: PlainObject, version: number): PlainObject {
-	const snapCacheItem: TSnapCacheItem = globalSnapCache.get(data) as TSnapCacheItem
+const hitObjectMap: Map<object, PlainObject> = new Map()
+export function createSnapshot(objectData: PlainObject, version: number): PlainObject {
+	const snapCacheItem: TSnapCacheItem = globalSnapCache.get(objectData) as TSnapCacheItem
 	if (snapCacheItem && snapCacheItem[0] === version) {
 		return snapCacheItem[1]
 	}
-	const snapCacheData: PlainObject = Array.isArray(data) ? [] : Object.create(Object.getPrototypeOf(data))
-	globalSnapCache.set(data, [version, snapCacheData])
-	const ownKeys: Array<TKeyPath> = Reflect.ownKeys(data)
-	ownKeys.forEach((propKey: TKeyPath): void => {
-		if (Object.getOwnPropertyDescriptor(snapCacheData, propKey)) {
-			return
+	const snapCacheData: PlainObject = Array.isArray(objectData) ? [] : Object.create(Object.getPrototypeOf(objectData))
+	globalSnapCache.set(objectData, [version, snapCacheData])
+	const ownKeys: Array<TKeyPath> = Reflect.ownKeys(objectData)
+	for (let i: number = 0; i < ownKeys.length; i++) {
+		if (Object.getOwnPropertyDescriptor(snapCacheData, ownKeys[i])) {
+			continue
 		}
-		const value: any = Reflect.get(data, propKey)
+		const value: any = Reflect.get(objectData, ownKeys[i])
 		const descriptor: PlainObject = {
 			value,
 			enumerable: true,
@@ -43,26 +44,18 @@ export function createSnapshot(data: PlainObject, version: number): PlainObject 
 			const { data } = proxyObjectHandlerItem
 			descriptor.value = createSnapshot(data, version)
 		}
-		Object.defineProperty(snapCacheData, propKey, descriptor)
-	})
+		Object.defineProperty(snapCacheData, ownKeys[i], descriptor)
+	}
 	return Object.preventExtensions(snapCacheData)
 }
 
-export function subscribe(
-	proxyObject: PlainObject,
-	callback: (val: Array<TMarkOperationStructureItem>) => void,
-	notifyInSync: boolean = false
-): () => void {
+export function subscribe(proxyObject: PlainObject, callback: (val: Array<TMarkOperationStructureItem>) => void): () => void {
 	const proxyObjectHandlerItem: TProxyObjectHandlerItem = globalProxyObjectHandlerMap.get(proxyObject) as TProxyObjectHandlerItem
 	const ops: Array<TMarkOperationStructureItem> = []
 	let promise: Promise<void> | undefined
 	let isListenerActive: boolean = false
 	const listener = (op: TMarkOperationStructureItem): void => {
 		ops.push(op)
-		if (notifyInSync) {
-			callback(ops.splice(0))
-			return
-		}
 		if (!promise) {
 			promise = Promise.resolve().then((): void => {
 				promise = undefined
@@ -83,5 +76,8 @@ export function subscribe(
 export function snapshot(proxyObject: PlainObject) {
 	const proxyObjectHandlerItem: TProxyObjectHandlerItem = globalProxyObjectHandlerMap.get(proxyObject) as TProxyObjectHandlerItem
 	const { data, ensureVersion, createSnapshot } = proxyObjectHandlerItem
-	return createSnapshot(data, ensureVersion())
+	hitObjectMap.clear()
+	const snapItem: PlainObject = createSnapshot(data, ensureVersion())
+	hitObjectMap.clear()
+	return snapItem
 }

@@ -1,6 +1,6 @@
 import React, { useContext } from 'react'
 import { MainStoreContext, MainStore } from '../../store/Main'
-import { useSnapshot } from 'valtio'
+import { subscribe, useSnapshot } from '../../../../../../store/proxyStore'
 
 export function CountView(): React.ReactElement {
 	console.log(`Component: CountView`)

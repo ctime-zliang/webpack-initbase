@@ -13,16 +13,16 @@ export function Main(): React.ReactElement {
 			<div>Info: </div>
 			<main>
 				<TitleView />
-				<NameView />
+				{/* <NameView />
 				<AgeView />
-				<DisplayView />
+				<DisplayView /> */}
 			</main>
 			<br />
 			<div>Attr: </div>
 			<main>
 				<PriceView />
-				<CountView />
-				<ResultView />
+				{/* <CountView /> */}
+				{/* <ResultView /> */}
 			</main>
 		</section>
 	)

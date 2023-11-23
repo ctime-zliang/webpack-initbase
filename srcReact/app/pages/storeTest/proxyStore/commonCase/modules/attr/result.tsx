@@ -1,5 +1,5 @@
 import React, { useContext } from 'react'
-import { useSnapshot } from 'valtio'
+import { subscribe, useSnapshot } from '../../../../../../store/proxyStore'
 import { MainStoreContext, MainStore } from '../../store/Main'
 
 export function ResultView(): React.ReactElement {

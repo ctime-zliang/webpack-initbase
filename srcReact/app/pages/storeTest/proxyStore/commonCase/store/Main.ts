@@ -1,12 +1,14 @@
 import { createContext } from 'react'
-import { proxy, useSnapshot } from 'valtio'
+import { ProxyStore } from '../../../../../store/proxyStore'
 import { AttrStore } from './Attr'
 import { InfoStore } from './Info'
 
 export async function createStoreInstance(): Promise<MainStore> {
 	const storeInstance: MainStore = new MainStore()
 	await storeInstance.initial()
-	const store: MainStore = proxy(storeInstance)
+	const proxyStore = new ProxyStore(storeInstance)
+	console.log(proxyStore)
+	const store: MainStore = proxyStore.proxyObject
 	return store
 }
 

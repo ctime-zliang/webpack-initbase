@@ -1,6 +1,15 @@
-import { EMarkOperation, EPromiseStatus, globalProxyObjectHandlerMap, markVersionHolder } from './config'
+import {
+	EMarkOperation,
+	EPromiseStatus,
+	globalProxyObjectCache,
+	globalProxyObjectHandlerMap,
+	globalProxyStoreCache,
+	markVersionHolder,
+} from './config'
 import { TKeyPath, TListenerHandler, TMarkOperationStructureItem, TProxyObjectHandlerItem } from './types'
 import { canProxy, createSnapshot, isObject } from './utils'
+
+const hasHitProxyStoreSet: WeakSet<ProxyStore> = new WeakSet()
 
 export class ProxyStore {
 	private parent: ProxyStore
@@ -11,6 +20,13 @@ export class ProxyStore {
 	private _childMap: Map<string, ProxyStore>
 	private _proxyObjectHandlerItem: TProxyObjectHandlerItem
 	constructor(initialObject: PlainObject, parent?: ProxyStore) {
+		if (!isObject(initialObject)) {
+			throw new Error('need object.')
+		}
+		const cachedProxyStore: ProxyStore = globalProxyStoreCache.get(initialObject) as ProxyStore
+		if (cachedProxyStore) {
+			return cachedProxyStore
+		}
 		this.parent = parent || null!
 		this._nowVersion = markVersionHolder[0]
 		this._checkVersion = markVersionHolder[1]
@@ -22,18 +38,12 @@ export class ProxyStore {
 	}
 
 	private initial(initialObject: PlainObject): void {
-		if (!isObject(initialObject)) {
-			throw new Error('need object.')
-		}
 		const localObject: PlainObject = Array.isArray(initialObject) ? [] : Object.create(Object.getPrototypeOf(initialObject))
 		const proxyObject: PlainObject = new Proxy(localObject, this.createProxyHandler())
-		const proxyObjectHandlerItem: TProxyObjectHandlerItem = {
-			data: localObject,
-			createSnapshot,
-			ensureVersion: this.ensureVersion.bind(this),
-			addListener: this.addListener.bind(this),
-			listenerRemove: null!,
-		}
+		const proxyObjectHandlerItem: TProxyObjectHandlerItem = this.createProxyObjectHandlerItemObject(localObject)
+		this._proxyObject = proxyObject
+		this._proxyObjectHandlerItem = proxyObjectHandlerItem
+		globalProxyStoreCache.set(initialObject, this)
 		globalProxyObjectHandlerMap.set(proxyObject, proxyObjectHandlerItem)
 		const ownKeys: Array<TKeyPath> = Reflect.ownKeys(initialObject)
 		for (let i: number = 0; i < ownKeys.length; i++) {
@@ -45,33 +55,41 @@ export class ProxyStore {
 			}
 			proxyObject[propKey as string] = initialObject[propKey as keyof PlainObject]
 		}
-		this._proxyObject = proxyObject
-		this._proxyObjectHandlerItem = proxyObjectHandlerItem
 	}
 
 	public get proxyObject(): any {
 		return this._proxyObject
 	}
 
-	private notifyUpdate(op: TMarkOperationStructureItem, nextVersion: number = ++markVersionHolder[0]): void {
-		this._nowVersion = nextVersion
+	private createProxyObjectHandlerItemObject(data: PlainObject): TProxyObjectHandlerItem {
+		return {
+			data,
+			createSnapshot,
+			ensureVersion: this.ensureVersion.bind(this),
+			addListener: this.addListener.bind(this),
+			listenerRemove: null!,
+		}
+	}
+
+	private notifyUpdate(op: TMarkOperationStructureItem): void {
 		this._listeners.forEach((listener: TListenerHandler): void => {
 			listener(op)
 		})
 	}
 
 	private ensureVersion(nextCheckVersion: number = ++markVersionHolder[1]): number {
-		if (this._checkVersion !== nextCheckVersion && !this._listeners.size) {
+		let maxNowVersion: number = this._nowVersion
+		if (this._checkVersion !== nextCheckVersion) {
 			this._checkVersion = nextCheckVersion
 			this._childMap.forEach((childProxyStore: ProxyStore, key: string): void => {
 				const propProxyObjectHandlerItem: TProxyObjectHandlerItem = childProxyStore._proxyObjectHandlerItem
 				const propVersion: number = propProxyObjectHandlerItem.ensureVersion(nextCheckVersion)
-				if (propVersion > this._nowVersion) {
-					this._nowVersion = propVersion
+				if (propVersion > maxNowVersion) {
+					maxNowVersion = propVersion
 				}
 			})
 		}
-		return this._nowVersion
+		return maxNowVersion
 	}
 
 	private addPropListener(propKey: string, proxyObjectHandlerItem: TProxyObjectHandlerItem): void {
@@ -132,6 +150,7 @@ export class ProxyStore {
 				self.removePropListener(prop)
 				const deleted: boolean = Reflect.deleteProperty(target, prop)
 				if (deleted) {
+					self._nowVersion = ++markVersionHolder[0]
 					self.notifyUpdate([EMarkOperation.DELETE, [prop], undefined, prevValue])
 				}
 				return deleted
@@ -139,7 +158,10 @@ export class ProxyStore {
 			set(target: PlainObject, prop: string, value: any, receiver: ProxyHandler<PlainObject>): any | boolean {
 				const hasPrev: boolean = Reflect.has(target, prop)
 				const oldValue: any = Reflect.get(target, prop, receiver)
-				if (hasPrev && oldValue === value) {
+				if (
+					(hasPrev && oldValue === value) ||
+					(globalProxyObjectCache.has(value) && Object.is(oldValue, globalProxyObjectCache.get(value)))
+				) {
 					return true
 				}
 				self.removePropListener(prop)
@@ -149,22 +171,26 @@ export class ProxyStore {
 						.then((v: any): void => {
 							;(value as any).status = EPromiseStatus.FULFILLED
 							;(value as any).value = v
+							self._nowVersion = ++markVersionHolder[0]
 							self.notifyUpdate([EMarkOperation.RESOLVE, [prop], v, oldValue])
 						})
 						.catch((e: any): void => {
 							;(value as any).status = EPromiseStatus.REJECTED
 							;(value as any).reason = e
+							self._nowVersion = ++markVersionHolder[0]
 							self.notifyUpdate([EMarkOperation.REJECT, [prop], e, undefined])
 						})
 				} else {
 					if (canProxy(newValue) && !globalProxyObjectHandlerMap.has(newValue)) {
+						const hasExist: boolean = globalProxyStoreCache.has(newValue)
 						const childProxyStore: ProxyStore = new ProxyStore(newValue, self)
-						self._childMap.set(prop, childProxyStore)
+						!hasExist && self._childMap.set(prop, childProxyStore)
 						newValue = childProxyStore.proxyObject
 						self.addPropListener(prop, childProxyStore._proxyObjectHandlerItem)
 					}
 				}
 				const res: boolean = Reflect.set(target, prop, newValue, receiver)
+				self._nowVersion = ++markVersionHolder[0]
 				self.notifyUpdate([EMarkOperation.SET, [prop], value, oldValue])
 				return res
 			},
