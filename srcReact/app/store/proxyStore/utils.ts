@@ -20,7 +20,6 @@ export function canProxy(val: any): boolean {
 	)
 }
 
-const hitObjectMap: Map<object, PlainObject> = new Map()
 export function createSnapshot(objectData: PlainObject, version: number): PlainObject {
 	const snapCacheItem: TSnapCacheItem = globalSnapCache.get(objectData) as TSnapCacheItem
 	if (snapCacheItem && snapCacheItem[0] === version) {
@@ -41,8 +40,8 @@ export function createSnapshot(objectData: PlainObject, version: number): PlainO
 		}
 		if (globalProxyObjectHandlerMap.has(value)) {
 			const proxyObjectHandlerItem: TProxyObjectHandlerItem = globalProxyObjectHandlerMap.get(value) as TProxyObjectHandlerItem
-			const { data } = proxyObjectHandlerItem
-			descriptor.value = createSnapshot(data, version)
+			const { data, ensureVersion } = proxyObjectHandlerItem
+			descriptor.value = createSnapshot(data, ensureVersion())
 		}
 		Object.defineProperty(snapCacheData, ownKeys[i], descriptor)
 	}
@@ -73,11 +72,8 @@ export function subscribe(proxyObject: PlainObject, callback: (val: Array<TMarkO
 	}
 }
 
-export function snapshot(proxyObject: PlainObject) {
+export function snapshot(proxyObject: PlainObject): PlainObject {
 	const proxyObjectHandlerItem: TProxyObjectHandlerItem = globalProxyObjectHandlerMap.get(proxyObject) as TProxyObjectHandlerItem
 	const { data, ensureVersion, createSnapshot } = proxyObjectHandlerItem
-	hitObjectMap.clear()
-	const snapItem: PlainObject = createSnapshot(data, ensureVersion())
-	hitObjectMap.clear()
-	return snapItem
+	return createSnapshot(data, ensureVersion())
 }

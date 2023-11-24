@@ -11,11 +11,11 @@ export function TitleView(): React.ReactElement {
 	}
 
 	useEffect((): (() => void) => {
-		// const handler: () => void = subscribe(mainStore, (): void => {
-		// 	// console.log(`[Component: TitleView] store has changed:`, mainStore.infoStore)
-		// })
+		const handler: () => void = subscribe(mainStore, (): void => {
+			console.log(`[Component: TitleView] store.title has changed:`, mainStore.infoStore.title)
+		})
 		return (): void => {
-			// handler()
+			handler()
 		}
 	}, [])
 
@@ -26,7 +26,7 @@ export function TitleView(): React.ReactElement {
 	return (
 		<div>
 			<label>Title: </label>
-			<input type="text" value={mainStore.infoStore.title} onChange={inputInputAction} />
+			<input type="text" value={infoStore.title} onChange={inputInputAction} />
 		</div>
 	)
 }

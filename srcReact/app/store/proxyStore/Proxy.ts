@@ -9,8 +9,6 @@ import {
 import { TKeyPath, TListenerHandler, TMarkOperationStructureItem, TProxyObjectHandlerItem } from './types'
 import { canProxy, createSnapshot, isObject } from './utils'
 
-const hasHitProxyStoreSet: WeakSet<ProxyStore> = new WeakSet()
-
 export class ProxyStore {
 	private parent: ProxyStore
 	private _nowVersion: number

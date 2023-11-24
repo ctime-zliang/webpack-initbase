@@ -11,11 +11,11 @@ export function NameView(): React.ReactElement {
 	}
 
 	useEffect((): (() => void) => {
-		// const handler: () => void = subscribe(mainStore, (): void => {
-		// 	// console.log(`[Component: NameView] store.title has changed:`, mainStore.infoStore.title)
-		// })
+		const handler: () => void = subscribe(mainStore, (): void => {
+			console.log(`[Component: NameView] store.title has changed:`, mainStore.infoStore.title)
+		})
 		return (): void => {
-			// handler()
+			handler()
 		}
 	}, [])
 
@@ -26,14 +26,14 @@ export function NameView(): React.ReactElement {
 	// if (infoStore.title.length >= 5) {
 	// 	return (
 	// 		<div>
-	// 			<label>Name({infoStore.title}): </label>
+	// 			<label>Name-2: </label>
 	// 			<input type="text" value={infoStore.name} onChange={inputInputAction} />
 	// 		</div>
 	// 	)
 	// }
 	return (
 		<div>
-			<label>Name: </label>
+			<label>Name-1: </label>
 			<input type="text" value={infoStore.name} onChange={inputInputAction} />
 		</div>
 	)
