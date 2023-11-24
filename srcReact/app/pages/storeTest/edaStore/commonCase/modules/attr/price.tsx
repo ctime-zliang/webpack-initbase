@@ -1,11 +1,11 @@
 import React, { useContext } from 'react'
 import { MainStore, MainStoreContext } from '../../store/Main'
-import { usePartialStore } from '../../../../../../store/edaStore/usePartialStore'
+import { useWatch } from '../../../../../../store/edaStore/useWatch'
 
 export function PriceView(): React.ReactElement {
 	console.log(`Component: PriceView`)
 	const mainStore: MainStore = useContext(MainStoreContext)
-	usePartialStore(mainStore.attrStore, ['price'])
+	useWatch(mainStore.attrStore)
 	const inputInputAction = (e: React.FormEvent<HTMLInputElement>): void => {
 		const inputElement: HTMLInputElement = e.target as HTMLInputElement
 		mainStore.attrStore.price = +inputElement.value

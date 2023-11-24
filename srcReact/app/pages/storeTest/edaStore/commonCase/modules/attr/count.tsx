@@ -1,11 +1,11 @@
 import React, { useContext } from 'react'
 import { MainStore, MainStoreContext } from '../../store/Main'
-import { usePartialStore } from '../../../../../../store/edaStore/usePartialStore'
+import { useWatch } from '../../../../../../store/edaStore/useWatch'
 
 export function CountView(): React.ReactElement {
 	console.log(`Component: CountView`)
 	const mainStore: MainStore = useContext(MainStoreContext)
-	usePartialStore(mainStore.attrStore, ['count'])
+	useWatch(mainStore.attrStore)
 	const inputInputAction = (e: React.FormEvent<HTMLInputElement>): void => {
 		const inputElement: HTMLInputElement = e.target as HTMLInputElement
 		mainStore.attrStore.count = +inputElement.value

@@ -1,11 +1,11 @@
 import React, { useContext } from 'react'
 import { MainStore, MainStoreContext } from '../../store/Main'
-import { usePartialStore } from '../../../../../../store/edaStore/usePartialStore'
+import { useWatch } from '../../../../../../store/edaStore/useWatch'
 
 export function AgeView(): React.ReactElement {
 	console.log(`Component: AgeView`)
 	const mainStore: MainStore = useContext(MainStoreContext)
-	usePartialStore(mainStore.infoStore, ['age'])
+	useWatch(mainStore.infoStore)
 	const inputInputAction = (e: React.FormEvent<HTMLInputElement>): void => {
 		const inputElement: HTMLInputElement = e.target as HTMLInputElement
 		mainStore.infoStore.age = +inputElement.value
