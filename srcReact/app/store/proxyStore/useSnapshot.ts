@@ -21,10 +21,10 @@ export function useSnapshot<T extends object>(proxyObject: T): PlainObject {
 		(): PlainObject => {
 			const nextSnapshot = snapshot(proxyObject)
 			if (!inRender && lastSnapshot.current && lastAffected.current && !isChanged(lastSnapshot.current, nextSnapshot, lastAffected.current)) {
-				console.log(`unchang.`)
+				// console.log(`unchang.`)
 				return lastSnapshot.current
 			}
-			console.log(`changed.`)
+			// console.log(`changed.`)
 			return nextSnapshot
 		},
 		(): PlainObject => {
