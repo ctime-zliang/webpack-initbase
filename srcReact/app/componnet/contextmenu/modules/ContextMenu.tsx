@@ -1,6 +1,6 @@
 import React from 'react'
 import ReactDOMClient from 'react-dom/client'
-import { RuntimeCache } from '../cache/cache'
+import { ActiveCmdLinkCache, RuntimeCache } from '../cache/cache'
 import { ROOT_PREFIEX_TAG, PADDING_VIEWPORT_TOP, PADDING_VIEWPORT_BOTTOM } from '../config/config'
 import { TOpenContextMenu } from '../types/type'
 import {
@@ -22,6 +22,8 @@ export class ContextMenu {
 		const docScrollLeft: number = documentRoot.scrollLeft
 		const rootElement: HTMLElement = document.createElement('div')
 		const domId: string = ROOT_PREFIEX_TAG + id++
+		rootElement.setAttribute('contextmenu', domId)
+		rootElement.setAttribute('data-domid', domId)
 		rootElement.id = domId
 		rootElement.style.position = 'absolute'
 		rootElement.style.left = docScrollLeft + 'px'
@@ -30,6 +32,7 @@ export class ContextMenu {
 		rootElement.setAttribute('tabIndex', '0')
 		if (!RuntimeCache.has(domId)) {
 			RuntimeCache.set(domId, { ...params, id: domId })
+			ActiveCmdLinkCache.set(domId, [])
 		}
 		const root = ReactDOMClient.createRoot(rootElement)
 		root.render(
@@ -51,5 +54,21 @@ export class ContextMenu {
 			htmlRoot.addEventListener('keyup', rootElementKeyupEventHandler)
 			htmlRoot.focus()
 		}
+	}
+
+	static closeActive(): void {
+		const activeElement: HTMLElement = document.activeElement as HTMLElement
+		if (!activeElement || !activeElement.hasAttribute('contextmenu')) {
+			return
+		}
+		unmountContextmenu(activeElement)
+	}
+
+	static isContextMenuOfNowActive(): boolean {
+		const activeElement: HTMLElement = document.activeElement as HTMLElement
+		if (!activeElement) {
+			return false
+		}
+		return activeElement.hasAttribute('contextmenu')
 	}
 }

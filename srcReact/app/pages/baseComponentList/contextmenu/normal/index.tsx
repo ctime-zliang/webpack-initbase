@@ -37,6 +37,9 @@ function ContextmenuNoraml(props: any): React.ReactElement {
 					// return false
 				}
 			},
+			onEnterConfirm(cmdlink: Array<string>) {
+				console.log(cmdlink)
+			},
 			onKeydown(e: KeyboardEvent, unmount: () => void): void {
 				e.stopPropagation()
 				if (e.shiftKey && e.keyCode === 81) {

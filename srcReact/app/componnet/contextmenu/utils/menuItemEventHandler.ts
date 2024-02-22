@@ -1,7 +1,8 @@
-import { RuntimeCache } from '../cache/cache'
-import { PADDING_VIEWPORT_BOTTOM, PADDING_VIEWPORT_TOP } from '../config/config'
+import { ActiveCmdLinkCache, RuntimeCache } from '../cache/cache'
+import { CMDLINK_DIVISION_TAG, PADDING_VIEWPORT_BOTTOM, PADDING_VIEWPORT_TOP } from '../config/config'
 import { EContextPanelAlignment } from '../config/enum'
 import { TBoundingClientRectResultToJSONResult, TCacheValue } from '../types/type'
+import { updateActiveCmdLinkCache } from './cacheHandler'
 import { isMouseLeaveContainer } from './isMouseLeaveContainer'
 
 export function menuItemElementMouseOverEventHandler(currentElement: HTMLElement): void {
@@ -12,15 +13,127 @@ export function menuItemElementMouseOverEventHandler(currentElement: HTMLElement
 	if (!currentFirstChildElement || currentFirstChildElement.classList.contains('ctxmenu-item-hover')) {
 		return
 	}
-	const ctxmenuItems: Array<HTMLElement> = Array.from(
-		(currentElement.parentElement as HTMLElement).querySelectorAll('.ctxmenu-item')
-	) as Array<HTMLElement>
-	ctxmenuItems.forEach((item: HTMLElement): void => {
-		item.firstElementChild?.classList.remove('ctxmenu-item-hover')
-		setSubMenuListHide(item)
-	})
-	currentElement.firstElementChild?.classList.add('ctxmenu-item-hover')
+	updateTargetLiElementClassList(currentElement)
+	updateActiveCmdLinkCache(currentElement)
 	setSubMenuListShow(currentElement)
+}
+
+export function getNowActiveTag(): string {
+	const activeElement: HTMLElement = document.activeElement as HTMLElement
+	if (!activeElement || !activeElement.hasAttribute('contextmenu')) {
+		return null!
+	}
+	const domId: string = activeElement.getAttribute('data-domid') as string
+	const cmdTags: Array<string> = ActiveCmdLinkCache.get(domId) || ([] as Array<string>)
+	return cmdTags.join(CMDLINK_DIVISION_TAG)
+}
+
+export function getNextActiveTag(): string {
+	const activeElement: HTMLElement = document.activeElement as HTMLElement
+	if (!activeElement || !activeElement.hasAttribute('contextmenu')) {
+		return null!
+	}
+	const nowActiveTag: string = getNowActiveTag()
+	const targetLiElement: HTMLElement = !nowActiveTag
+		? (activeElement.querySelector(`[data-cmdlink]`) as HTMLElement)
+		: (activeElement.querySelector(`[data-cmdlink="${nowActiveTag}"]`) as HTMLElement)
+	const nextLiElement: HTMLElement = getNextAvailableLiElement(targetLiElement, !nowActiveTag)
+	if (!nextLiElement) {
+		return null!
+	}
+	return nextLiElement.getAttribute('data-cmdlink') as string
+}
+
+export function getPrevActiveTag(): string {
+	const activeElement: HTMLElement = document.activeElement as HTMLElement
+	if (!activeElement || !activeElement.hasAttribute('contextmenu')) {
+		return null!
+	}
+	const nowActiveTag: string = getNowActiveTag()
+	const targetLiElement: HTMLElement = !nowActiveTag
+		? (activeElement.querySelector(`[data-cmdlink]`) as HTMLElement)
+		: (activeElement.querySelector(`[data-cmdlink="${nowActiveTag}"]`) as HTMLElement)
+	const prevLiElement: HTMLElement = getPrevAvailableLiElement(targetLiElement, !nowActiveTag)
+	if (!prevLiElement) {
+		return null!
+	}
+	return prevLiElement.getAttribute('data-cmdlink') as string
+}
+
+export function setTargetLiElementSelected(cmdTag: string): void {
+	const activeElement: HTMLElement = document.activeElement as HTMLElement
+	if (!cmdTag || !activeElement || !activeElement.hasAttribute('contextmenu')) {
+		return
+	}
+	const targetLiElement: HTMLElement = activeElement.querySelector(`[data-cmdlink="${cmdTag}"]`) as HTMLElement
+	if (!targetLiElement) {
+		return
+	}
+	updateTargetLiElementClassList(targetLiElement, true)
+	updateActiveCmdLinkCache(targetLiElement)
+	setSubMenuListShow(targetLiElement)
+}
+
+export function setExpandTargetLiElementSelected(cmdTag: string): void {
+	const activeElement: HTMLElement = document.activeElement as HTMLElement
+	if (!cmdTag || !activeElement || !activeElement.hasAttribute('contextmenu')) {
+		return
+	}
+	const targetLiElement: HTMLElement = activeElement.querySelector(`[data-cmdlink="${cmdTag}"]`) as HTMLElement
+	if (!targetLiElement) {
+		return
+	}
+	const ulistElement: HTMLElement = targetLiElement.querySelector(`[data-itemtype="ctxmenu-ulist"]`) as HTMLElement
+	if (!ulistElement) {
+		return
+	}
+	const targetChildLiElement: HTMLElement = ulistElement.querySelector(`[data-cmdlink]`) as HTMLElement
+	if (!targetChildLiElement) {
+		return
+	}
+	updateTargetLiElementClassList(targetChildLiElement)
+	updateActiveCmdLinkCache(targetChildLiElement)
+	setSubMenuListShow(targetChildLiElement)
+}
+
+export function setSubMenuListExpandShow(cmdTag: string): void {
+	const activeElement: HTMLElement = document.activeElement as HTMLElement
+	if (!cmdTag || !activeElement || !activeElement.hasAttribute('contextmenu')) {
+		return
+	}
+	const targetLiElement: HTMLElement = activeElement.querySelector(`[data-cmdlink="${cmdTag}"]`) as HTMLElement
+	if (!targetLiElement) {
+		return
+	}
+	setSubMenuListShow(targetLiElement)
+}
+
+export function setSubMenuListExpandHide(cmdTag: string, forceHide: boolean = false): void {
+	const activeElement: HTMLElement = document.activeElement as HTMLElement
+	if (!cmdTag || !activeElement || !activeElement.hasAttribute('contextmenu')) {
+		return
+	}
+	const targetLiElement: HTMLElement = activeElement.querySelector(`[data-cmdlink="${cmdTag}"]`) as HTMLElement
+	if (!targetLiElement) {
+		return
+	}
+	setSubMenuListHide(targetLiElement, forceHide)
+}
+
+export function isSubMenuListExpandShow(cmdTag: string): boolean {
+	const activeElement: HTMLElement = document.activeElement as HTMLElement
+	if (!cmdTag || !activeElement || !activeElement.hasAttribute('contextmenu')) {
+		return false
+	}
+	const targetLiElement: HTMLElement = activeElement.querySelector(`[data-cmdlink="${cmdTag}"]`) as HTMLElement
+	if (!targetLiElement) {
+		return false
+	}
+	const mainElement: HTMLElement = targetLiElement.querySelector('main') as HTMLElement
+	if (!mainElement) {
+		return false
+	}
+	return mainElement.classList.contains('ctxmenu-show-menu')
 }
 
 function setSubMenuListShow(panelWrapperElement: HTMLElement): void {
@@ -99,9 +212,14 @@ function setSubMenuListShow(panelWrapperElement: HTMLElement): void {
 	mainElement.style.opacity = null as unknown as string
 }
 
-function setSubMenuListHide(panelWrapperElement: HTMLElement): void {
+function setSubMenuListHide(panelWrapperElement: HTMLElement, forceHide: boolean = false): void {
 	const mainElement: HTMLElement = panelWrapperElement.querySelector('main') as HTMLElement
 	if (!mainElement) {
+		return
+	}
+	if (forceHide) {
+		mainElement.classList.remove('ctxmenu-show-menu')
+		mainElement.style.display = 'none'
 		return
 	}
 	if (isMouseLeaveContainer(mainElement)) {
@@ -109,4 +227,49 @@ function setSubMenuListHide(panelWrapperElement: HTMLElement): void {
 	}
 	mainElement.classList.remove('ctxmenu-show-menu')
 	mainElement.style.display = 'none'
+}
+
+function getNextAvailableLiElement(referenceLiElement: HTMLElement, useSelf: boolean = false): HTMLElement {
+	if (!referenceLiElement) {
+		return null!
+	}
+	const parentElement: HTMLElement = referenceLiElement.parentElement as HTMLElement
+	let nextLiElement: HTMLElement = useSelf ? referenceLiElement : (referenceLiElement.nextElementSibling as HTMLElement)
+	while (nextLiElement) {
+		const itemType: string = nextLiElement.getAttribute('data-itemtype') as string
+		if (itemType === 'ctxmenu-separator' || itemType === 'ctxmenu-item-disabled') {
+			nextLiElement = nextLiElement.nextElementSibling as HTMLElement
+			continue
+		}
+		return nextLiElement
+	}
+	return !nextLiElement ? (parentElement.firstElementChild as HTMLElement) : nextLiElement
+}
+
+function getPrevAvailableLiElement(referenceLiElement: HTMLElement, useSelf: boolean = false): HTMLElement {
+	if (!referenceLiElement) {
+		return null!
+	}
+	const parentElement: HTMLElement = referenceLiElement.parentElement as HTMLElement
+	let prevLiElement: HTMLElement = useSelf ? referenceLiElement : (referenceLiElement.previousElementSibling as HTMLElement)
+	while (prevLiElement) {
+		const itemType: string = prevLiElement.getAttribute('data-itemtype') as string
+		if (itemType === 'ctxmenu-separator' || itemType === 'ctxmenu-item-disabled') {
+			prevLiElement = prevLiElement.previousElementSibling as HTMLElement
+			continue
+		}
+		return prevLiElement
+	}
+	return !prevLiElement ? (parentElement.lastElementChild as HTMLElement) : prevLiElement
+}
+
+function updateTargetLiElementClassList(targetLiElement: HTMLElement, forceHide: boolean = false): void {
+	const ctxmenuItems: Array<HTMLElement> = Array.from(
+		(targetLiElement.parentElement as HTMLElement).querySelectorAll('.ctxmenu-item')
+	) as Array<HTMLElement>
+	ctxmenuItems.forEach((item: HTMLElement): void => {
+		item.firstElementChild?.classList.remove('ctxmenu-item-hover')
+		setSubMenuListHide(item, forceHide)
+	})
+	targetLiElement.firstElementChild?.classList.add('ctxmenu-item-hover')
 }

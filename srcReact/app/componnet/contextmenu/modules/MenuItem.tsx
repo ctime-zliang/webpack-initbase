@@ -29,6 +29,7 @@ function MenuItem(props: TContextMenuItemProps): React.ReactElement {
 		<li
 			className={'ctxmenu-item' + (isCreateSubMenu ? ' ctxmenu-submenu' : '') + (nowMenuItem.disabled ? ' ctxmenu-item-disabled' : '')}
 			onMouseOver={onWrapperMouseOverAction}
+			data-itemtype={'ctxmenu-item' + (nowMenuItem.disabled ? '-disabled' : '')}
 			data-cmdlink={cmdlink}
 			data-domid={domId}
 		>
