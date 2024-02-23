@@ -8,7 +8,7 @@ export type TContextMenuItem = {
 	disabled?: boolean
 	subMenu?: Array<TContextMenuItem>
 	checked?: boolean
-	isHideChecked?: boolean
+	isHidePrevTag?: boolean
 	tips?: string
 	isHideTips?: boolean
 	isHideExt?: boolean

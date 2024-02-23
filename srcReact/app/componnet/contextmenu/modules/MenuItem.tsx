@@ -34,14 +34,14 @@ function MenuItem(props: TContextMenuItemProps): React.ReactElement {
 			data-domid={domId}
 		>
 			<div className={'ctxmenu-content'} onClick={onMenuItemClickAction} data-cmdlink={cmdlink}>
-				<div className="content-checktags" style={{ display: nowMenuItem.isHideChecked ? 'none' : 'flex' }}>
+				<div className="content-prevtags" style={{ display: nowMenuItem.isHidePrevTag ? 'none' : 'flex' }}>
 					{nowMenuItem.checked ? <CheckTags /> : <IconTags iconClassName={nowMenuItem.iconClassName} />}
 				</div>
 				<div className="content-text">
 					<MenuItemContent {...nowMenuItem} />
 				</div>
 				<div className="content-tips" style={{ display: nowMenuItem.isHideTips ? 'none' : 'flex' }}>
-					{nowMenuItem.tips}
+					<div className="content-tips-inns">{nowMenuItem.tips}</div>
 				</div>
 				<div className="content-exts" style={{ display: nowMenuItem.isHideExt ? 'none' : 'flex' }}>
 					{isCreateSubMenu ? <i className="ctxmenu-exts-icon" /> : null}
